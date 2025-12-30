@@ -21,30 +21,33 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Setup Node + pnpm cache
+      # Setup Node (DO NOT cache pnpm yet)
       - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      # Enable Corepack (this makes pnpm available)
+      - name: Enable Corepack
+        run: corepack enable
+
+      # Activate exact pnpm version
+      - name: Prepare pnpm
+        run: corepack prepare pnpm@10.0.0 --activate
+
+      # Now setup-node cache works
+      - name: Setup pnpm cache
         uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: pnpm
 
-      # Enable Corepack
-      - name: Enable Corepack
-        run: corepack enable
-
-      # Pin pnpm version
-      - name: Prepare pnpm
-        run: corepack prepare pnpm@10.0.0 --activate
-
-      # Install dependencies
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # Build (important for UI libraries)
       - name: Build
         run: pnpm build
 
-      # Release
       - name: Run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
