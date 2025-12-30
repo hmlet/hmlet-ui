@@ -1,0 +1,43 @@
+name: Dependency Drift Check
+
+on:
+  pull_request:
+    paths:
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+  push:
+    branches: [main]
+
+jobs:
+  dependency-drift:
+    name: Check dependency consistency
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 1️⃣ Setup Node FIRST (no cache yet)
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      # 2️⃣ Enable Corepack
+      - name: Enable Corepack
+        run: corepack enable
+
+      # 3️⃣ Activate pnpm
+      - name: Prepare pnpm
+        run: corepack prepare pnpm@10.0.0 --activate
+
+      # 4️⃣ Now setup cache
+      - name: Setup pnpm cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      # 5️⃣ Install deps
+      - name: Install dependencies (lockfile enforced)
+        run: pnpm install --frozen-lockfile

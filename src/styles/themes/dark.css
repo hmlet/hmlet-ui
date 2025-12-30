@@ -1,0 +1,22 @@
+.dark {
+  --ui-bg-primary: #111827;
+  --ui-bg-secondary: #1f2937;
+  --ui-bg-elevated: #1f2937;
+  --ui-bg-inverse: #ffffff;
+
+  --ui-text-primary: #f9fafb;
+  --ui-text-secondary: #d1d5db;
+  --ui-text-muted: #9ca3af;
+  --ui-text-inverse: #111827;
+
+  --ui-border-default: #374151;
+  --ui-border-muted: #1f2937;
+  --ui-border-focus: #2dd4bf;
+
+  --ui-accent-primary: #2dd4bf;
+  --ui-accent-subtle: #0f766e;
+
+  --ui-feedback-success: #22c55e;
+  --ui-feedback-warning: #fbbf24;
+  --ui-feedback-error: #f87171;
+}

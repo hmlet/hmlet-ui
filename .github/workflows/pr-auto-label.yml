@@ -1,0 +1,173 @@
+name: Auto-label PRs by commit type
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Auto-create and apply labels based on commit messages
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const prNumber = context.payload.pull_request.number;
+
+            /**
+             * Canonical label definitions
+             * This is your source of truth
+             */
+            const LABELS = {
+              feature: {
+                color: '1d76db',
+                description: 'New feature or enhancement',
+              },
+              bug: {
+                color: 'd73a4a',
+                description: 'Bug fix',
+              },
+              documentation: {
+                color: '0075ca',
+                description: 'Documentation changes',
+              },
+              refactor: {
+                color: 'cfd3d7',
+                description: 'Code refactoring without behavior change',
+              },
+              performance: {
+                color: 'f9d0c4',
+                description: 'Performance improvements',
+              },
+              breaking-change: {
+                color: 'b60205',
+                description: 'Breaking API change',
+              },
+              chore: {
+                color: 'ededed',
+                description: 'Maintenance tasks',
+              },
+              test: {
+                color: '0e8a16',
+                description: 'Tests',
+              },
+              ci: {
+                color: '5319e7',
+                description: 'CI/CD related changes',
+              },
+              build: {
+                color: 'fbca04',
+                description: 'Build system or tooling changes',
+              },
+            };
+
+            /**
+             * Fetch existing labels
+             */
+            const existingLabels = await github.paginate(
+              github.rest.issues.listLabelsForRepo,
+              { owner, repo }
+            );
+
+            const existingLabelNames = new Set(
+              existingLabels.map(l => l.name)
+            );
+
+            /**
+             * Create missing labels
+             */
+            for (const [name, meta] of Object.entries(LABELS)) {
+              if (!existingLabelNames.has(name)) {
+                await github.rest.issues.createLabel({
+                  owner,
+                  repo,
+                  name,
+                  color: meta.color,
+                  description: meta.description,
+                });
+                console.log(`Created label: ${name}`);
+              }
+            }
+
+            /**
+             * Fetch PR commits
+             */
+            const commits = await github.rest.pulls.listCommits({
+              owner,
+              repo,
+              pull_number: prNumber,
+              per_page: 100,
+            });
+
+            /**
+             * Map conventional commit types → labels
+             */
+            const TYPE_TO_LABEL = {
+              feat: 'feature',
+              fix: 'bug',
+              docs: 'documentation',
+              refactor: 'refactor',
+              perf: 'performance',
+              chore: 'chore',
+              test: 'test',
+              ci: 'ci',
+              build: 'build',
+            };
+
+            const labelsToApply = new Set();
+            let hasBreakingChange = false;
+
+            for (const commit of commits.data) {
+              const message = commit.commit.message;
+
+              // Match: type(scope)!:
+              const match = message.match(
+                /^(feat|fix|docs|refactor|perf|chore|test|ci|build)(\(.+\))?(!)?:/
+              );
+
+              if (match) {
+                const type = match[1];
+                const breaking = Boolean(match[3]);
+
+                if (TYPE_TO_LABEL[type]) {
+                  labelsToApply.add(TYPE_TO_LABEL[type]);
+                }
+
+                if (breaking) {
+                  hasBreakingChange = true;
+                }
+              }
+
+              if (message.includes('BREAKING CHANGE')) {
+                hasBreakingChange = true;
+              }
+            }
+
+            if (hasBreakingChange) {
+              labelsToApply.add('breaking-change');
+            }
+
+            if (labelsToApply.size === 0) {
+              console.log('No labels to apply.');
+              return;
+            }
+
+            /**
+             * Apply labels to PR
+             */
+            await github.rest.issues.addLabels({
+              owner,
+              repo,
+              issue_number: prNumber,
+              labels: Array.from(labelsToApply),
+            });
+
+            console.log(
+              `Applied labels: ${Array.from(labelsToApply).join(', ')}`
+            );

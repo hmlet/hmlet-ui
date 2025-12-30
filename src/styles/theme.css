@@ -1,0 +1,27 @@
+:root {
+  /* Backgrounds */
+  --ui-bg-primary: ;
+  --ui-bg-secondary: ;
+  --ui-bg-elevated: ;
+  --ui-bg-inverse: ;
+
+  /* Text */
+  --ui-text-primary: ;
+  --ui-text-secondary: ;
+  --ui-text-muted: ;
+  --ui-text-inverse: ;
+
+  /* Borders */
+  --ui-border-default: ;
+  --ui-border-muted: ;
+  --ui-border-focus: ;
+
+  /* Accent */
+  --ui-accent-primary: ;
+  --ui-accent-subtle: ;
+
+  /* Feedback */
+  --ui-feedback-success: ;
+  --ui-feedback-warning: ;
+  --ui-feedback-error: ;
+}

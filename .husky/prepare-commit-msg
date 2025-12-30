@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+
+# Skip in CI or when Husky is disabled
+if [ -n "$CI" ] || [ "$HUSKY" = "0" ]; then
+  exit 0
+fi
+
+# Allow semantic-release / bots
+if echo "$GIT_AUTHOR_NAME$GIT_COMMITTER_NAME" | grep -qi "semantic-release"; then
+  exit 0
+fi
+
+# Allow merge commits
+if [ "$2" = "merge" ]; then
+  exit 0
+fi
+
+# Allow rebases
+if git rev-parse --verify REBASE_HEAD >/dev/null 2>&1; then
+  exit 0
+fi
+
+# Allow explicit opt-in (pnpm commit)
+if [ -n "$TT_FORCE_CZ" ]; then
+  exit 0
+fi
+
+# Block everything else
+echo "❌ Direct 'git commit' is not allowed."
+echo "👉 Use: pnpm commit"
+exit 1
