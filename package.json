@@ -22,9 +22,9 @@
   "engineStrict": true,
   "packageManager": "pnpm@10.0.0",
   "sideEffects": false,
-  "peerDependencies": {
-    "react": ">=18",
-    "react-dom": ">=18"
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.2.0",
