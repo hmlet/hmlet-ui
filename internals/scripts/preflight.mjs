@@ -17,6 +17,12 @@ import {dim, ok, warn, err, info} from '../utils/color.mjs'
 const args = process.argv.slice(2)
 const IGNORE_PREFLIGHT = args.includes('--ignore-preflight')
 const IS_CI = Boolean(process.env.CI)
+const IS_DEPENDENCY_INSTALL = process.cwd().includes('node_modules')
+
+// Never run repo-only checks for consumers installing this package
+if (IS_DEPENDENCY_INSTALL) {
+  process.exit(0)
+}
 
 // AUTO-SKIP
 if (IGNORE_PREFLIGHT) {

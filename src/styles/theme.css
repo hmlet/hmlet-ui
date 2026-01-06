@@ -1,27 +1,240 @@
+@custom-variant dark (&:is(.dark *));
+
 :root {
-  /* Backgrounds */
-  --ui-bg-primary: ;
-  --ui-bg-secondary: ;
-  --ui-bg-elevated: ;
-  --ui-bg-inverse: ;
+  --font-size: 16px;
 
-  /* Text */
-  --ui-text-primary: ;
-  --ui-text-secondary: ;
-  --ui-text-muted: ;
-  --ui-text-inverse: ;
+  /* Beige Warm Hospitality Theme - Light Mode */
+  --background: #faf7f2; /* Soft Ivory */
+  --foreground: #2e2a25; /* Espresso */
 
-  /* Borders */
-  --ui-border-default: ;
-  --ui-border-muted: ;
-  --ui-border-focus: ;
+  --card: #ffffff; /* White cards */
+  --card-foreground: #2e2a25; /* Espresso */
 
-  /* Accent */
-  --ui-accent-primary: ;
-  --ui-accent-subtle: ;
+  --popover: #ffffff;
+  --popover-foreground: #2e2a25;
 
-  /* Feedback */
-  --ui-feedback-success: ;
-  --ui-feedback-warning: ;
-  --ui-feedback-error: ;
+  --primary: #e6d3b1; /* Warm Beige */
+  --primary-foreground: #2e2a25; /* Espresso */
+  --primary-dark: #c7b08a; /* Sand Brown */
+  --primary-light: #f4ece1; /* Cream */
+
+  --secondary: #8b7e6a; /* Taupe */
+  --secondary-foreground: #ffffff;
+
+  --muted: #e5ded3; /* Light Sand */
+  --muted-foreground: #6b6258; /* Warm Gray */
+
+  --accent: #c26a4a; /* Terracotta - CTA Color */
+  --accent-foreground: #ffffff;
+  --accent-hover: #a8563b; /* Burnt Clay */
+
+  --destructive: #b4533c; /* Muted Red */
+  --destructive-foreground: #ffffff;
+
+  --success: #6b8e4e; /* Olive Green */
+  --success-foreground: #ffffff;
+
+  --warning: #d4a574; /* Warm Amber */
+  --warning-foreground: #2e2a25;
+
+  --border: #e5ded3; /* Light Sand */
+  --input: #e5ded3;
+  --input-background: #ffffff;
+  --switch-background: #c7b08a;
+
+  --ring: #c26a4a; /* Terracotta focus ring */
+
+  /* Chart colors - Warm palette */
+  --chart-1: #c26a4a; /* Terracotta */
+  --chart-2: #8b7e6a; /* Taupe */
+  --chart-3: #6b8e4e; /* Olive Green */
+  --chart-4: #e6d3b1; /* Warm Beige */
+  --chart-5: #d4a574; /* Warm Amber */
+
+  --radius: 0.5rem;
+
+  /* Sidebar */
+  --sidebar: #ffffff;
+  --sidebar-foreground: #2e2a25;
+  --sidebar-primary: #c26a4a;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f4ece1;
+  --sidebar-accent-foreground: #2e2a25;
+  --sidebar-border: #e5ded3;
+  --sidebar-ring: #c26a4a;
+
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+}
+
+.dark {
+  /* Beige Warm Hospitality Theme - Dark Mode */
+  --background: #1f1b16; /* Deep warm brown */
+  --foreground: #f5f1eb; /* Light cream */
+
+  --card: #2a241d; /* Warm dark surface */
+  --card-foreground: #f5f1eb;
+
+  --popover: #2a241d;
+  --popover-foreground: #f5f1eb;
+
+  --primary: #e6d3b1; /* Warm Beige - stands out in dark */
+  --primary-foreground: #1f1b16; /* Dark bg for contrast */
+  --primary-dark: #c7b08a;
+  --primary-light: #f4ece1;
+
+  --secondary: #8b7e6a; /* Taupe */
+  --secondary-foreground: #f5f1eb;
+
+  --muted: #3a332a; /* Dark border/muted */
+  --muted-foreground: #cfc6b8; /* Light warm gray */
+
+  --accent: #c26a4a; /* Terracotta - CTA */
+  --accent-foreground: #ffffff;
+  --accent-hover: #a8563b;
+
+  --destructive: #d4735e; /* Lighter muted red for dark mode */
+  --destructive-foreground: #ffffff;
+
+  --success: #8bae6a; /* Lighter olive for dark mode */
+  --success-foreground: #1f1b16;
+
+  --warning: #e6be8f; /* Lighter amber for dark mode */
+  --warning-foreground: #1f1b16;
+
+  --border: #3a332a; /* Dark border */
+  --input: #3a332a;
+  --input-background: #2a241d;
+  --switch-background: #8b7e6a;
+
+  --ring: #c26a4a;
+
+  /* Chart colors - Adjusted for dark mode */
+  --chart-1: #c26a4a;
+  --chart-2: #a8927a;
+  --chart-3: #8bae6a;
+  --chart-4: #e6d3b1;
+  --chart-5: #e6be8f;
+
+  /* Sidebar dark */
+  --sidebar: #2a241d;
+  --sidebar-foreground: #f5f1eb;
+  --sidebar-primary: #c26a4a;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #3a332a;
+  --sidebar-accent-foreground: #f5f1eb;
+  --sidebar-border: #3a332a;
+  --sidebar-ring: #c26a4a;
+
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-light: var(--primary-light);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-hover: var(--accent-hover);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /**
+  * Default typography styles for HTML elements (h1-h4, p, label, button, input).
+  * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.
+  */
+
+  html {
+    font-size: var(--font-size);
+  }
+
+  h1 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h4 {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  label {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  button {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  input {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.5;
+  }
 }

@@ -1,16 +1,16 @@
 version: 2
 
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "weekly"
-      day: "sunday"
-      time: "06:00"
-      timezone: "Asia/Kolkata"
+      interval: 'weekly'
+      day: 'sunday'
+      time: '06:00'
+      timezone: 'Asia/Kolkata'
 
     # pnpm support
-    versioning-strategy: "increase"
+    versioning-strategy: 'increase'
 
     # One dependency per PR
     open-pull-requests-limit: 1
@@ -20,15 +20,15 @@ updates:
 
     # Commit message format
     commit-message:
-      prefix: "chore(deps)"
-      include: "scope"
+      prefix: 'chore(deps)'
+      include: 'scope'
 
     # Labels for visibility
     labels:
-      - "dependencies"
-      - "needs-review"
+      - 'dependencies'
+      - 'needs-review'
 
     # Ignore noisy updates if needed (optional)
     ignore:
-      - dependency-name: "@types/*"
-        update-types: ["version-update:semver-patch"]
+      - dependency-name: '@types/*'
+        update-types: ['version-update:semver-patch']
