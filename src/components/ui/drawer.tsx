@@ -44,10 +44,67 @@ function DrawerOverlay({
 }
 
 function DrawerContent({
+  size,
   className,
   children,
   ...props
-}: React.ComponentProps<typeof DrawerPrimitive.Content>) {
+}: React.ComponentProps<typeof DrawerPrimitive.Content> & {
+  size?: 'sm' | 'md' | 'lg' | 'xl'
+}) {
+  const sideSizeClasses =
+    size === 'sm'
+      ? [
+          'data-[vaul-drawer-direction=left]:w-72',
+          'data-[vaul-drawer-direction=left]:max-w-[90vw]',
+          'data-[vaul-drawer-direction=right]:w-72',
+          'data-[vaul-drawer-direction=right]:max-w-[90vw]',
+        ]
+      : size === 'md'
+        ? [
+            'data-[vaul-drawer-direction=left]:w-80',
+            'data-[vaul-drawer-direction=left]:max-w-[90vw]',
+            'data-[vaul-drawer-direction=right]:w-80',
+            'data-[vaul-drawer-direction=right]:max-w-[90vw]',
+          ]
+        : size === 'lg'
+          ? [
+              'data-[vaul-drawer-direction=left]:w-96',
+              'data-[vaul-drawer-direction=left]:max-w-[90vw]',
+              'data-[vaul-drawer-direction=right]:w-96',
+              'data-[vaul-drawer-direction=right]:max-w-[90vw]',
+            ]
+          : size === 'xl'
+            ? [
+                'data-[vaul-drawer-direction=left]:w-[34rem]',
+                'data-[vaul-drawer-direction=left]:max-w-[90vw]',
+                'data-[vaul-drawer-direction=right]:w-[34rem]',
+                'data-[vaul-drawer-direction=right]:max-w-[90vw]',
+              ]
+            : null
+
+  const verticalSizeClasses =
+    size === 'sm'
+      ? [
+          'data-[vaul-drawer-direction=top]:max-h-[50vh]',
+          'data-[vaul-drawer-direction=bottom]:max-h-[50vh]',
+        ]
+      : size === 'md'
+        ? [
+            'data-[vaul-drawer-direction=top]:max-h-[60vh]',
+            'data-[vaul-drawer-direction=bottom]:max-h-[60vh]',
+          ]
+        : size === 'lg'
+          ? [
+              'data-[vaul-drawer-direction=top]:max-h-[80vh]',
+              'data-[vaul-drawer-direction=bottom]:max-h-[80vh]',
+            ]
+          : size === 'xl'
+            ? [
+                'data-[vaul-drawer-direction=top]:max-h-[90vh]',
+                'data-[vaul-drawer-direction=bottom]:max-h-[90vh]',
+              ]
+            : null
+
   return (
     <DrawerPortal data-slot="drawer-portal">
       <DrawerOverlay />
@@ -59,6 +116,8 @@ function DrawerContent({
           'data-[vaul-drawer-direction=bottom]:inset-x-0 data-[vaul-drawer-direction=bottom]:bottom-0 data-[vaul-drawer-direction=bottom]:mt-24 data-[vaul-drawer-direction=bottom]:max-h-[80vh] data-[vaul-drawer-direction=bottom]:rounded-t-lg data-[vaul-drawer-direction=bottom]:border-t',
           'data-[vaul-drawer-direction=right]:inset-y-0 data-[vaul-drawer-direction=right]:right-0 data-[vaul-drawer-direction=right]:w-3/4 data-[vaul-drawer-direction=right]:border-l data-[vaul-drawer-direction=right]:sm:max-w-sm',
           'data-[vaul-drawer-direction=left]:inset-y-0 data-[vaul-drawer-direction=left]:left-0 data-[vaul-drawer-direction=left]:w-3/4 data-[vaul-drawer-direction=left]:border-r data-[vaul-drawer-direction=left]:sm:max-w-sm',
+          sideSizeClasses,
+          verticalSizeClasses,
           className,
         )}
         {...props}

@@ -1,3 +1,57 @@
 @import './fonts.css';
 @import './tailwind.css';
 @import './theme.css';
+
+/* Sonner Toast Styles - Override with theme colors */
+[data-sonner-toaster][data-theme='light'],
+[data-sonner-toaster][data-theme='dark'] {
+  /* Default toast colors */
+  --normal-bg: hsl(var(--background));
+  --normal-border: hsl(var(--border));
+  --normal-text: hsl(var(--foreground));
+
+  /* Success colors */
+  --success-bg: hsl(var(--success));
+  --success-border: hsl(var(--success));
+  --success-text: hsl(var(--success-foreground));
+
+  /* Error colors */
+  --error-bg: hsl(var(--destructive));
+  --error-border: hsl(var(--destructive));
+  --error-text: hsl(var(--destructive-foreground));
+
+  /* Warning colors */
+  --warning-bg: hsl(var(--warning));
+  --warning-border: hsl(var(--warning));
+  --warning-text: hsl(var(--warning-foreground));
+
+  /* Info colors */
+  --info-bg: hsl(var(--primary));
+  --info-border: hsl(var(--primary));
+  --info-text: hsl(var(--primary-foreground));
+}
+
+/* Toast background utilities */
+.bg-success {
+  background-color: hsl(var(--success));
+}
+
+.bg-warning {
+  background-color: hsl(var(--warning));
+}
+
+.text-success-foreground {
+  color: hsl(var(--success-foreground));
+}
+
+.text-warning-foreground {
+  color: hsl(var(--warning-foreground));
+}
+
+.border-success {
+  border-color: hsl(var(--success));
+}
+
+.border-warning {
+  border-color: hsl(var(--warning));
+}
