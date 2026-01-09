@@ -115,7 +115,7 @@ export const Card: StoryObj<CardArgs> = {
     avatar: true,
     lines: 3,
     width: 320,
-    height: 180,
+    height: 280,
   },
   argTypes: {
     loading: {
@@ -144,7 +144,7 @@ export const Card: StoryObj<CardArgs> = {
   render: ({loading, avatar, lines, width, height}) => (
     <div
       style={{width, height}}
-      className="rounded-xl border bg-card p-6 shadow flex flex-col gap-4 justify-between"
+      className="rounded-xl border bg-card p-6 shadow flex h-auto flex-col gap-4 justify-between"
     >
       <div className="flex items-center gap-4">
         {avatar &&
