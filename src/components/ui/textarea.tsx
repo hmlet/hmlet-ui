@@ -1,18 +1,44 @@
 import * as React from 'react'
+import {cva, type VariantProps} from 'class-variance-authority'
 
 import {cn} from './utils'
 
-function Textarea({className, ...props}: React.ComponentProps<'textarea'>) {
-  return (
-    <textarea
-      data-slot="textarea"
-      className={cn(
-        'resize-none border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 flex field-sizing-content min-h-16 w-full rounded-md border bg-input-background px-3 py-2 text-base transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
-        className,
-      )}
-      {...props}
-    />
-  )
-}
+const textareaVariants = cva(
+  'resize-none placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground flex min-h-16 w-full rounded-md border px-3 py-2 text-base bg-input-background transition-all duration-200 outline-none disabled:cursor-not-allowed disabled:opacity-50',
+  {
+    variants: {
+      variant: {
+        default:
+          'border-input hover:border-neutral-400 focus:border-primary focus:shadow-[0_0_0_3px_rgba(37,31,66,0.1)]',
+        error:
+          'border-destructive focus:border-destructive focus:shadow-[0_0_0_3px_rgba(209,113,113,0.1)]',
+        success:
+          'border-success focus:border-success focus:shadow-[0_0_0_3px_rgba(2,177,107,0.1)]',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+    },
+  },
+)
 
-export {Textarea}
+interface TextareaProps
+  extends
+    React.ComponentProps<'textarea'>,
+    VariantProps<typeof textareaVariants> {}
+
+const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
+  ({className, variant, ...props}, ref) => {
+    return (
+      <textarea
+        data-slot="textarea"
+        className={cn(textareaVariants({variant}), className)}
+        ref={ref}
+        {...props}
+      />
+    )
+  },
+)
+Textarea.displayName = 'Textarea'
+
+export {Textarea, textareaVariants}

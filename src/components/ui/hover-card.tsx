@@ -41,17 +41,4 @@ function HoverCardContent({
   )
 }
 
-function HoverCardArrow({
-  className,
-  ...props
-}: React.ComponentProps<typeof HoverCardPrimitive.Arrow>) {
-  return (
-    <HoverCardPrimitive.Arrow
-      data-slot="hover-card-arrow"
-      className={cn('fill-popover', className)}
-      {...props}
-    />
-  )
-}
-
-export {HoverCard, HoverCardTrigger, HoverCardContent, HoverCardArrow}
+export {HoverCard, HoverCardTrigger, HoverCardContent}

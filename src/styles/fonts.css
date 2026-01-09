@@ -1,0 +1,15 @@
+/* ============================================
+   TYPOGRAPHY - Google Fonts Import
+   ============================================ */
+
+/* IBM Plex Serif - For English Headings */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;700&display=swap');
+
+/* Mulish - For English Body Text */
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700&display=swap');
+
+/* Noto Serif JP - For Japanese Headings */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&display=swap');
+
+/* Noto Sans JP - For Japanese Body Text */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap');

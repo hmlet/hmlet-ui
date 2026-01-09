@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import {Slot} from '@radix-ui/react-slot'
-import {cva, type VariantProps} from 'class-variance-authority'
+import {type VariantProps, cva} from 'class-variance-authority'
 import {PanelLeftIcon} from 'lucide-react'
 
 import {useIsMobile} from './use-mobile'
@@ -603,18 +603,15 @@ function SidebarMenuSkeleton({
 }: React.ComponentProps<'div'> & {
   showIcon?: boolean
 }) {
-  // Stable per-instance width (50–90%) without impure randomness.
-  // Uses React's SSR-safe id to keep output deterministic.
-  const reactId = React.useId()
+  const stableId = React.useId()
+  // Stable "random" width between 50% and 90%.
   const width = React.useMemo(() => {
     let hash = 0
-    for (let i = 0; i < reactId.length; i++) {
-      hash = (hash * 31 + reactId.charCodeAt(i)) >>> 0
+    for (let i = 0; i < stableId.length; i++) {
+      hash = (hash * 31 + stableId.charCodeAt(i)) >>> 0
     }
-
-    const percent = 50 + (hash % 41)
-    return `${percent}%`
-  }, [reactId])
+    return `${(hash % 41) + 50}%`
+  }, [stableId])
 
   return (
     <div

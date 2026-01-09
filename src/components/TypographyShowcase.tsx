@@ -5,101 +5,229 @@ import {
   CardHeader,
   CardTitle,
 } from './ui/card'
+import {Typography} from './ui/typography'
 
 export function TypographyShowcase() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Typography</CardTitle>
+        <CardTitle>Typography System</CardTitle>
         <CardDescription>
-          Text styles and hierarchy using Espresso and Warm Gray colors
+          IBM Plex Serif for headings • Mulish for body text • Japanese support
+          with Noto fonts
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-8">
-        {/* Headings */}
-        <div className="space-y-4">
-          <h4 className="text-sm font-medium text-muted-foreground">
-            Headings
-          </h4>
-          <div className="space-y-2">
-            <h1>Heading 1 - Welcome to Your Stay</h1>
-            <h2>Heading 2 - Discover Premium Comfort</h2>
-            <h3>Heading 3 - Luxury Accommodations</h3>
-            <h4>Heading 4 - Modern Amenities</h4>
-          </div>
-        </div>
-
-        {/* Body Text */}
-        <div className="space-y-4">
-          <h4 className="text-sm font-medium text-muted-foreground">
-            Body Text
+        {/* Headings - IBM Plex Serif */}
+        <div>
+          <h4 className="mb-4 text-sm font-medium text-muted-foreground">
+            Headings - IBM Plex Serif
           </h4>
           <div className="space-y-4">
-            <p className="text-base">
-              Experience the warmth of boutique hospitality in our carefully
-              designed spaces. Each room tells a story of comfort and elegance,
-              blending modern luxury with timeless design.
-            </p>
-            <p className="text-sm text-muted-foreground">
-              Secondary text in Warm Gray provides excellent readability while
-              maintaining the warm, inviting atmosphere of our beige color
-              palette.
-            </p>
-            <p className="text-xs text-muted-foreground">
-              Small text for captions, footnotes, and additional information
-              that supports the main content without overwhelming the visual
-              hierarchy.
-            </p>
+            <div className="flex items-baseline gap-4 border-b border-border pb-3">
+              <span className="text-xs text-muted-foreground min-w-16">
+                70px
+              </span>
+              <Typography variant="h1">Display Heading</Typography>
+            </div>
+            <div className="flex items-baseline gap-4 border-b border-border pb-3">
+              <span className="text-xs text-muted-foreground min-w-16">
+                56px
+              </span>
+              <Typography variant="h2">H2 Heading</Typography>
+            </div>
+            <div className="flex items-baseline gap-4 border-b border-border pb-3">
+              <span className="text-xs text-muted-foreground min-w-16">
+                40px
+              </span>
+              <Typography variant="h3">H3 Heading</Typography>
+            </div>
+            <div className="flex items-baseline gap-4 border-b border-border pb-3">
+              <span className="text-xs text-muted-foreground min-w-16">
+                28px
+              </span>
+              <Typography variant="h4">H4 Heading</Typography>
+            </div>
+            <div className="flex items-baseline gap-4 border-b border-border pb-3">
+              <span className="text-xs text-muted-foreground min-w-16">
+                24px
+              </span>
+              <Typography variant="h5">H5 Heading</Typography>
+            </div>
           </div>
         </div>
 
-        {/* Text Variants */}
-        <div className="space-y-4">
-          <h4 className="text-sm font-medium text-muted-foreground">
-            Text Variants
+        {/* Body Text - Mulish */}
+        <div>
+          <h4 className="mb-4 text-sm font-medium text-muted-foreground">
+            Body Text - Mulish
           </h4>
-          <div className="space-y-2">
-            <p className="text-foreground">
-              Primary foreground text (Espresso)
-            </p>
-            <p className="text-muted-foreground">Muted text (Warm Gray)</p>
-            <p className="text-accent">Accent text (Terracotta)</p>
-            <p className="text-destructive">
-              Destructive/error text (Muted Red)
-            </p>
-            <p className="text-success">Success text (Olive Green)</p>
+          <div className="space-y-3">
+            <div className="flex items-start gap-4">
+              <span className="text-xs text-muted-foreground min-w-16 mt-1">
+                52px
+              </span>
+              <Typography variant="display-xl">
+                Display XL - Premium property listing title
+              </Typography>
+            </div>
+            <div className="flex items-start gap-4">
+              <span className="text-xs text-muted-foreground min-w-16 mt-1">
+                32px
+              </span>
+              <Typography variant="display-lg">
+                Display Large - Section headings and hero text
+              </Typography>
+            </div>
+            <div className="flex items-start gap-4">
+              <span className="text-xs text-muted-foreground min-w-16 mt-1">
+                28px
+              </span>
+              <Typography variant="display-md">
+                Display Medium - Sub-section titles
+              </Typography>
+            </div>
+            <div className="flex items-start gap-4">
+              <span className="text-xs text-muted-foreground min-w-16 mt-1">
+                24px
+              </span>
+              <Typography variant="body-xl">
+                Body XL - Emphasis text and callouts
+              </Typography>
+            </div>
+            <div className="flex items-start gap-4">
+              <span className="text-xs text-muted-foreground min-w-16 mt-1">
+                20px
+              </span>
+              <Typography variant="body-lg">
+                Body Large - Feature descriptions and highlights
+              </Typography>
+            </div>
+            <div className="flex items-start gap-4">
+              <span className="text-xs text-muted-foreground min-w-16 mt-1">
+                18px
+              </span>
+              <Typography variant="body-md">
+                Body Medium - Secondary content and descriptions
+              </Typography>
+            </div>
+            <div className="flex items-start gap-4">
+              <span className="text-xs text-muted-foreground min-w-16 mt-1">
+                16px
+              </span>
+              <Typography variant="body-base">
+                Body Base - Default body text for paragraphs and content
+              </Typography>
+            </div>
+            <div className="flex items-start gap-4">
+              <span className="text-xs text-muted-foreground min-w-16 mt-1">
+                14px
+              </span>
+              <Typography variant="body-sm">
+                Body Small - Labels, captions, and helper text (140% line
+                height)
+              </Typography>
+            </div>
+            <div className="flex items-start gap-4">
+              <span className="text-xs text-muted-foreground min-w-16 mt-1">
+                12px
+              </span>
+              <Typography variant="body-xs">
+                Body XSmall - Fine print and metadata (140% line height)
+              </Typography>
+            </div>
           </div>
         </div>
 
         {/* Font Weights */}
-        <div className="space-y-4">
-          <h4 className="text-sm font-medium text-muted-foreground">
-            Font Weights
+        <div>
+          <h4 className="mb-4 text-sm font-medium text-muted-foreground">
+            Font Weights - Mulish
           </h4>
           <div className="space-y-2">
-            <p className="font-normal">Normal weight text for body content</p>
-            <p className="font-medium">Medium weight for emphasis and labels</p>
-            <p className="font-semibold">Semibold for strong emphasis</p>
-            <p className="font-bold">Bold for maximum impact</p>
+            <p className="font-[400] font-sans">
+              Regular (400) - Default body text weight
+            </p>
+            <p className="font-[500] font-sans">
+              Medium (500) - Labels and emphasis
+            </p>
+            <p className="font-[600] font-sans">
+              SemiBold (600) - Buttons and strong emphasis
+            </p>
+            <p className="font-[700] font-sans">
+              Bold (700) - Headings and strong callouts
+            </p>
           </div>
         </div>
 
-        {/* Lists */}
-        <div className="space-y-4">
-          <h4 className="text-sm font-medium text-muted-foreground">Lists</h4>
-          <div className="space-y-4">
-            <ul className="list-disc list-inside space-y-1 text-sm">
-              <li>Complimentary breakfast buffet</li>
-              <li>24/7 concierge service</li>
-              <li>High-speed WiFi throughout</li>
-              <li>Access to wellness facilities</li>
-            </ul>
-            <ol className="list-decimal list-inside space-y-1 text-sm">
-              <li>Select your dates and room type</li>
-              <li>Review your booking details</li>
-              <li>Complete secure payment</li>
-              <li>Receive instant confirmation</li>
-            </ol>
+        {/* Japanese Typography */}
+        <div>
+          <h4 className="mb-4 text-sm font-medium text-muted-foreground">
+            Japanese Typography
+          </h4>
+          <div className="space-y-3">
+            <div className="border-b border-border pb-3">
+              <p className="text-xs text-muted-foreground mb-2">
+                Heading - Noto Serif JP (5% letter spacing, 160% line height)
+              </p>
+              <h3
+                className="text-[28px] tracking-[0.05em] leading-[1.6]"
+                style={{fontFamily: "'Noto Serif JP', serif"}}
+              >
+                プレミアム物件のタイトル
+              </h3>
+            </div>
+            <div>
+              <p className="text-xs text-muted-foreground mb-2">
+                Body - Noto Sans JP (160% line height)
+              </p>
+              <p
+                className="text-body-base leading-[1.6]"
+                style={{fontFamily: "'Noto Sans JP', sans-serif"}}
+              >
+                高級マンションとサービスアパートメントのための完全なデザインシステム。モダンで洗練された体験を提供します。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Typography Usage Guide */}
+        <div className="mt-8 rounded-lg border border-border bg-muted/30 p-6">
+          <h4 className="mb-3 font-semibold">Typography Usage Guidelines</h4>
+          <div className="grid gap-3 text-sm">
+            <div className="flex items-start gap-2">
+              <span className="font-medium min-w-32">Headings:</span>
+              <span className="text-muted-foreground">
+                Use IBM Plex Serif for all headings (H1-H6). 160% line height, 0
+                letter spacing.
+              </span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="font-medium min-w-32">Body Text:</span>
+              <span className="text-muted-foreground">
+                Use Mulish for all body text, labels, and UI elements. 160% line
+                height (140% for 14px and 12px).
+              </span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="font-medium min-w-32">Buttons:</span>
+              <span className="text-muted-foreground">
+                16px Mulish SemiBold (600)
+              </span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="font-medium min-w-32">Labels:</span>
+              <span className="text-muted-foreground">
+                16px Mulish Medium (500)
+              </span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="font-medium min-w-32">Japanese:</span>
+              <span className="text-muted-foreground">
+                Noto Serif JP for headings (5% letter spacing), Noto Sans JP for
+                body.
+              </span>
+            </div>
           </div>
         </div>
       </CardContent>

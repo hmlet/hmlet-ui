@@ -6,52 +6,52 @@
 [data-sonner-toaster][data-theme='light'],
 [data-sonner-toaster][data-theme='dark'] {
   /* Default toast colors */
-  --normal-bg: hsl(var(--background));
-  --normal-border: hsl(var(--border));
-  --normal-text: hsl(var(--foreground));
+  --normal-bg: var(--background);
+  --normal-border: var(--border);
+  --normal-text: var(--foreground);
 
   /* Success colors */
-  --success-bg: hsl(var(--success));
-  --success-border: hsl(var(--success));
-  --success-text: hsl(var(--success-foreground));
+  --success-bg: var(--success);
+  --success-border: var(--success);
+  --success-text: var(--success-foreground);
 
   /* Error colors */
-  --error-bg: hsl(var(--destructive));
-  --error-border: hsl(var(--destructive));
-  --error-text: hsl(var(--destructive-foreground));
+  --error-bg: var(--destructive);
+  --error-border: var(--destructive);
+  --error-text: var(--destructive-foreground);
 
   /* Warning colors */
-  --warning-bg: hsl(var(--warning));
-  --warning-border: hsl(var(--warning));
-  --warning-text: hsl(var(--warning-foreground));
+  --warning-bg: var(--warning);
+  --warning-border: var(--warning);
+  --warning-text: var(--warning-foreground);
 
   /* Info colors */
-  --info-bg: hsl(var(--primary));
-  --info-border: hsl(var(--primary));
-  --info-text: hsl(var(--primary-foreground));
+  --info-bg: var(--primary);
+  --info-border: var(--primary);
+  --info-text: var(--primary-foreground);
 }
 
 /* Toast background utilities */
 .bg-success {
-  background-color: hsl(var(--success));
+  background-color: var(--success);
 }
 
 .bg-warning {
-  background-color: hsl(var(--warning));
+  background-color: var(--warning);
 }
 
 .text-success-foreground {
-  color: hsl(var(--success-foreground));
+  color: var(--success-foreground);
 }
 
 .text-warning-foreground {
-  color: hsl(var(--warning-foreground));
+  color: var(--warning-foreground);
 }
 
 .border-success {
-  border-color: hsl(var(--success));
+  border-color: var(--success);
 }
 
 .border-warning {
-  border-color: hsl(var(--warning));
+  border-color: var(--warning);
 }

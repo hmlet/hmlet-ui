@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import * as TabsPrimitive from '@radix-ui/react-tabs'
+import {cva, type VariantProps} from 'class-variance-authority'
 
 import {cn} from './utils'
 
@@ -18,37 +19,77 @@ function Tabs({
   )
 }
 
-function TabsList({
-  className,
-  ...props
-}: React.ComponentProps<typeof TabsPrimitive.List>) {
-  return (
-    <TabsPrimitive.List
-      data-slot="tabs-list"
-      className={cn(
-        'bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-xl p-[3px] flex',
-        className,
-      )}
-      {...props}
-    />
-  )
-}
+const tabsListVariants = cva(
+  'inline-flex w-fit items-center justify-center p-1 rounded-lg',
+  {
+    variants: {
+      variant: {
+        default: 'bg-muted',
+        outline: 'border-2 border-border bg-transparent',
+        primary: 'bg-primary-lightest',
+        secondary: 'bg-secondary-lightest',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+    },
+  },
+)
 
-function TabsTrigger({
-  className,
-  ...props
-}: React.ComponentProps<typeof TabsPrimitive.Trigger>) {
-  return (
-    <TabsPrimitive.Trigger
-      data-slot="tabs-trigger"
-      className={cn(
-        "data-[state=active]:bg-card dark:data-[state=active]:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 text-foreground dark:text-muted-foreground inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-xl border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        className,
-      )}
-      {...props}
-    />
-  )
-}
+interface TabsListProps
+  extends
+    React.ComponentProps<typeof TabsPrimitive.List>,
+    VariantProps<typeof tabsListVariants> {}
+
+const TabsList = React.forwardRef<
+  React.ElementRef<typeof TabsPrimitive.List>,
+  TabsListProps
+>(({className, variant, ...props}, ref) => (
+  <TabsPrimitive.List
+    ref={ref}
+    data-slot="tabs-list"
+    className={cn(tabsListVariants({variant}), className)}
+    {...props}
+  />
+))
+TabsList.displayName = TabsPrimitive.List.displayName
+
+const tabsTriggerVariants = cva(
+  'inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium transition-all duration-200 outline-none disabled:pointer-events-none disabled:opacity-50',
+  {
+    variants: {
+      variant: {
+        default:
+          'text-muted-foreground data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm focus:bg-card/50',
+        primary:
+          'text-primary-light data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm focus:bg-primary/10',
+        secondary:
+          'text-secondary-light data-[state=active]:bg-secondary data-[state=active]:text-secondary-foreground data-[state=active]:shadow-sm focus:bg-secondary/10',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+    },
+  },
+)
+
+interface TabsTriggerProps
+  extends
+    React.ComponentProps<typeof TabsPrimitive.Trigger>,
+    VariantProps<typeof tabsTriggerVariants> {}
+
+const TabsTrigger = React.forwardRef<
+  React.ElementRef<typeof TabsPrimitive.Trigger>,
+  TabsTriggerProps
+>(({className, variant, ...props}, ref) => (
+  <TabsPrimitive.Trigger
+    ref={ref}
+    data-slot="tabs-trigger"
+    className={cn(tabsTriggerVariants({variant}), className)}
+    {...props}
+  />
+))
+TabsTrigger.displayName = TabsPrimitive.Trigger.displayName
 
 function TabsContent({
   className,
@@ -63,4 +104,11 @@ function TabsContent({
   )
 }
 
-export {Tabs, TabsList, TabsTrigger, TabsContent}
+export {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+  tabsListVariants,
+  tabsTriggerVariants,
+}

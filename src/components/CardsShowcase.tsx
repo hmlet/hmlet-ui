@@ -16,7 +16,8 @@ export function CardsShowcase() {
       <CardHeader>
         <CardTitle>Cards & Layouts</CardTitle>
         <CardDescription>
-          Card components for displaying room listings and property details
+          Card components with Primary (Navy) and Secondary (Coral) color
+          schemes
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -29,7 +30,7 @@ export function CardsShowcase() {
             </CardHeader>
             <CardContent>
               <p className="text-sm">
-                Card content goes here with white background against soft ivory.
+                Card content goes here with white background against ivory.
               </p>
             </CardContent>
           </Card>
@@ -67,13 +68,13 @@ export function CardsShowcase() {
           </Card>
         </div>
 
-        {/* Property Card Examples */}
+        {/* Primary Color Cards */}
         <div>
           <h4 className="mb-3 text-sm font-medium text-muted-foreground">
-            Property Listing Cards
+            Property Cards - Primary (Navy) Theme
           </h4>
           <div className="grid gap-6 md:grid-cols-2">
-            {/* Property Card 1 */}
+            {/* Property Card 1 - Primary */}
             <Card className="overflow-hidden">
               <div className="h-48 bg-muted flex items-center justify-center">
                 <p className="text-muted-foreground">Property Image</p>
@@ -87,8 +88,8 @@ export function CardsShowcase() {
                       Downtown, City Center
                     </div>
                   </div>
-                  <Badge className="bg-accent text-accent-foreground">
-                    Hot Deal
+                  <Badge className="bg-primary text-primary-foreground">
+                    Featured
                   </Badge>
                 </div>
               </CardHeader>
@@ -108,7 +109,7 @@ export function CardsShowcase() {
                   </div>
                 </div>
                 <div className="flex items-baseline gap-1">
-                  <span className="text-2xl font-semibold text-accent">
+                  <span className="text-2xl font-semibold text-primary">
                     $159
                   </span>
                   <span className="text-sm text-muted-foreground">/ night</span>
@@ -128,17 +129,17 @@ export function CardsShowcase() {
                 </div>
               </CardContent>
               <CardFooter className="gap-2">
-                <Button variant="outline" className="flex-1">
+                <Button variant="outline-primary" className="flex-1">
                   View Details
                 </Button>
                 <Button className="flex-1">Book Now</Button>
               </CardFooter>
             </Card>
 
-            {/* Property Card 2 */}
+            {/* Property Card 2 - Primary */}
             <Card className="overflow-hidden">
-              <div className="h-48 bg-muted flex items-center justify-center">
-                <p className="text-muted-foreground">Property Image</p>
+              <div className="h-48 bg-primary/10 flex items-center justify-center">
+                <p className="text-primary">Property Image</p>
               </div>
               <CardHeader>
                 <div className="flex items-start justify-between">
@@ -149,7 +150,9 @@ export function CardsShowcase() {
                       Waterfront District
                     </div>
                   </div>
-                  <Badge variant="secondary">Premium</Badge>
+                  <Badge className="bg-primary text-primary-foreground">
+                    Premium
+                  </Badge>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -168,7 +171,7 @@ export function CardsShowcase() {
                   </div>
                 </div>
                 <div className="flex items-baseline gap-1">
-                  <span className="text-2xl font-semibold text-accent">
+                  <span className="text-2xl font-semibold text-primary">
                     $299
                   </span>
                   <span className="text-sm text-muted-foreground">/ night</span>
@@ -188,10 +191,147 @@ export function CardsShowcase() {
                 </div>
               </CardContent>
               <CardFooter className="gap-2">
-                <Button variant="outline" className="flex-1">
+                <Button variant="outline-primary" className="flex-1">
                   View Details
                 </Button>
                 <Button className="flex-1">Book Now</Button>
+              </CardFooter>
+            </Card>
+          </div>
+        </div>
+
+        {/* Secondary Color Cards */}
+        <div>
+          <h4 className="mb-3 text-sm font-medium text-muted-foreground">
+            Property Cards - Secondary (Coral) Theme
+          </h4>
+          <div className="grid gap-6 md:grid-cols-2">
+            {/* Property Card 1 - Secondary */}
+            <Card className="overflow-hidden">
+              <div className="h-48 bg-muted flex items-center justify-center">
+                <p className="text-muted-foreground">Property Image</p>
+              </div>
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div className="space-y-1">
+                    <CardTitle>Studio Apartment</CardTitle>
+                    <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                      <MapPin className="h-3 w-3" />
+                      Arts District
+                    </div>
+                  </div>
+                  <Badge className="bg-secondary text-secondary-foreground">
+                    Hot Deal
+                  </Badge>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center gap-4 text-sm">
+                  <div className="flex items-center gap-1">
+                    <Bed className="h-4 w-4 text-muted-foreground" />
+                    <span>1 Bed</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Users className="h-4 w-4 text-muted-foreground" />
+                    <span>2 Guests</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Wifi className="h-4 w-4 text-muted-foreground" />
+                    <span>WiFi</span>
+                  </div>
+                </div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-2xl font-semibold text-secondary">
+                    $99
+                  </span>
+                  <span className="text-sm text-muted-foreground">/ night</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <div className="flex">
+                    {[1, 2, 3, 4].map(star => (
+                      <Star
+                        key={star}
+                        className="h-4 w-4 fill-warning text-warning"
+                      />
+                    ))}
+                    <Star className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                  <span className="text-sm text-muted-foreground">
+                    (56 reviews)
+                  </span>
+                </div>
+              </CardContent>
+              <CardFooter className="gap-2">
+                <Button variant="outline-secondary" className="flex-1">
+                  View Details
+                </Button>
+                <Button variant="secondary" className="flex-1">
+                  Book Now
+                </Button>
+              </CardFooter>
+            </Card>
+
+            {/* Property Card 2 - Secondary */}
+            <Card className="overflow-hidden">
+              <div className="h-48 bg-secondary/10 flex items-center justify-center">
+                <p className="text-secondary">Property Image</p>
+              </div>
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div className="space-y-1">
+                    <CardTitle>Luxury Loft</CardTitle>
+                    <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                      <MapPin className="h-3 w-3" />
+                      Historic Quarter
+                    </div>
+                  </div>
+                  <Badge className="bg-secondary text-secondary-foreground">
+                    Trending
+                  </Badge>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center gap-4 text-sm">
+                  <div className="flex items-center gap-1">
+                    <Bed className="h-4 w-4 text-muted-foreground" />
+                    <span>2 Beds</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Users className="h-4 w-4 text-muted-foreground" />
+                    <span>4 Guests</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Wifi className="h-4 w-4 text-muted-foreground" />
+                    <span>WiFi</span>
+                  </div>
+                </div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-2xl font-semibold text-secondary">
+                    $189
+                  </span>
+                  <span className="text-sm text-muted-foreground">/ night</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <div className="flex">
+                    {[1, 2, 3, 4, 5].map(star => (
+                      <Star
+                        key={star}
+                        className="h-4 w-4 fill-warning text-warning"
+                      />
+                    ))}
+                  </div>
+                  <span className="text-sm text-muted-foreground">
+                    (203 reviews)
+                  </span>
+                </div>
+              </CardContent>
+              <CardFooter className="gap-2">
+                <Button variant="outline-secondary" className="flex-1">
+                  View Details
+                </Button>
+                <Button variant="secondary" className="flex-1">
+                  Book Now
+                </Button>
               </CardFooter>
             </Card>
           </div>

@@ -3,131 +3,209 @@
 :root {
   --font-size: 16px;
 
-  /* Beige Warm Hospitality Theme - Light Mode */
-  --background: #faf7f2; /* Soft Ivory */
-  --foreground: #2e2a25; /* Espresso */
+  /* Light Mode */
+  --background: #fcfbf9; /* Ivory 100 */
+  --foreground: #000000; /* Neutral 1000 */
 
-  --card: #ffffff; /* White cards */
-  --card-foreground: #2e2a25; /* Espresso */
+  --card: #ffffff; /* Neutral 100 - White cards */
+  --card-foreground: #000000; /* Neutral 1000 */
 
   --popover: #ffffff;
-  --popover-foreground: #2e2a25;
+  --popover-foreground: #000000;
 
-  --primary: #e6d3b1; /* Warm Beige */
-  --primary-foreground: #2e2a25; /* Espresso */
-  --primary-dark: #c7b08a; /* Sand Brown */
-  --primary-light: #f4ece1; /* Cream */
+  /* Primary (Navy/Purple) */
+  --primary: #251f42; /* Primary 400 */
+  --primary-foreground: #ffffff;
+  --primary-dark: #1f1c32; /* Primary 500 */
+  --primary-light: #767091; /* Primary 300 */
+  --primary-lighter: #cecae0; /* Primary 200 */
+  --primary-lightest: #f1f0f5; /* Primary 100 */
 
-  --secondary: #8b7e6a; /* Taupe */
+  /* Secondary (Coral/Peach) */
+  --secondary: #ff7960; /* Secondary 400 */
   --secondary-foreground: #ffffff;
+  --secondary-dark: #8a4d58; /* Secondary 500 */
+  --secondary-light: #ffb2a3; /* Secondary 300 */
+  --secondary-lighter: #ffe1db; /* Secondary 200 */
+  --secondary-lightest: #fff0ed; /* Secondary 100 */
 
-  --muted: #e5ded3; /* Light Sand */
-  --muted-foreground: #6b6258; /* Warm Gray */
+  /* Neutrals */
+  --neutral-100: #ffffff;
+  --neutral-200: #f2f2f2;
+  --neutral-300: #cccccc;
+  --neutral-400: #b3b3b3;
+  --neutral-500: #999999;
+  --neutral-600: #7f7f7f;
+  --neutral-700: #505050;
+  --neutral-800: #262626;
+  --neutral-900: #1a1a1a;
+  --neutral-1000: #000000;
 
-  --accent: #c26a4a; /* Terracotta - CTA Color */
+  --muted: #f2f2f2; /* Neutral 200 */
+  --muted-foreground: #505050; /* Neutral 700 */
+
+  --accent: #ff7960; /* Secondary 400 - CTA Color */
   --accent-foreground: #ffffff;
-  --accent-hover: #a8563b; /* Burnt Clay */
+  --accent-hover: #8a4d58; /* Secondary 500 */
 
-  --destructive: #b4533c; /* Muted Red */
+  /* Semantic Colors */
+  --destructive: #d17171; /* Error 400 */
   --destructive-foreground: #ffffff;
+  --destructive-light: #d99898; /* Error 300 */
+  --destructive-lighter: #e3cccc; /* Error 200 */
+  --destructive-lightest: #f7f0f0; /* Error 100 */
+  --destructive-dark: #c24f4f; /* Error 500 */
 
-  --success: #6b8e4e; /* Olive Green */
+  --success: #02b16b; /* Success 400 */
   --success-foreground: #ffffff;
+  --success-light: #70d4ac; /* Success 300 */
+  --success-lighter: #bee8d7; /* Success 200 */
+  --success-lightest: #e6f7f0; /* Success 100 */
+  --success-dark: #1e6942; /* Success 500 */
 
-  --warning: #d4a574; /* Warm Amber */
-  --warning-foreground: #2e2a25;
+  --error: #d17171; /* Error 400 */
+  --error-foreground: #ffffff;
 
-  --border: #e5ded3; /* Light Sand */
-  --input: #e5ded3;
+  --warning: #ffb2a3; /* Secondary 300 */
+  --warning-foreground: #1a1a1a;
+
+  --red: #f0d8cc; /* Red 100 */
+  --red-dark: #8a4d58; /* Red 500 */
+
+  --ivory: #fcfbf9; /* Ivory 100 */
+  --ivory-dark: #faf5f0; /* Ivory 200 */
+
+  /* UI Elements */
+  --border: #cccccc; /* Neutral 300 */
+  --input: #cccccc;
   --input-background: #ffffff;
-  --switch-background: #c7b08a;
+  --switch-background: #b3b3b3;
 
-  --ring: #c26a4a; /* Terracotta focus ring */
+  --ring: #251f42; /* Primary 400 focus ring */
 
-  /* Chart colors - Warm palette */
-  --chart-1: #c26a4a; /* Terracotta */
-  --chart-2: #8b7e6a; /* Taupe */
-  --chart-3: #6b8e4e; /* Olive Green */
-  --chart-4: #e6d3b1; /* Warm Beige */
-  --chart-5: #d4a574; /* Warm Amber */
+  /* Chart colors */
+  --chart-1: #251f42; /* Primary 400 */
+  --chart-2: #ff7960; /* Secondary 400 */
+  --chart-3: #02b16b; /* Success 400 */
+  --chart-4: #d17171; /* Error 400 */
+  --chart-5: #767091; /* Primary 300 */
 
-  --radius: 0.5rem;
+  /* Spacing Scale */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+
+  /* Border Radius Scale */
+  --radius-none: 0;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 
   /* Sidebar */
   --sidebar: #ffffff;
-  --sidebar-foreground: #2e2a25;
-  --sidebar-primary: #c26a4a;
+  --sidebar-foreground: #000000;
+  --sidebar-primary: #251f42;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f4ece1;
-  --sidebar-accent-foreground: #2e2a25;
-  --sidebar-border: #e5ded3;
-  --sidebar-ring: #c26a4a;
+  --sidebar-accent: #f1f0f5;
+  --sidebar-accent-foreground: #000000;
+  --sidebar-border: #cccccc;
+  --sidebar-ring: #251f42;
 
+  /* Typography Weights */
+  --font-weight-regular: 400;
   --font-weight-medium: 500;
-  --font-weight-normal: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
 }
 
 .dark {
-  /* Beige Warm Hospitality Theme - Dark Mode */
-  --background: #1f1b16; /* Deep warm brown */
-  --foreground: #f5f1eb; /* Light cream */
+  /* Dark Mode - CORRECT COLORS */
+  --background: #1f1c32; /* Primary 500 as dark background */
+  --foreground: #ffffff; /* White text */
 
-  --card: #2a241d; /* Warm dark surface */
-  --card-foreground: #f5f1eb;
+  --card: #251f42; /* Primary 400 - dark surface */
+  --card-foreground: #ffffff;
 
-  --popover: #2a241d;
-  --popover-foreground: #f5f1eb;
+  --popover: #251f42;
+  --popover-foreground: #ffffff;
 
-  --primary: #e6d3b1; /* Warm Beige - stands out in dark */
-  --primary-foreground: #1f1b16; /* Dark bg for contrast */
-  --primary-dark: #c7b08a;
-  --primary-light: #f4ece1;
+  /* Primary (lighter in dark mode) */
+  --primary: #cecae0; /* Primary 200 - lighter in dark mode */
+  --primary-foreground: #1f1c32;
+  --primary-dark: #251f42;
+  --primary-light: #f1f0f5;
 
-  --secondary: #8b7e6a; /* Taupe */
-  --secondary-foreground: #f5f1eb;
+  /* Secondary (same in dark mode) */
+  --secondary: #ff7960; /* Secondary 400 */
+  --secondary-foreground: #ffffff;
+  --secondary-dark: #8a4d58;
+  --secondary-light: #ffb2a3;
 
-  --muted: #3a332a; /* Dark border/muted */
-  --muted-foreground: #cfc6b8; /* Light warm gray */
+  --muted: #505050; /* Neutral 700 */
+  --muted-foreground: #cccccc; /* Neutral 300 */
 
-  --accent: #c26a4a; /* Terracotta - CTA */
+  --accent: #ff7960; /* Secondary 400 - CTA */
   --accent-foreground: #ffffff;
-  --accent-hover: #a8563b;
+  --accent-hover: #ffb2a3;
 
-  --destructive: #d4735e; /* Lighter muted red for dark mode */
+  /* Semantic Colors (lighter for dark mode) */
+  --destructive: #d99898; /* Error 300 - lighter for dark mode */
   --destructive-foreground: #ffffff;
 
-  --success: #8bae6a; /* Lighter olive for dark mode */
-  --success-foreground: #1f1b16;
+  --success: #70d4ac; /* Success 300 - lighter for dark mode */
+  --success-foreground: #1f1c32;
 
-  --warning: #e6be8f; /* Lighter amber for dark mode */
-  --warning-foreground: #1f1b16;
+  --error: #d99898; /* Error 300 */
+  --error-foreground: #ffffff;
 
-  --border: #3a332a; /* Dark border */
-  --input: #3a332a;
-  --input-background: #2a241d;
-  --switch-background: #8b7e6a;
+  --warning: #ffe1db; /* Secondary 200 - lighter for dark mode */
+  --warning-foreground: #1f1c32;
 
-  --ring: #c26a4a;
+  /* UI Elements */
+  --border: #505050; /* Neutral 700 */
+  --input: #505050;
+  --input-background: #251f42;
+  --switch-background: #7f7f7f;
+
+  --ring: #ff7960;
 
   /* Chart colors - Adjusted for dark mode */
-  --chart-1: #c26a4a;
-  --chart-2: #a8927a;
-  --chart-3: #8bae6a;
-  --chart-4: #e6d3b1;
-  --chart-5: #e6be8f;
+  --chart-1: #cecae0;
+  --chart-2: #ff7960;
+  --chart-3: #70d4ac;
+  --chart-4: #d99898;
+  --chart-5: #f1f0f5;
 
   /* Sidebar dark */
-  --sidebar: #2a241d;
-  --sidebar-foreground: #f5f1eb;
-  --sidebar-primary: #c26a4a;
+  --sidebar: #251f42;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #ff7960;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #3a332a;
-  --sidebar-accent-foreground: #f5f1eb;
-  --sidebar-border: #3a332a;
-  --sidebar-ring: #c26a4a;
-
-  --font-weight-medium: 500;
-  --font-weight-normal: 400;
+  --sidebar-accent: #505050;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #505050;
+  --sidebar-ring: #ff7960;
 }
 
 @theme inline {
@@ -141,8 +219,14 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-primary-dark: var(--primary-dark);
   --color-primary-light: var(--primary-light);
+  --color-primary-lighter: var(--primary-lighter);
+  --color-primary-lightest: var(--primary-lightest);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary-dark: var(--secondary-dark);
+  --color-secondary-light: var(--secondary-light);
+  --color-secondary-lighter: var(--secondary-lighter);
+  --color-secondary-lightest: var(--secondary-lightest);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
@@ -152,6 +236,8 @@
   --color-destructive-foreground: var(--destructive-foreground);
   --color-success: var(--success);
   --color-success-foreground: var(--success-foreground);
+  --color-error: var(--error);
+  --color-error-foreground: var(--error-foreground);
   --color-warning: var(--warning);
   --color-warning-foreground: var(--warning-foreground);
   --color-border: var(--border);
@@ -164,10 +250,10 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -185,56 +271,134 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Mulish', 'Noto Sans JP', sans-serif;
   }
 
-  /**
-  * Default typography styles for HTML elements (h1-h4, p, label, button, input).
-  * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.
-  */
+  /* TYPOGRAPHY SYSTEM - IBM Plex Serif + Mulish */
 
   html {
     font-size: var(--font-size);
   }
 
+  /* Headings - IBM Plex Serif */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'IBM Plex Serif', 'Noto Serif JP', serif;
+    line-height: 1.6; /* 160% */
+    letter-spacing: 0;
+  }
+
   h1 {
-    font-size: var(--text-2xl);
+    font-size: 4.375rem; /* 70px */
     font-weight: var(--font-weight-medium);
-    line-height: 1.5;
   }
 
   h2 {
-    font-size: var(--text-xl);
+    font-size: 3.5rem; /* 56px */
     font-weight: var(--font-weight-medium);
-    line-height: 1.5;
   }
 
   h3 {
-    font-size: var(--text-lg);
+    font-size: 2.5rem; /* 40px */
     font-weight: var(--font-weight-medium);
-    line-height: 1.5;
   }
 
   h4 {
-    font-size: var(--text-base);
+    font-size: 1.75rem; /* 28px */
     font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+  }
+
+  h5 {
+    font-size: 1.5rem; /* 24px */
+    font-weight: var(--font-weight-medium);
+  }
+
+  h6 {
+    font-size: 1.25rem; /* 20px */
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* Body Text - Mulish */
+  p,
+  label,
+  input,
+  textarea,
+  select,
+  button {
+    font-family: 'Mulish', 'Noto Sans JP', sans-serif;
+    line-height: 1.6; /* 160% */
+  }
+
+  /* Small text uses 140% line height */
+  .text-xs,
+  .text-sm {
+    line-height: 1.4; /* 140% for 14px & 12px */
   }
 
   label {
-    font-size: var(--text-base);
+    font-size: 1rem; /* 16px */
     font-weight: var(--font-weight-medium);
-    line-height: 1.5;
   }
 
   button {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+    font-size: 1rem; /* 16px */
+    font-weight: var(--font-weight-semibold);
   }
 
-  input {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-normal);
-    line-height: 1.5;
+  input,
+  textarea,
+  select {
+    font-size: 1rem; /* 16px */
+    font-weight: var(--font-weight-regular);
+  }
+
+  /* Utility text classes */
+  .text-display-xl {
+    font-size: 3.25rem; /* 52px */
+    line-height: 1.6;
+  }
+
+  .text-display-lg {
+    font-size: 2rem; /* 32px */
+    line-height: 1.6;
+  }
+
+  .text-display-md {
+    font-size: 1.75rem; /* 28px */
+    line-height: 1.6;
+  }
+
+  .text-body-xl {
+    font-size: 1.5rem; /* 24px */
+    line-height: 1.6;
+  }
+
+  .text-body-lg {
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.6;
+  }
+
+  .text-body-md {
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.6;
+  }
+
+  .text-body-base {
+    font-size: 1rem; /* 16px */
+    line-height: 1.6;
+  }
+
+  .text-body-sm {
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.4;
+  }
+
+  .text-body-xs {
+    font-size: 0.75rem; /* 12px */
+    line-height: 1.4;
   }
 }

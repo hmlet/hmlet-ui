@@ -1,6 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react'
 
 import {Button} from '../../components/ui/button'
+import {ButtonShowcase} from '../../components/ButtonShowcase'
 import {Loader2, Mail} from 'lucide-react'
 
 const meta = {
@@ -27,6 +28,31 @@ const meta = {
       },
     },
   },
+  argTypes: {
+    variant: {
+      options: [
+        'primary',
+        'primary-outline',
+        'primary-ghost',
+        'secondary',
+        'secondary-outline',
+        'secondary-ghost',
+        'success',
+        'destructive',
+        'outline',
+        'ghost',
+        'link',
+      ],
+      control: {type: 'select'},
+    },
+    size: {
+      options: ['sm', 'md', 'lg', 'icon-sm', 'icon', 'icon-lg'],
+      control: {type: 'select'},
+    },
+    asChild: {control: 'boolean'},
+    disabled: {control: 'boolean'},
+    className: {control: 'text'},
+  },
   args: {
     children: 'Button',
   },
@@ -40,13 +66,24 @@ export const Example: Story = {
   name: 'Examples',
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
-      <Button>Button</Button>
+      <Button variant="primary">Primary</Button>
+      <Button variant="primary-outline">Primary Outline</Button>
+      <Button variant="primary-ghost">Primary Ghost</Button>
       <Button variant="outline">Outline</Button>
       <Button variant="secondary">Secondary</Button>
+      <Button variant="secondary-outline">Secondary Outline</Button>
+      <Button variant="secondary-ghost">Secondary Ghost</Button>
       <Button variant="ghost">Ghost</Button>
       <Button variant="destructive">Destructive</Button>
+      <Button variant="success">Success</Button>
       <Button variant="link">Link</Button>
       <Button size="icon" aria-label="Icon">
+        <Mail />
+      </Button>
+      <Button size="icon-sm" aria-label="Small icon button">
+        <Mail />
+      </Button>
+      <Button size="icon-lg" aria-label="Large icon button">
         <Mail />
       </Button>
       <Button>
@@ -62,10 +99,35 @@ export const Example: Story = {
   ),
 }
 
+export const Showcase: Story = {
+  name: 'Showcase',
+  render: () => (
+    <div className="max-w-5xl">
+      <ButtonShowcase />
+    </div>
+  ),
+}
+
 export const Default: Story = {
   args: {
-    variant: 'default',
+    variant: 'primary',
     children: 'Default',
+  },
+}
+
+export const PrimaryOutline: Story = {
+  name: 'Primary Outline',
+  args: {
+    variant: 'primary-outline',
+    children: 'Primary Outline',
+  },
+}
+
+export const PrimaryGhost: Story = {
+  name: 'Primary Ghost',
+  args: {
+    variant: 'primary-ghost',
+    children: 'Primary Ghost',
   },
 }
 
@@ -83,6 +145,22 @@ export const Secondary: Story = {
   },
 }
 
+export const SecondaryOutline: Story = {
+  name: 'Secondary Outline',
+  args: {
+    variant: 'secondary-outline',
+    children: 'Secondary Outline',
+  },
+}
+
+export const SecondaryGhost: Story = {
+  name: 'Secondary Ghost',
+  args: {
+    variant: 'secondary-ghost',
+    children: 'Secondary Ghost',
+  },
+}
+
 export const Ghost: Story = {
   args: {
     variant: 'ghost',
@@ -97,6 +175,13 @@ export const Destructive: Story = {
   },
 }
 
+export const Success: Story = {
+  args: {
+    variant: 'success',
+    children: 'Success',
+  },
+}
+
 export const Link: Story = {
   args: {
     variant: 'link',
@@ -108,6 +193,24 @@ export const Icon: Story = {
   args: {
     size: 'icon',
     'aria-label': 'Icon button',
+    children: <Mail />,
+  },
+}
+
+export const IconSmall: Story = {
+  name: 'Icon (sm)',
+  args: {
+    size: 'icon-sm',
+    'aria-label': 'Small icon button',
+    children: <Mail />,
+  },
+}
+
+export const IconLarge: Story = {
+  name: 'Icon (lg)',
+  args: {
+    size: 'icon-lg',
+    'aria-label': 'Large icon button',
     children: <Mail />,
   },
 }
@@ -173,12 +276,17 @@ export const LinkComponent: Story = {
 export const Variants: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
-      <Button variant="default">Default</Button>
+      <Button variant="primary">Primary</Button>
+      <Button variant="primary-outline">Primary Outline</Button>
+      <Button variant="primary-ghost">Primary Ghost</Button>
       <Button variant="secondary">Secondary</Button>
+      <Button variant="secondary-outline">Secondary Outline</Button>
+      <Button variant="secondary-ghost">Secondary Ghost</Button>
       <Button variant="outline">Outline</Button>
       <Button variant="ghost">Ghost</Button>
       <Button variant="link">Link</Button>
       <Button variant="destructive">Destructive</Button>
+      <Button variant="success">Success</Button>
     </div>
   ),
 }
@@ -187,7 +295,7 @@ export const Sizes: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
       <Button size="sm">Small</Button>
-      <Button size="default">Default</Button>
+      <Button size="md">Medium</Button>
       <Button size="lg">Large</Button>
       <Button size="icon" aria-label="Icon">
         +
