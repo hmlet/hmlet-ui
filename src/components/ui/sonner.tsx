@@ -1,7 +1,7 @@
 'use client'
 
 import {useTheme} from 'next-themes'
-import {Toaster as Sonner, type ToasterProps} from 'sonner'
+import {toast, Toaster as Sonner, type ToasterProps} from 'sonner'
 
 const Toaster = ({...props}: ToasterProps) => {
   const {theme = 'system'} = useTheme()
@@ -22,4 +22,50 @@ const Toaster = ({...props}: ToasterProps) => {
   )
 }
 
-export {Toaster}
+type ShowToastArgs = {
+  type?: 'default' | 'success' | 'info' | 'warning' | 'error' | 'loading'
+  title: string
+  description?: string
+  duration?: number
+  closeButton?: boolean
+  action?: {label: string; onClick: () => void}
+  cancel?: {label: string; onClick: () => void}
+  onDismiss?: () => void
+}
+
+function showToast({
+  type = 'default',
+  title,
+  description,
+  duration,
+  closeButton,
+  action,
+  cancel,
+  onDismiss,
+}: ShowToastArgs) {
+  const options = {
+    description,
+    duration,
+    closeButton,
+    action,
+    cancel,
+    onDismiss,
+  }
+
+  switch (type) {
+    case 'success':
+      return toast.success(title, options)
+    case 'info':
+      return toast.info(title, options)
+    case 'warning':
+      return toast.warning(title, options)
+    case 'error':
+      return toast.error(title, options)
+    case 'loading':
+      return toast.loading(title, options)
+    default:
+      return toast(title, options)
+  }
+}
+
+export {Toaster, showToast}

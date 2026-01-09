@@ -6,6 +6,14 @@ const meta = {
   title: 'Showcase/ButtonShowcase',
   component: ButtonShowcase,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'A quick overview of the button variants, sizes, and common usage patterns in @hmlet/ui.',
+      },
+    },
+  },
 } satisfies Meta<typeof ButtonShowcase>
 
 export default meta

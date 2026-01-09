@@ -1,6 +1,425 @@
-@import './fonts.css';
-@import './tailwind.css';
-@import './theme.css';
+/* TYPOGRAPHY - Google Fonts Import */
+
+/* IBM Plex Serif - For English Headings */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;700&display=swap');
+
+/* Mulish - For English Body Text */
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700&display=swap');
+
+/* Noto Serif JP - For Japanese Headings */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&display=swap');
+
+/* Noto Sans JP - For Japanese Body Text */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap');
+
+@import 'tailwindcss' source(none);
+@import 'tw-animate-css';
+@source '../**/*.{js,ts,jsx,tsx}';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 16px;
+
+  /* Light Mode */
+  --background: #fcfbf9; /* Ivory 100 */
+  --foreground: #000000; /* Neutral 1000 */
+
+  --card: #ffffff; /* Neutral 100 - White cards */
+  --card-foreground: #000000; /* Neutral 1000 */
+
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+
+  /* Primary (Navy/Purple) */
+  --primary: #251f42; /* Primary 400 */
+  --primary-foreground: #ffffff;
+  --primary-dark: #1f1c32; /* Primary 500 */
+  --primary-light: #767091; /* Primary 300 */
+  --primary-lighter: #cecae0; /* Primary 200 */
+  --primary-lightest: #f1f0f5; /* Primary 100 */
+
+  /* Secondary (Coral/Peach) */
+  --secondary: #ff7960; /* Secondary 400 */
+  --secondary-foreground: #ffffff;
+  --secondary-dark: #8a4d58; /* Secondary 500 */
+  --secondary-light: #ffb2a3; /* Secondary 300 */
+  --secondary-lighter: #ffe1db; /* Secondary 200 */
+  --secondary-lightest: #fff0ed; /* Secondary 100 */
+
+  /* Neutrals */
+  --neutral-100: #ffffff;
+  --neutral-200: #f2f2f2;
+  --neutral-300: #cccccc;
+  --neutral-400: #b3b3b3;
+  --neutral-500: #999999;
+  --neutral-600: #7f7f7f;
+  --neutral-700: #505050;
+  --neutral-800: #262626;
+  --neutral-900: #1a1a1a;
+  --neutral-1000: #000000;
+
+  --muted: #f2f2f2; /* Neutral 200 */
+  --muted-foreground: #505050; /* Neutral 700 */
+
+  --accent: #ff7960; /* Secondary 400 - CTA Color */
+  --accent-foreground: #ffffff;
+  --accent-hover: #8a4d58; /* Secondary 500 */
+
+  /* Semantic Colors */
+  --destructive: #d17171; /* Error 400 */
+  --destructive-foreground: #ffffff;
+  --destructive-light: #d99898; /* Error 300 */
+  --destructive-lighter: #e3cccc; /* Error 200 */
+  --destructive-lightest: #f7f0f0; /* Error 100 */
+  --destructive-dark: #c24f4f; /* Error 500 */
+
+  --success: #02b16b; /* Success 400 */
+  --success-foreground: #ffffff;
+  --success-light: #70d4ac; /* Success 300 */
+  --success-lighter: #bee8d7; /* Success 200 */
+  --success-lightest: #e6f7f0; /* Success 100 */
+  --success-dark: #1e6942; /* Success 500 */
+
+  --error: #d17171; /* Error 400 */
+  --error-foreground: #ffffff;
+
+  --warning: #ffb2a3; /* Secondary 300 */
+  --warning-foreground: #1a1a1a;
+
+  --red: #f0d8cc; /* Red 100 */
+  --red-dark: #8a4d58; /* Red 500 */
+
+  --ivory: #fcfbf9; /* Ivory 100 */
+  --ivory-dark: #faf5f0; /* Ivory 200 */
+
+  /* UI Elements */
+  --border: #cccccc; /* Neutral 300 */
+  --input: #cccccc;
+  --input-background: #ffffff;
+  --switch-background: #b3b3b3;
+
+  --ring: #251f42; /* Primary 400 focus ring */
+
+  /* Chart colors */
+  --chart-1: #251f42; /* Primary 400 */
+  --chart-2: #ff7960; /* Secondary 400 */
+  --chart-3: #02b16b; /* Success 400 */
+  --chart-4: #d17171; /* Error 400 */
+  --chart-5: #767091; /* Primary 300 */
+
+  /* Spacing Scale */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+
+  /* Border Radius Scale */
+  --radius-none: 0;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* Sidebar */
+  --sidebar: #ffffff;
+  --sidebar-foreground: #000000;
+  --sidebar-primary: #251f42;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f1f0f5;
+  --sidebar-accent-foreground: #000000;
+  --sidebar-border: #cccccc;
+  --sidebar-ring: #251f42;
+
+  /* Typography Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+}
+
+.dark {
+  /* Dark Mode - CORRECT COLORS */
+  --background: #1f1c32; /* Primary 500 as dark background */
+  --foreground: #ffffff; /* White text */
+
+  --card: #251f42; /* Primary 400 - dark surface */
+  --card-foreground: #ffffff;
+
+  --popover: #251f42;
+  --popover-foreground: #ffffff;
+
+  /* Primary (lighter in dark mode) */
+  --primary: #cecae0; /* Primary 200 - lighter in dark mode */
+  --primary-foreground: #1f1c32;
+  --primary-dark: #251f42;
+  --primary-light: #f1f0f5;
+
+  /* Secondary (same in dark mode) */
+  --secondary: #ff7960; /* Secondary 400 */
+  --secondary-foreground: #ffffff;
+  --secondary-dark: #8a4d58;
+  --secondary-light: #ffb2a3;
+
+  --muted: #505050; /* Neutral 700 */
+  --muted-foreground: #cccccc; /* Neutral 300 */
+
+  --accent: #ff7960; /* Secondary 400 - CTA */
+  --accent-foreground: #ffffff;
+  --accent-hover: #ffb2a3;
+
+  /* Semantic Colors (lighter for dark mode) */
+  --destructive: #d99898; /* Error 300 - lighter for dark mode */
+  --destructive-foreground: #ffffff;
+
+  --success: #70d4ac; /* Success 300 - lighter for dark mode */
+  --success-foreground: #1f1c32;
+
+  --error: #d99898; /* Error 300 */
+  --error-foreground: #ffffff;
+
+  --warning: #ffe1db; /* Secondary 200 - lighter for dark mode */
+  --warning-foreground: #1f1c32;
+
+  /* UI Elements */
+  --border: #505050; /* Neutral 700 */
+  --input: #505050;
+  --input-background: #251f42;
+  --switch-background: #7f7f7f;
+
+  --ring: #ff7960;
+
+  /* Chart colors - Adjusted for dark mode */
+  --chart-1: #cecae0;
+  --chart-2: #ff7960;
+  --chart-3: #70d4ac;
+  --chart-4: #d99898;
+  --chart-5: #f1f0f5;
+
+  /* Sidebar dark */
+  --sidebar: #251f42;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #ff7960;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #505050;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #505050;
+  --sidebar-ring: #ff7960;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-light: var(--primary-light);
+  --color-primary-lighter: var(--primary-lighter);
+  --color-primary-lightest: var(--primary-lightest);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary-dark: var(--secondary-dark);
+  --color-secondary-light: var(--secondary-light);
+  --color-secondary-lighter: var(--secondary-lighter);
+  --color-secondary-lightest: var(--secondary-lightest);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-hover: var(--accent-hover);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-error: var(--error);
+  --color-error-foreground: var(--error-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Mulish', 'Noto Sans JP', sans-serif;
+  }
+
+  /* TYPOGRAPHY SYSTEM - IBM Plex Serif + Mulish */
+
+  html {
+    font-size: var(--font-size);
+  }
+
+  /* Headings - IBM Plex Serif */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'IBM Plex Serif', 'Noto Serif JP', serif;
+    line-height: 1.6; /* 160% */
+    letter-spacing: 0;
+  }
+
+  h1 {
+    font-size: 4.375rem; /* 70px */
+    font-weight: var(--font-weight-medium);
+  }
+
+  h2 {
+    font-size: 3.5rem; /* 56px */
+    font-weight: var(--font-weight-medium);
+  }
+
+  h3 {
+    font-size: 2.5rem; /* 40px */
+    font-weight: var(--font-weight-medium);
+  }
+
+  h4 {
+    font-size: 1.75rem; /* 28px */
+    font-weight: var(--font-weight-medium);
+  }
+
+  h5 {
+    font-size: 1.5rem; /* 24px */
+    font-weight: var(--font-weight-medium);
+  }
+
+  h6 {
+    font-size: 1.25rem; /* 20px */
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* Body Text - Mulish */
+  p,
+  label,
+  input,
+  textarea,
+  select,
+  button {
+    font-family: 'Mulish', 'Noto Sans JP', sans-serif;
+    line-height: 1.6; /* 160% */
+  }
+
+  /* Small text uses 140% line height */
+  .text-xs,
+  .text-sm {
+    line-height: 1.4; /* 140% for 14px & 12px */
+  }
+
+  label {
+    font-size: 1rem; /* 16px */
+    font-weight: var(--font-weight-medium);
+  }
+
+  button {
+    font-size: 1rem; /* 16px */
+    font-weight: var(--font-weight-semibold);
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: 1rem; /* 16px */
+    font-weight: var(--font-weight-regular);
+  }
+
+  /* Utility text classes */
+  .text-display-xl {
+    font-size: 3.25rem; /* 52px */
+    line-height: 1.6;
+  }
+
+  .text-display-lg {
+    font-size: 2rem; /* 32px */
+    line-height: 1.6;
+  }
+
+  .text-display-md {
+    font-size: 1.75rem; /* 28px */
+    line-height: 1.6;
+  }
+
+  .text-body-xl {
+    font-size: 1.5rem; /* 24px */
+    line-height: 1.6;
+  }
+
+  .text-body-lg {
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.6;
+  }
+
+  .text-body-md {
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.6;
+  }
+
+  .text-body-base {
+    font-size: 1rem; /* 16px */
+    line-height: 1.6;
+  }
+
+  .text-body-sm {
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.4;
+  }
+
+  .text-body-xs {
+    font-size: 0.75rem; /* 12px */
+    line-height: 1.4;
+  }
+}
 
 /* Sonner Toast Styles - Override with theme colors */
 [data-sonner-toaster][data-theme='light'],
