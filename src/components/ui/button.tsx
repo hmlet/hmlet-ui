@@ -10,6 +10,8 @@ const buttonVariants = cva(
     variants: {
       variant: {
         // Primary Variants
+        default:
+          'bg-primary text-primary-foreground hover:bg-primary-dark active:bg-primary-dark focus:border-primary focus:shadow-[0_0_0_3px_rgba(37,31,66,0.1)] shadow-sm hover:shadow-md',
         primary:
           'bg-primary text-primary-foreground hover:bg-primary-dark active:bg-primary-dark focus:border-primary focus:shadow-[0_0_0_3px_rgba(37,31,66,0.1)] shadow-sm hover:shadow-md',
         'primary-outline':

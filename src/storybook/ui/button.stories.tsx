@@ -31,6 +31,7 @@ const meta = {
   argTypes: {
     variant: {
       options: [
+        'default',
         'primary',
         'primary-outline',
         'primary-ghost',
