@@ -16,6 +16,8 @@ const meta = {
         'size',
         'asChild',
         'disabled',
+        'loading',
+        'loadingText',
         'type',
         'onClick',
         'className',
@@ -24,7 +26,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Key props: `variant`, `size`, `asChild`, `disabled`, `type`, `onClick`, `className`, `children`.',
+          'Key props: `variant`, `size`, `asChild`, `disabled`, `loading`, `loadingText`, `type`, `onClick`, `className`, `children`.',
       },
     },
   },
@@ -52,6 +54,8 @@ const meta = {
     },
     asChild: {control: 'boolean'},
     disabled: {control: 'boolean'},
+    loading: {control: 'boolean'},
+    loadingText: {control: 'text'},
     className: {control: 'text'},
   },
   args: {
@@ -95,6 +99,9 @@ export const Example: Story = {
       <Button disabled>
         <Loader2 className="animate-spin" />
         Spinner
+      </Button>
+      <Button loading loadingText="Loading...">
+        Submit
       </Button>
     </div>
   ),

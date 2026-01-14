@@ -1,6 +1,7 @@
 import * as React from 'react'
 import {Slot} from '@radix-ui/react-slot'
 import {cva, type VariantProps} from 'class-variance-authority'
+import {Loader2} from 'lucide-react'
 
 import {cn} from './utils'
 
@@ -56,24 +57,51 @@ const buttonVariants = cva(
   },
 )
 
+function ButtonSpinner({className}: {className?: string}) {
+  return (
+    <Loader2
+      aria-hidden="true"
+      className={cn('animate-spin text-current', className)}
+    />
+  )
+}
+
 function Button({
   className,
   variant,
   size,
   asChild = false,
+  loading = false,
+  loadingText,
   ...props
 }: React.ComponentProps<'button'> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean
+    loading?: boolean
+    loadingText?: React.ReactNode
   }) {
   const Comp = asChild ? Slot : 'button'
+  const disabled = props.disabled || loading
 
   return (
     <Comp
       data-slot="button"
+      data-loading={loading ? '' : undefined}
+      aria-busy={loading || undefined}
+      aria-disabled={disabled || undefined}
+      disabled={asChild ? undefined : disabled}
       className={cn(buttonVariants({variant, size, className}))}
       {...props}
-    />
+    >
+      {loading ? (
+        <>
+          <ButtonSpinner className="size-4" />
+          {loadingText ?? props.children}
+        </>
+      ) : (
+        props.children
+      )}
+    </Comp>
   )
 }
 

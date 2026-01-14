@@ -93,7 +93,6 @@
     "lucide-react": "0.487.0",
     "next-themes": "0.4.6",
     "react-day-picker": "8.10.1",
-    "react-hook-form": "7.55.0",
     "react-resizable-panels": "2.1.7",
     "recharts": "2.15.2",
     "sonner": "2.0.3",
@@ -104,6 +103,7 @@
     "zod": "^4.3.5"
   },
   "devDependencies": {
+    "react-hook-form": "^7.71.1",
     "@commitlint/cli": "^20.2.0",
     "@commitlint/config-conventional": "^20.2.0",
     "@eslint/js": "^9.39.1",
@@ -157,7 +157,8 @@
   "peerDependencies": {
     "react": ">=18 <20",
     "react-dom": ">=18 <20",
-    "tailwindcss": ">=4"
+    "tailwindcss": ">=4",
+    "react-hook-form": ">=7.71.0 <8"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,cjs,mjs}": [
