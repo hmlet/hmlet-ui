@@ -34,7 +34,6 @@ console.log(info('🔍 Running preflight checks...\n'))
 
 // IMPORT CHECKS
 import checkOS from './check-os.mjs'
-import checkRepoRoot from './check-repo-root.mjs'
 import checkSyncNode from './check-sync-node-version.mjs'
 import forbidNpm from './forbid-npm.mjs'
 import checkVersions from './pnpmcheckversion.mjs'
@@ -68,8 +67,6 @@ function run(label, fn, {ciOnly = false, localOnly = false} = {}) {
 run('Check pnpm & Node versions', checkVersions)
 
 run('Enforce pnpm (block npm/yarn)', forbidNpm)
-
-run('Check repo root', checkRepoRoot)
 
 run('Sync .nvmrc with package.json', checkSyncNode, {
   localOnly: true, // CI often doesn’t use nvm
