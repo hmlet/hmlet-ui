@@ -2,7 +2,19 @@ import {Moon, Sun} from 'lucide-react'
 import {Button} from './ui/button'
 import {useEffect, useState} from 'react'
 
-export function ThemeToggle() {
+type IconComponent = React.ComponentType<{className?: string}>
+
+export type ThemeToggleProps = {
+  LightIcon?: IconComponent
+  DarkIcon?: IconComponent
+  srText?: string
+}
+
+export function ThemeToggle({
+  LightIcon = Moon,
+  DarkIcon = Sun,
+  srText,
+}: ThemeToggleProps) {
   const [isDark, setIsDark] = useState(false)
 
   useEffect(() => {
@@ -21,8 +33,12 @@ export function ThemeToggle() {
       onClick={() => setIsDark(!isDark)}
       className="rounded-full"
     >
-      {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-      <span className="sr-only">Toggle theme</span>
+      {isDark ? (
+        <DarkIcon className="h-5 w-5" />
+      ) : (
+        <LightIcon className="h-5 w-5" />
+      )}
+      {srText ? <span className="sr-only">{srText}</span> : null}
     </Button>
   )
 }
