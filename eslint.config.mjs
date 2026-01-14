@@ -7,6 +7,10 @@ import importPlugin from 'eslint-plugin-import'
 import jsxA11y from 'eslint-plugin-jsx-a11y'
 import prettier from 'eslint-plugin-prettier'
 import prettierConfig from 'eslint-config-prettier'
+import path from 'node:path'
+import {fileURLToPath} from 'node:url'
+
+const tsconfigRootDir = path.dirname(fileURLToPath(import.meta.url))
 
 export default [
   // Ignore generated & build files
@@ -34,6 +38,7 @@ export default [
       globals: globals.browser,
       parserOptions: {
         ecmaFeatures: {jsx: true},
+        tsconfigRootDir,
       },
     },
     settings: {
@@ -97,4 +102,14 @@ export default [
 
   // Disable ESLint rules that conflict with Prettier
   prettierConfig,
+
+  // Ensure TS parser always has a single, stable tsconfigRootDir.
+  {
+    files: ['**/*.{ts,tsx,mts,cts}'],
+    languageOptions: {
+      parserOptions: {
+        tsconfigRootDir,
+      },
+    },
+  },
 ]
