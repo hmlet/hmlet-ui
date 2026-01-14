@@ -18,6 +18,23 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@layer base {
+  button,
+  input[type='button'],
+  input[type='submit'],
+  input[type='reset'],
+  a[href],
+  [role='button'],
+  summary,
+  select,
+  input[type='checkbox'],
+  input[type='radio'],
+  input[type='range'],
+  label[for] {
+    @apply cursor-pointer;
+  }
+}
+
 :root {
   --font-size: 16px;
 
