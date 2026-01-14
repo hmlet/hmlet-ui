@@ -14,12 +14,14 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "style": "./dist/styles/index.css",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
+    "./styles.css": "./dist/styles/index.css",
     "./styles/*": "./dist/styles/*",
     "./mcp": "./mcp/server.mjs",
     "./package.json": "./package.json"
