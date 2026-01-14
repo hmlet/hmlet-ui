@@ -1,7 +1,7 @@
 import React from 'react'
 import {cva, type VariantProps} from 'class-variance-authority'
 import {cn} from '../ui/utils'
-import type {WithNumberish} from './types'
+import {normalizeNumberish, type WithNumberish} from './types'
 
 /**
  * Stack - One-dimensional layout component
@@ -57,7 +57,7 @@ const stackVariants = cva('flex', {
   },
   defaultVariants: {
     direction: 'vertical',
-    gap: '4',
+    gap: 4,
     align: 'stretch',
     justify: 'start',
     wrap: 'nowrap',
@@ -92,7 +92,13 @@ export const Stack = React.forwardRef<HTMLDivElement, StackProps>(
       <Component
         ref={ref}
         className={cn(
-          stackVariants({direction, gap, align, justify, wrap}),
+          stackVariants({
+            direction,
+            gap: normalizeNumberish(gap),
+            align,
+            justify,
+            wrap,
+          }),
           className,
         )}
         {...props}

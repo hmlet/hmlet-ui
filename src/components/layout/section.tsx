@@ -1,7 +1,7 @@
 import React from 'react'
 import {cva, type VariantProps} from 'class-variance-authority'
 import {cn} from '../ui/utils'
-import type {WithNumberish} from './types'
+import {normalizeNumberish, type WithNumberish} from './types'
 
 /**
  * Section - Page-level vertical grouping
@@ -37,7 +37,7 @@ const sectionVariants = cva('w-full', {
     },
   },
   defaultVariants: {
-    paddingY: '12',
+    paddingY: 12,
     background: 'none',
   },
 })
@@ -68,7 +68,10 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
     return (
       <Component
         ref={ref}
-        className={cn(sectionVariants({paddingY, background}), className)}
+        className={cn(
+          sectionVariants({paddingY: normalizeNumberish(paddingY), background}),
+          className,
+        )}
         {...props}
       >
         {children}

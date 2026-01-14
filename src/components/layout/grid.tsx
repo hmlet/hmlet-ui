@@ -1,7 +1,7 @@
 import React from 'react'
 import {cva, type VariantProps} from 'class-variance-authority'
 import {cn} from '../ui/utils'
-import type {WithNumberish} from './types'
+import {normalizeNumberish, type WithNumberish} from './types'
 
 /**
  * Grid - Two-dimensional layout system
@@ -64,8 +64,8 @@ const gridVariants = cva('grid', {
     },
   },
   defaultVariants: {
-    columns: '1',
-    gap: '4',
+    columns: 1,
+    gap: 4,
     autoFlow: 'row',
   },
 })
@@ -101,7 +101,13 @@ export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
       <Component
         ref={ref}
         className={cn(
-          gridVariants({columns, gap, autoFlow, alignItems, justifyItems}),
+          gridVariants({
+            columns: normalizeNumberish(columns),
+            gap: normalizeNumberish(gap),
+            autoFlow,
+            alignItems,
+            justifyItems,
+          }),
           className,
         )}
         {...props}

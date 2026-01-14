@@ -1,7 +1,7 @@
 import React from 'react'
 import {cva, type VariantProps} from 'class-variance-authority'
 import {cn} from '../ui/utils'
-import type {WithNumberish} from './types'
+import {normalizeNumberish, type WithNumberish} from './types'
 
 /**
  * GridItem - Grid child placement controller
@@ -58,7 +58,7 @@ const gridItemVariants = cva('', {
     },
   },
   defaultVariants: {
-    colSpan: '1',
+    colSpan: 1,
   },
 })
 
@@ -92,7 +92,12 @@ export const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
       <Component
         ref={ref}
         className={cn(
-          gridItemVariants({colSpan, rowSpan, alignSelf, justifySelf}),
+          gridItemVariants({
+            colSpan: normalizeNumberish(colSpan),
+            rowSpan: normalizeNumberish(rowSpan),
+            alignSelf,
+            justifySelf,
+          }),
           className,
         )}
         {...props}

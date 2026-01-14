@@ -1,7 +1,7 @@
 import React from 'react'
 import {cva, type VariantProps} from 'class-variance-authority'
 import {cn} from '../ui/utils'
-import type {WithNumberish} from './types'
+import {normalizeNumberish, type WithNumberish} from './types'
 
 /**
  * Inline - Horizontal layout for inline content
@@ -34,7 +34,7 @@ const inlineVariants = cva('inline-flex flex-wrap', {
     },
   },
   defaultVariants: {
-    gap: '2',
+    gap: 2,
     align: 'center',
   },
 })
@@ -55,7 +55,10 @@ export const Inline = React.forwardRef<HTMLDivElement, InlineProps>(
     return (
       <Component
         ref={ref}
-        className={cn(inlineVariants({gap, align}), className)}
+        className={cn(
+          inlineVariants({gap: normalizeNumberish(gap), align}),
+          className,
+        )}
         {...props}
       >
         {children}

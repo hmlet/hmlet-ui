@@ -1,7 +1,7 @@
 import React from 'react'
 import {cva, type VariantProps} from 'class-variance-authority'
 import {cn} from '../ui/utils'
-import type {WithNumberish} from './types'
+import {normalizeNumberish, type WithNumberish} from './types'
 
 /**
  * Container - Content width constrainer
@@ -34,7 +34,7 @@ const containerVariants = cva('mx-auto w-full', {
   },
   defaultVariants: {
     maxWidth: 'xl',
-    padding: '4',
+    padding: 4,
   },
 })
 
@@ -57,7 +57,10 @@ export const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
     return (
       <Component
         ref={ref}
-        className={cn(containerVariants({maxWidth, padding}), className)}
+        className={cn(
+          containerVariants({maxWidth, padding: normalizeNumberish(padding)}),
+          className,
+        )}
         {...props}
       >
         {children}

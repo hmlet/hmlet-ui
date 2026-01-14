@@ -38,19 +38,16 @@ type TypographyVariant = NonNullable<
 >
 
 type TypographyOwnProps = VariantProps<typeof typographyVariants> & {
-  as?: keyof React.JSX.IntrinsicElements
+  as?: keyof HTMLElementTagNameMap
   asChild?: boolean
 }
 
-type TypographyProps = Omit<
-  React.ComponentProps<'p'>,
-  keyof TypographyOwnProps
-> &
+type TypographyProps = Omit<React.HTMLAttributes<HTMLElement>, 'color'> &
   TypographyOwnProps
 
 const defaultTagByVariant: Record<
   TypographyVariant,
-  keyof React.JSX.IntrinsicElements
+  keyof HTMLElementTagNameMap
 > = {
   h1: 'h1',
   h2: 'h2',

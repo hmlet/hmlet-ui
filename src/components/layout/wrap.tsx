@@ -1,7 +1,7 @@
 import React from 'react'
 import {cva, type VariantProps} from 'class-variance-authority'
 import {cn} from '../ui/utils'
-import type {WithNumberish} from './types'
+import {normalizeNumberish, type WithNumberish} from './types'
 
 /**
  * Wrap - Wrapping horizontal layout
@@ -42,7 +42,7 @@ const wrapVariants = cva('flex flex-wrap', {
     },
   },
   defaultVariants: {
-    gap: '2',
+    gap: 2,
     align: 'start',
     justify: 'start',
   },
@@ -65,7 +65,10 @@ export const Wrap = React.forwardRef<HTMLDivElement, WrapProps>(
     return (
       <Component
         ref={ref}
-        className={cn(wrapVariants({gap, align, justify}), className)}
+        className={cn(
+          wrapVariants({gap: normalizeNumberish(gap), align, justify}),
+          className,
+        )}
         {...props}
       >
         {children}

@@ -1,7 +1,7 @@
 import React from 'react'
 import {cva, type VariantProps} from 'class-variance-authority'
 import {cn} from '../ui/utils'
-import type {WithNumberish} from './types'
+import {normalizeNumberish, type WithNumberish} from './types'
 
 /**
  * Box - The most basic layout primitive
@@ -114,7 +114,14 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
       <Component
         ref={ref}
         className={cn(
-          boxVariants({padding, paddingX, paddingY, width, height, display}),
+          boxVariants({
+            padding: normalizeNumberish(padding),
+            paddingX: normalizeNumberish(paddingX),
+            paddingY: normalizeNumberish(paddingY),
+            width,
+            height,
+            display,
+          }),
           className,
         )}
         {...props}
