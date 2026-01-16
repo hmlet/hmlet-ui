@@ -1,0 +1,17 @@
+/* Storybook preview layout override: only affects Storybook, not main app */
+.sb-show-main {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 32px !important; /* adjust as needed */
+  background: #18142a; /* optional: match your theme */
+}
+
+.docs-story {
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 32px !important; /* adjust as needed */
+  background: #18142a; /* optional */
+}

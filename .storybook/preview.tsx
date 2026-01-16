@@ -1,6 +1,7 @@
 import type {Preview} from '@storybook/react'
 
 import '../src/styles/index.css'
+import './storybook-preview.css'
 
 const preview: Preview = {
   globalTypes: {
@@ -27,7 +28,7 @@ const preview: Preview = {
       }
 
       return (
-        <div className="min-h-screen bg-background text-foreground p-6">
+        <div className="bg-background text-foreground p-6">
           <Story />
         </div>
       )
