@@ -29,17 +29,17 @@ const meta = {
   argTypes: {
     padding: {
       control: {type: 'select'},
-      options: ['none', '1', '2', '3', '4', '6', '8', '12', '16', '20'],
+      options: ['none', 1, 2, 3, 4, 6, 8, 12, 16, 20],
       description: 'Applies padding on all sides using spacing tokens.',
     },
     paddingX: {
       control: {type: 'select'},
-      options: ['none', '1', '2', '3', '4', '6', '8', '12', '16', '20'],
+      options: ['none', 1, 2, 3, 4, 6, 8, 12, 16, 20],
       description: 'Applies horizontal padding (left/right).',
     },
     paddingY: {
       control: {type: 'select'},
-      options: ['none', '1', '2', '3', '4', '6', '8', '12', '16', '20'],
+      options: ['none', 1, 2, 3, 4, 6, 8, 12, 16, 20],
       description: 'Applies vertical padding (top/bottom).',
     },
     width: {
@@ -65,7 +65,7 @@ const meta = {
     children: {control: 'text'},
   },
   args: {
-    padding: '4',
+    padding: 4,
     width: 'full',
     children: 'Box content',
   },
@@ -90,18 +90,18 @@ export const Sizing: Story = {
   name: 'Sizing',
   render: () => (
     <div className="grid max-w-3xl grid-cols-1 gap-4 md:grid-cols-2">
-      <Box padding="4" width="full" className="rounded-md border bg-card">
+      <Box padding={4} width="full" className="rounded-md border bg-card">
         width=&quot;full&quot;
       </Box>
-      <Box padding="4" width="fit" className="rounded-md border bg-card">
+      <Box padding={4} width="fit" className="rounded-md border bg-card">
         width=&quot;fit&quot;
       </Box>
-      <Box padding="4" height="full" className="rounded-md border bg-card">
+      <Box padding={4} height="full" className="rounded-md border bg-card">
         height=&quot;full&quot; (parent defines height)
       </Box>
       <div className="h-24 rounded-md border bg-muted/30 p-2">
         <Box
-          padding="2"
+          padding={2}
           height="full"
           width="full"
           className="rounded-md border bg-card"

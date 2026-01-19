@@ -1,3 +1,4 @@
+export * from './form-input'
 export * from './count-badge'
 export * from './accordion'
 export * from './alert'
