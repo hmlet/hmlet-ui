@@ -1,7 +1,6 @@
 import React from 'react'
 import {cva, type VariantProps} from 'class-variance-authority'
 import {cn} from '../ui/utils'
-import {normalizeNumberish, type WithNumberish} from './types'
 
 /**
  * Grid - Two-dimensional layout system
@@ -32,6 +31,16 @@ const gridVariants = cva('grid', {
       10: 'grid-cols-10',
       11: 'grid-cols-11',
       12: 'grid-cols-12',
+      // Responsive variants
+      'responsive-2': 'grid-cols-1 md:grid-cols-2',
+      'responsive-3': 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+      'responsive-4': 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4',
+      'responsive-1-2-3-4':
+        'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4',
+      'responsive-2-3-4-5':
+        'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5',
+      'responsive-auto-fit': 'grid-cols-[repeat(auto-fit,minmax(280px,1fr))]',
+      'responsive-auto-fill': 'grid-cols-[repeat(auto-fill,minmax(280px,1fr))]',
     },
     gap: {
       0: 'gap-0',
@@ -70,16 +79,12 @@ const gridVariants = cva('grid', {
   },
 })
 
-type GridVariantProps = VariantProps<typeof gridVariants>
-
 export interface GridProps
   extends
     React.HTMLAttributes<HTMLDivElement>,
-    Omit<GridVariantProps, 'columns' | 'gap'> {
+    VariantProps<typeof gridVariants> {
   as?: React.ElementType
   children?: React.ReactNode
-  columns?: WithNumberish<GridVariantProps['columns']>
-  gap?: WithNumberish<GridVariantProps['gap']>
 }
 
 export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
@@ -101,13 +106,7 @@ export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
       <Component
         ref={ref}
         className={cn(
-          gridVariants({
-            columns: normalizeNumberish(columns),
-            gap: normalizeNumberish(gap),
-            autoFlow,
-            alignItems,
-            justifyItems,
-          }),
+          gridVariants({columns, gap, autoFlow, alignItems, justifyItems}),
           className,
         )}
         {...props}
