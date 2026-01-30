@@ -491,3 +491,44 @@
 .border-warning {
   border-color: var(--warning);
 }
+/* Smooth expand */
+@keyframes collapsible-down {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: var(--radix-collapsible-content-height);
+    opacity: 1;
+  }
+}
+
+/* Smooth collapse */
+@keyframes collapsible-up {
+  from {
+    height: var(--radix-collapsible-content-height);
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+/* OPEN: slower, softer */
+.animate-collapsible-down {
+  animation: collapsible-down 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* CLOSE: quicker, still smooth */
+.animate-collapsible-up {
+  animation: collapsible-up 220ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .animate-collapsible-down,
+  .animate-collapsible-up {
+    animation-duration: 1ms !important;
+  }
+}
