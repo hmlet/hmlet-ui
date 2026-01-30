@@ -424,18 +424,39 @@ function Sidebar({
 
 function SidebarTrigger({
   className,
+  p,
+  px,
+  py,
+  m,
+  mx,
+  my,
+  shadow,
+  w,
+  h,
+  display,
   onClick,
   ...props
-}: React.ComponentProps<typeof Button>) {
+}: React.ComponentProps<typeof Button> & SidebarBoxProps) {
   const {toggleSidebar} = useSidebar()
-
+  const boxClasses = getSidebarUtilityClasses({
+    p,
+    px,
+    py,
+    m,
+    mx,
+    my,
+    shadow,
+    w,
+    h,
+    display,
+  })
   return (
     <Button
       data-sidebar="trigger"
       data-slot="sidebar-trigger"
       variant="ghost"
       size="icon"
-      className={cn('size-7', className)}
+      className={cn('size-7 cursor-pointer', boxClasses, className)}
       onClick={event => {
         onClick?.(event)
         toggleSidebar()
@@ -448,9 +469,33 @@ function SidebarTrigger({
   )
 }
 
-function SidebarRail({className, ...props}: React.ComponentProps<'button'>) {
+function SidebarRail({
+  className,
+  p,
+  px,
+  py,
+  m,
+  mx,
+  my,
+  shadow,
+  w,
+  h,
+  display,
+  ...props
+}: React.ComponentProps<'button'> & SidebarBoxProps) {
   const {toggleSidebar} = useSidebar()
-
+  const boxClasses = getSidebarUtilityClasses({
+    p,
+    px,
+    py,
+    m,
+    mx,
+    my,
+    shadow,
+    w,
+    h,
+    display,
+  })
   return (
     <button
       data-sidebar="rail"
@@ -460,12 +505,13 @@ function SidebarRail({className, ...props}: React.ComponentProps<'button'>) {
       onClick={toggleSidebar}
       title="Toggle Sidebar"
       className={cn(
-        'hover:after:bg-sidebar-border absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] sm:flex',
+        'hover:after:bg-sidebar-border absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] sm:flex cursor-pointer',
         'in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize',
         '[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize',
         'hover:group-data-[collapsible=offcanvas]:bg-sidebar group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full',
         '[[data-side=left][data-collapsible=offcanvas]_&]:-right-2',
         '[[data-side=right][data-collapsible=offcanvas]_&]:-left-2',
+        boxClasses,
         className,
       )}
       {...props}
@@ -473,13 +519,39 @@ function SidebarRail({className, ...props}: React.ComponentProps<'button'>) {
   )
 }
 
-function SidebarInset({className, ...props}: React.ComponentProps<'main'>) {
+function SidebarInset({
+  className,
+  p,
+  px,
+  py,
+  m,
+  mx,
+  my,
+  shadow,
+  w,
+  h,
+  display,
+  ...props
+}: React.ComponentProps<'main'> & SidebarBoxProps) {
+  const boxClasses = getSidebarUtilityClasses({
+    p,
+    px,
+    py,
+    m,
+    mx,
+    my,
+    shadow,
+    w,
+    h,
+    display,
+  })
   return (
     <main
       data-slot="sidebar-inset"
       className={cn(
         'bg-background relative flex w-full flex-1 flex-col',
         'md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2',
+        boxClasses,
         className,
       )}
       {...props}
@@ -489,35 +561,111 @@ function SidebarInset({className, ...props}: React.ComponentProps<'main'>) {
 
 function SidebarInput({
   className,
+  p,
+  px,
+  py,
+  m,
+  mx,
+  my,
+  shadow,
+  w,
+  h,
+  display,
   ...props
-}: React.ComponentProps<typeof Input>) {
+}: React.ComponentProps<typeof Input> & SidebarBoxProps) {
+  const boxClasses = getSidebarUtilityClasses({
+    p,
+    px,
+    py,
+    m,
+    mx,
+    my,
+    shadow,
+    w,
+    h,
+    display,
+  })
   return (
     <Input
       data-slot="sidebar-input"
       data-sidebar="input"
-      className={cn('bg-background h-8 w-full shadow-none', className)}
+      className={cn(
+        'bg-background h-8 w-full shadow-none',
+        boxClasses,
+        className,
+      )}
       {...props}
     />
   )
 }
 
-function SidebarHeader({className, ...props}: React.ComponentProps<'div'>) {
+function SidebarHeader({
+  className,
+  p,
+  px,
+  py,
+  m,
+  mx,
+  my,
+  shadow,
+  w,
+  h,
+  display,
+  ...props
+}: React.ComponentProps<'div'> & SidebarBoxProps) {
+  const boxClasses = getSidebarUtilityClasses({
+    p,
+    px,
+    py,
+    m,
+    mx,
+    my,
+    shadow,
+    w,
+    h,
+    display,
+  })
   return (
     <div
       data-slot="sidebar-header"
       data-sidebar="header"
-      className={cn('flex flex-col gap-2 p-2', className)}
+      className={cn('flex flex-col gap-2 p-2', boxClasses, className)}
       {...props}
     />
   )
 }
 
-function SidebarFooter({className, ...props}: React.ComponentProps<'div'>) {
+function SidebarFooter({
+  className,
+  p,
+  px,
+  py,
+  m,
+  mx,
+  my,
+  shadow,
+  w,
+  h,
+  display,
+  ...props
+}: React.ComponentProps<'div'> & SidebarBoxProps) {
+  const boxClasses = getSidebarUtilityClasses({
+    p,
+    px,
+    py,
+    m,
+    mx,
+    my,
+    shadow,
+    w,
+    h,
+    display,
+  })
   return (
     <div
       data-slot="sidebar-footer"
       data-sidebar="footer"
-      className={cn('flex flex-col gap-2 p-2', className)}
+      className={cn('flex flex-col gap-2 p-2', boxClasses, className)}
       {...props}
     />
   )
