@@ -14,7 +14,7 @@ import {cn} from '../ui/utils'
  * </Center>
  */
 
-const centerVariants = cva('flex items-center justify-center', {
+const centerVariants = cva('items-center justify-center', {
   variants: {
     inline: {
       true: 'inline-flex',
@@ -25,10 +25,64 @@ const centerVariants = cva('flex items-center justify-center', {
       full: 'h-full',
       screen: 'h-screen',
     },
+    padding: {
+      none: '',
+      1: 'p-[var(--spacing-1)]',
+      2: 'p-[var(--spacing-2)]',
+      3: 'p-[var(--spacing-3)]',
+      4: 'p-[var(--spacing-4)]',
+      6: 'p-[var(--spacing-6)]',
+      8: 'p-[var(--spacing-8)]',
+      12: 'p-[var(--spacing-12)]',
+      16: 'p-[var(--spacing-16)]',
+      20: 'p-[var(--spacing-20)]',
+    },
+    margin: {
+      none: '',
+      1: 'm-[var(--spacing-1)]',
+      2: 'm-[var(--spacing-2)]',
+      3: 'm-[var(--spacing-3)]',
+      4: 'm-[var(--spacing-4)]',
+      6: 'm-[var(--spacing-6)]',
+      8: 'm-[var(--spacing-8)]',
+      12: 'm-[var(--spacing-12)]',
+      16: 'm-[var(--spacing-16)]',
+      20: 'm-[var(--spacing-20)]',
+    },
+    width: {
+      auto: 'w-auto',
+      full: 'w-full',
+      fit: 'w-fit',
+      screen: 'w-screen',
+    },
+    shadow: {
+      none: 'shadow-none',
+      sm: 'shadow-sm',
+      md: 'shadow-md',
+      lg: 'shadow-lg',
+      xl: 'shadow-xl',
+      '2xl': 'shadow-2xl',
+      inner: 'shadow-inner',
+      outline: 'shadow-outline',
+      default: 'shadow',
+    },
+    display: {
+      block: 'block',
+      inline: 'inline',
+      'inline-block': 'inline-block',
+      flex: 'flex',
+      'inline-flex': 'inline-flex',
+      grid: 'grid',
+    },
   },
   defaultVariants: {
     inline: false,
     height: 'auto',
+    padding: 'none',
+    margin: 'none',
+    width: 'auto',
+    shadow: 'none',
+    display: 'flex',
   },
 })
 
@@ -42,13 +96,36 @@ export interface CenterProps
 
 export const Center = React.forwardRef<HTMLDivElement, CenterProps>(
   (
-    {as: Component = 'div', className, inline, height, children, ...props},
+    {
+      as: Component = 'div',
+      className,
+      inline,
+      height,
+      padding,
+      margin,
+      width,
+      shadow,
+      display,
+      children,
+      ...props
+    },
     ref,
   ) => {
     return (
       <Component
         ref={ref}
-        className={cn(centerVariants({inline, height}), className)}
+        className={cn(
+          centerVariants({
+            inline,
+            height,
+            padding,
+            margin,
+            width,
+            shadow,
+            display,
+          }),
+          className,
+        )}
         {...props}
       >
         {children}
