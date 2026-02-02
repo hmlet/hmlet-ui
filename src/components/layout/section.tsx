@@ -26,7 +26,7 @@ const sectionVariants = cva('w-full', {
       16: 'py-[var(--spacing-16)]',
       20: 'py-[var(--spacing-20)]',
     },
-    padding: {
+    p: {
       none: '',
       1: 'p-[var(--spacing-1)]',
       2: 'p-[var(--spacing-2)]',
@@ -38,7 +38,31 @@ const sectionVariants = cva('w-full', {
       16: 'p-[var(--spacing-16)]',
       20: 'p-[var(--spacing-20)]',
     },
-    margin: {
+    px: {
+      none: '',
+      1: 'px-[var(--spacing-1)]',
+      2: 'px-[var(--spacing-2)]',
+      3: 'px-[var(--spacing-3)]',
+      4: 'px-[var(--spacing-4)]',
+      6: 'px-[var(--spacing-6)]',
+      8: 'px-[var(--spacing-8)]',
+      12: 'px-[var(--spacing-12)]',
+      16: 'px-[var(--spacing-16)]',
+      20: 'px-[var(--spacing-20)]',
+    },
+    py: {
+      none: '',
+      1: 'py-[var(--spacing-1)]',
+      2: 'py-[var(--spacing-2)]',
+      3: 'py-[var(--spacing-3)]',
+      4: 'py-[var(--spacing-4)]',
+      6: 'py-[var(--spacing-6)]',
+      8: 'py-[var(--spacing-8)]',
+      12: 'py-[var(--spacing-12)]',
+      16: 'py-[var(--spacing-16)]',
+      20: 'py-[var(--spacing-20)]',
+    },
+    m: {
       none: '',
       1: 'm-[var(--spacing-1)]',
       2: 'm-[var(--spacing-2)]',
@@ -49,6 +73,30 @@ const sectionVariants = cva('w-full', {
       12: 'm-[var(--spacing-12)]',
       16: 'm-[var(--spacing-16)]',
       20: 'm-[var(--spacing-20)]',
+    },
+    mx: {
+      none: '',
+      1: 'mx-[var(--spacing-1)]',
+      2: 'mx-[var(--spacing-2)]',
+      3: 'mx-[var(--spacing-3)]',
+      4: 'mx-[var(--spacing-4)]',
+      6: 'mx-[var(--spacing-6)]',
+      8: 'mx-[var(--spacing-8)]',
+      12: 'mx-[var(--spacing-12)]',
+      16: 'mx-[var(--spacing-16)]',
+      20: 'mx-[var(--spacing-20)]',
+    },
+    my: {
+      none: '',
+      1: 'my-[var(--spacing-1)]',
+      2: 'my-[var(--spacing-2)]',
+      3: 'my-[var(--spacing-3)]',
+      4: 'my-[var(--spacing-4)]',
+      6: 'my-[var(--spacing-6)]',
+      8: 'my-[var(--spacing-8)]',
+      12: 'my-[var(--spacing-12)]',
+      16: 'my-[var(--spacing-16)]',
+      20: 'my-[var(--spacing-20)]',
     },
     width: {
       auto: 'w-auto',
@@ -92,8 +140,12 @@ const sectionVariants = cva('w-full', {
   },
   defaultVariants: {
     paddingY: 12,
-    padding: 'none',
-    margin: 'none',
+    p: 'none',
+    px: 'none',
+    py: 'none',
+    m: 'none',
+    mx: 'none',
+    my: 'none',
     width: 'full',
     height: 'auto',
     shadow: 'none',
@@ -107,16 +159,20 @@ type SectionVariantProps = VariantProps<typeof sectionVariants>
 export interface SectionProps
   extends
     React.HTMLAttributes<HTMLElement>,
-    Omit<SectionVariantProps, 'paddingY'> {
+    Omit<SectionVariantProps, 'paddingY' | 'padding' | 'margin'> {
   as?: React.ElementType
   children?: React.ReactNode
   paddingY?: 6 | 8 | 12 | 16 | 20
-  padding?: SectionVariantProps['padding']
-  margin?: SectionVariantProps['margin']
-  width?: SectionVariantProps['width']
-  height?: SectionVariantProps['height']
-  shadow?: SectionVariantProps['shadow']
-  display?: SectionVariantProps['display']
+  p?: VariantProps<typeof sectionVariants>['p']
+  px?: VariantProps<typeof sectionVariants>['px']
+  py?: VariantProps<typeof sectionVariants>['py']
+  m?: VariantProps<typeof sectionVariants>['m']
+  mx?: VariantProps<typeof sectionVariants>['mx']
+  my?: VariantProps<typeof sectionVariants>['my']
+  width?: VariantProps<typeof sectionVariants>['width']
+  height?: VariantProps<typeof sectionVariants>['height']
+  shadow?: VariantProps<typeof sectionVariants>['shadow']
+  display?: VariantProps<typeof sectionVariants>['display']
 }
 
 export const Section = React.forwardRef<HTMLElement, SectionProps>(
@@ -125,8 +181,12 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
       as: Component = 'section',
       className,
       paddingY,
-      padding,
-      margin,
+      p,
+      px,
+      py,
+      m,
+      mx,
+      my,
       width,
       height,
       shadow,
@@ -143,8 +203,12 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
         className={cn(
           sectionVariants({
             paddingY,
-            padding,
-            margin,
+            p,
+            px,
+            py,
+            m,
+            mx,
+            my,
             width,
             height,
             shadow,

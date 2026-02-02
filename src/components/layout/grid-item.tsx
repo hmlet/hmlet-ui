@@ -1,7 +1,7 @@
 import React from 'react'
 import {cva, type VariantProps} from 'class-variance-authority'
 import {cn} from '../ui/utils'
-import {normalizeNumberish, type WithNumberish} from './types'
+import {type WithNumberish} from './types'
 
 /**
  * GridItem - Grid child placement controller
@@ -18,6 +18,78 @@ import {normalizeNumberish, type WithNumberish} from './types'
 
 const gridItemVariants = cva('', {
   variants: {
+    p: {
+      none: '',
+      1: 'p-[var(--spacing-1)]',
+      2: 'p-[var(--spacing-2)]',
+      3: 'p-[var(--spacing-3)]',
+      4: 'p-[var(--spacing-4)]',
+      6: 'p-[var(--spacing-6)]',
+      8: 'p-[var(--spacing-8)]',
+      12: 'p-[var(--spacing-12)]',
+      16: 'p-[var(--spacing-16)]',
+      20: 'p-[var(--spacing-20)]',
+    },
+    px: {
+      none: '',
+      1: 'px-[var(--spacing-1)]',
+      2: 'px-[var(--spacing-2)]',
+      3: 'px-[var(--spacing-3)]',
+      4: 'px-[var(--spacing-4)]',
+      6: 'px-[var(--spacing-6)]',
+      8: 'px-[var(--spacing-8)]',
+      12: 'px-[var(--spacing-12)]',
+      16: 'px-[var(--spacing-16)]',
+      20: 'px-[var(--spacing-20)]',
+    },
+    py: {
+      none: '',
+      1: 'py-[var(--spacing-1)]',
+      2: 'py-[var(--spacing-2)]',
+      3: 'py-[var(--spacing-3)]',
+      4: 'py-[var(--spacing-4)]',
+      6: 'py-[var(--spacing-6)]',
+      8: 'py-[var(--spacing-8)]',
+      12: 'py-[var(--spacing-12)]',
+      16: 'py-[var(--spacing-16)]',
+      20: 'py-[var(--spacing-20)]',
+    },
+    m: {
+      none: '',
+      1: 'm-[var(--spacing-1)]',
+      2: 'm-[var(--spacing-2)]',
+      3: 'm-[var(--spacing-3)]',
+      4: 'm-[var(--spacing-4)]',
+      6: 'm-[var(--spacing-6)]',
+      8: 'm-[var(--spacing-8)]',
+      12: 'm-[var(--spacing-12)]',
+      16: 'm-[var(--spacing-16)]',
+      20: 'm-[var(--spacing-20)]',
+    },
+    mx: {
+      none: '',
+      1: 'mx-[var(--spacing-1)]',
+      2: 'mx-[var(--spacing-2)]',
+      3: 'mx-[var(--spacing-3)]',
+      4: 'mx-[var(--spacing-4)]',
+      6: 'mx-[var(--spacing-6)]',
+      8: 'mx-[var(--spacing-8)]',
+      12: 'mx-[var(--spacing-12)]',
+      16: 'mx-[var(--spacing-16)]',
+      20: 'mx-[var(--spacing-20)]',
+    },
+    my: {
+      none: '',
+      1: 'my-[var(--spacing-1)]',
+      2: 'my-[var(--spacing-2)]',
+      3: 'my-[var(--spacing-3)]',
+      4: 'my-[var(--spacing-4)]',
+      6: 'my-[var(--spacing-6)]',
+      8: 'my-[var(--spacing-8)]',
+      12: 'my-[var(--spacing-12)]',
+      16: 'my-[var(--spacing-16)]',
+      20: 'my-[var(--spacing-20)]',
+    },
     colSpan: {
       1: 'col-span-1',
       2: 'col-span-2',
@@ -59,6 +131,12 @@ const gridItemVariants = cva('', {
   },
   defaultVariants: {
     colSpan: 1,
+    p: 'none',
+    px: 'none',
+    py: 'none',
+    m: 'none',
+    mx: 'none',
+    my: 'none',
   },
 })
 
@@ -72,6 +150,12 @@ export interface GridItemProps
   children?: React.ReactNode
   colSpan?: WithNumberish<GridItemVariantProps['colSpan']>
   rowSpan?: WithNumberish<GridItemVariantProps['rowSpan']>
+  p?: VariantProps<typeof gridItemVariants>['p']
+  px?: VariantProps<typeof gridItemVariants>['px']
+  py?: VariantProps<typeof gridItemVariants>['py']
+  m?: VariantProps<typeof gridItemVariants>['m']
+  mx?: VariantProps<typeof gridItemVariants>['mx']
+  my?: VariantProps<typeof gridItemVariants>['my']
 }
 
 export const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
@@ -83,6 +167,12 @@ export const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
       rowSpan,
       alignSelf,
       justifySelf,
+      p,
+      px,
+      py,
+      m,
+      mx,
+      my,
       children,
       ...props
     },
@@ -93,10 +183,22 @@ export const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
         ref={ref}
         className={cn(
           gridItemVariants({
-            colSpan: normalizeNumberish(colSpan),
-            rowSpan: normalizeNumberish(rowSpan),
+            colSpan:
+              colSpan === undefined || colSpan === null
+                ? undefined
+                : (String(colSpan) as GridItemVariantProps['colSpan']),
+            rowSpan:
+              rowSpan === undefined || rowSpan === null
+                ? undefined
+                : (String(rowSpan) as GridItemVariantProps['rowSpan']),
             alignSelf,
             justifySelf,
+            p,
+            px,
+            py,
+            m,
+            mx,
+            my,
           }),
           className,
         )}

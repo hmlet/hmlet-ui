@@ -18,7 +18,43 @@ import {cn} from '../ui/utils'
 
 const spacerVariants = cva('flex-1', {
   variants: {
-    margin: {
+    p: {
+      none: '',
+      1: 'p-[var(--spacing-1)]',
+      2: 'p-[var(--spacing-2)]',
+      3: 'p-[var(--spacing-3)]',
+      4: 'p-[var(--spacing-4)]',
+      6: 'p-[var(--spacing-6)]',
+      8: 'p-[var(--spacing-8)]',
+      12: 'p-[var(--spacing-12)]',
+      16: 'p-[var(--spacing-16)]',
+      20: 'p-[var(--spacing-20)]',
+    },
+    px: {
+      none: '',
+      1: 'px-[var(--spacing-1)]',
+      2: 'px-[var(--spacing-2)]',
+      3: 'px-[var(--spacing-3)]',
+      4: 'px-[var(--spacing-4)]',
+      6: 'px-[var(--spacing-6)]',
+      8: 'px-[var(--spacing-8)]',
+      12: 'px-[var(--spacing-12)]',
+      16: 'px-[var(--spacing-16)]',
+      20: 'px-[var(--spacing-20)]',
+    },
+    py: {
+      none: '',
+      1: 'py-[var(--spacing-1)]',
+      2: 'py-[var(--spacing-2)]',
+      3: 'py-[var(--spacing-3)]',
+      4: 'py-[var(--spacing-4)]',
+      6: 'py-[var(--spacing-6)]',
+      8: 'py-[var(--spacing-8)]',
+      12: 'py-[var(--spacing-12)]',
+      16: 'py-[var(--spacing-16)]',
+      20: 'py-[var(--spacing-20)]',
+    },
+    m: {
       none: '',
       1: 'm-[var(--spacing-1)]',
       2: 'm-[var(--spacing-2)]',
@@ -29,6 +65,30 @@ const spacerVariants = cva('flex-1', {
       12: 'm-[var(--spacing-12)]',
       16: 'm-[var(--spacing-16)]',
       20: 'm-[var(--spacing-20)]',
+    },
+    mx: {
+      none: '',
+      1: 'mx-[var(--spacing-1)]',
+      2: 'mx-[var(--spacing-2)]',
+      3: 'mx-[var(--spacing-3)]',
+      4: 'mx-[var(--spacing-4)]',
+      6: 'mx-[var(--spacing-6)]',
+      8: 'mx-[var(--spacing-8)]',
+      12: 'mx-[var(--spacing-12)]',
+      16: 'mx-[var(--spacing-16)]',
+      20: 'mx-[var(--spacing-20)]',
+    },
+    my: {
+      none: '',
+      1: 'my-[var(--spacing-1)]',
+      2: 'my-[var(--spacing-2)]',
+      3: 'my-[var(--spacing-3)]',
+      4: 'my-[var(--spacing-4)]',
+      6: 'my-[var(--spacing-6)]',
+      8: 'my-[var(--spacing-8)]',
+      12: 'my-[var(--spacing-12)]',
+      16: 'my-[var(--spacing-16)]',
+      20: 'my-[var(--spacing-20)]',
     },
     width: {
       auto: 'w-auto',
@@ -63,7 +123,12 @@ const spacerVariants = cva('flex-1', {
     },
   },
   defaultVariants: {
-    margin: 'none',
+    p: 'none',
+    px: 'none',
+    py: 'none',
+    m: 'none',
+    mx: 'none',
+    my: 'none',
     width: 'auto',
     height: 'auto',
     shadow: 'none',
@@ -74,8 +139,14 @@ const spacerVariants = cva('flex-1', {
 export interface SpacerProps
   extends
     React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof spacerVariants> {
+    Omit<VariantProps<typeof spacerVariants>, 'margin'> {
   as?: React.ElementType
+  p?: VariantProps<typeof spacerVariants>['p']
+  px?: VariantProps<typeof spacerVariants>['px']
+  py?: VariantProps<typeof spacerVariants>['py']
+  m?: VariantProps<typeof spacerVariants>['m']
+  mx?: VariantProps<typeof spacerVariants>['mx']
+  my?: VariantProps<typeof spacerVariants>['my']
 }
 
 export const Spacer = React.forwardRef<HTMLDivElement, SpacerProps>(
@@ -83,7 +154,12 @@ export const Spacer = React.forwardRef<HTMLDivElement, SpacerProps>(
     {
       as: Component = 'div',
       className,
-      margin,
+      p,
+      px,
+      py,
+      m,
+      mx,
+      my,
       width,
       height,
       shadow,
@@ -96,7 +172,18 @@ export const Spacer = React.forwardRef<HTMLDivElement, SpacerProps>(
       <Component
         ref={ref}
         className={cn(
-          spacerVariants({margin, width, height, shadow, display}),
+          spacerVariants({
+            p,
+            px,
+            py,
+            m,
+            mx,
+            my,
+            width,
+            height,
+            shadow,
+            display,
+          }),
           className,
         )}
         aria-hidden="true"

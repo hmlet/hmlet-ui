@@ -25,7 +25,7 @@ const centerVariants = cva('items-center justify-center', {
       full: 'h-full',
       screen: 'h-screen',
     },
-    padding: {
+    p: {
       none: '',
       1: 'p-[var(--spacing-1)]',
       2: 'p-[var(--spacing-2)]',
@@ -37,7 +37,31 @@ const centerVariants = cva('items-center justify-center', {
       16: 'p-[var(--spacing-16)]',
       20: 'p-[var(--spacing-20)]',
     },
-    margin: {
+    px: {
+      none: '',
+      1: 'px-[var(--spacing-1)]',
+      2: 'px-[var(--spacing-2)]',
+      3: 'px-[var(--spacing-3)]',
+      4: 'px-[var(--spacing-4)]',
+      6: 'px-[var(--spacing-6)]',
+      8: 'px-[var(--spacing-8)]',
+      12: 'px-[var(--spacing-12)]',
+      16: 'px-[var(--spacing-16)]',
+      20: 'px-[var(--spacing-20)]',
+    },
+    py: {
+      none: '',
+      1: 'py-[var(--spacing-1)]',
+      2: 'py-[var(--spacing-2)]',
+      3: 'py-[var(--spacing-3)]',
+      4: 'py-[var(--spacing-4)]',
+      6: 'py-[var(--spacing-6)]',
+      8: 'py-[var(--spacing-8)]',
+      12: 'py-[var(--spacing-12)]',
+      16: 'py-[var(--spacing-16)]',
+      20: 'py-[var(--spacing-20)]',
+    },
+    m: {
       none: '',
       1: 'm-[var(--spacing-1)]',
       2: 'm-[var(--spacing-2)]',
@@ -48,6 +72,30 @@ const centerVariants = cva('items-center justify-center', {
       12: 'm-[var(--spacing-12)]',
       16: 'm-[var(--spacing-16)]',
       20: 'm-[var(--spacing-20)]',
+    },
+    mx: {
+      none: '',
+      1: 'mx-[var(--spacing-1)]',
+      2: 'mx-[var(--spacing-2)]',
+      3: 'mx-[var(--spacing-3)]',
+      4: 'mx-[var(--spacing-4)]',
+      6: 'mx-[var(--spacing-6)]',
+      8: 'mx-[var(--spacing-8)]',
+      12: 'mx-[var(--spacing-12)]',
+      16: 'mx-[var(--spacing-16)]',
+      20: 'mx-[var(--spacing-20)]',
+    },
+    my: {
+      none: '',
+      1: 'my-[var(--spacing-1)]',
+      2: 'my-[var(--spacing-2)]',
+      3: 'my-[var(--spacing-3)]',
+      4: 'my-[var(--spacing-4)]',
+      6: 'my-[var(--spacing-6)]',
+      8: 'my-[var(--spacing-8)]',
+      12: 'my-[var(--spacing-12)]',
+      16: 'my-[var(--spacing-16)]',
+      20: 'my-[var(--spacing-20)]',
     },
     width: {
       auto: 'w-auto',
@@ -78,8 +126,12 @@ const centerVariants = cva('items-center justify-center', {
   defaultVariants: {
     inline: false,
     height: 'auto',
-    padding: 'none',
-    margin: 'none',
+    p: 'none',
+    px: 'none',
+    py: 'none',
+    m: 'none',
+    mx: 'none',
+    my: 'none',
     width: 'auto',
     shadow: 'none',
     display: 'flex',
@@ -89,9 +141,15 @@ const centerVariants = cva('items-center justify-center', {
 export interface CenterProps
   extends
     React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof centerVariants> {
+    Omit<VariantProps<typeof centerVariants>, 'padding' | 'margin'> {
   as?: React.ElementType
   children?: React.ReactNode
+  p?: VariantProps<typeof centerVariants>['p']
+  px?: VariantProps<typeof centerVariants>['px']
+  py?: VariantProps<typeof centerVariants>['py']
+  m?: VariantProps<typeof centerVariants>['m']
+  mx?: VariantProps<typeof centerVariants>['mx']
+  my?: VariantProps<typeof centerVariants>['my']
 }
 
 export const Center = React.forwardRef<HTMLDivElement, CenterProps>(
@@ -101,8 +159,12 @@ export const Center = React.forwardRef<HTMLDivElement, CenterProps>(
       className,
       inline,
       height,
-      padding,
-      margin,
+      p,
+      px,
+      py,
+      m,
+      mx,
+      my,
       width,
       shadow,
       display,
@@ -118,8 +180,12 @@ export const Center = React.forwardRef<HTMLDivElement, CenterProps>(
           centerVariants({
             inline,
             height,
-            padding,
-            margin,
+            p,
+            px,
+            py,
+            m,
+            mx,
+            my,
             width,
             shadow,
             display,

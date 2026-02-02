@@ -16,7 +16,7 @@ import {cn} from '../ui/utils'
 
 const boxVariants = cva('', {
   variants: {
-    padding: {
+    p: {
       none: '',
       1: 'p-[var(--spacing-1)]',
       2: 'p-[var(--spacing-2)]',
@@ -28,7 +28,7 @@ const boxVariants = cva('', {
       16: 'p-[var(--spacing-16)]',
       20: 'p-[var(--spacing-20)]',
     },
-    paddingX: {
+    px: {
       none: '',
       1: 'px-[var(--spacing-1)]',
       2: 'px-[var(--spacing-2)]',
@@ -40,7 +40,7 @@ const boxVariants = cva('', {
       16: 'px-[var(--spacing-16)]',
       20: 'px-[var(--spacing-20)]',
     },
-    paddingY: {
+    py: {
       none: '',
       1: 'py-[var(--spacing-1)]',
       2: 'py-[var(--spacing-2)]',
@@ -52,7 +52,7 @@ const boxVariants = cva('', {
       16: 'py-[var(--spacing-16)]',
       20: 'py-[var(--spacing-20)]',
     },
-    margin: {
+    m: {
       none: '',
       1: 'm-[var(--spacing-1)]',
       2: 'm-[var(--spacing-2)]',
@@ -64,7 +64,7 @@ const boxVariants = cva('', {
       16: 'm-[var(--spacing-16)]',
       20: 'm-[var(--spacing-20)]',
     },
-    marginX: {
+    mx: {
       none: '',
       1: 'mx-[var(--spacing-1)]',
       2: 'mx-[var(--spacing-2)]',
@@ -76,7 +76,7 @@ const boxVariants = cva('', {
       16: 'mx-[var(--spacing-16)]',
       20: 'mx-[var(--spacing-20)]',
     },
-    marginY: {
+    my: {
       none: '',
       1: 'my-[var(--spacing-1)]',
       2: 'my-[var(--spacing-2)]',
@@ -121,8 +121,12 @@ const boxVariants = cva('', {
     },
   },
   defaultVariants: {
-    padding: 'none',
-    margin: 'none',
+    p: 'none',
+    px: 'none',
+    py: 'none',
+    m: 'none',
+    mx: 'none',
+    my: 'none',
     width: 'auto',
     height: 'auto',
     shadow: 'none',
@@ -132,9 +136,18 @@ const boxVariants = cva('', {
 export interface BoxProps
   extends
     React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof boxVariants> {
+    Omit<
+      VariantProps<typeof boxVariants>,
+      'padding' | 'paddingX' | 'paddingY' | 'margin' | 'marginX' | 'marginY'
+    > {
   as?: React.ElementType
   children?: React.ReactNode
+  p?: VariantProps<typeof boxVariants>['p']
+  px?: VariantProps<typeof boxVariants>['px']
+  py?: VariantProps<typeof boxVariants>['py']
+  m?: VariantProps<typeof boxVariants>['m']
+  mx?: VariantProps<typeof boxVariants>['mx']
+  my?: VariantProps<typeof boxVariants>['my']
 }
 
 export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
@@ -142,12 +155,12 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
     {
       as: Component = 'div',
       className,
-      padding,
-      paddingX,
-      paddingY,
-      margin,
-      marginX,
-      marginY,
+      p,
+      px,
+      py,
+      m,
+      mx,
+      my,
       shadow,
       width,
       height,
@@ -162,12 +175,12 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
         ref={ref}
         className={cn(
           boxVariants({
-            padding,
-            paddingX,
-            paddingY,
-            margin,
-            marginX,
-            marginY,
+            p,
+            px,
+            py,
+            m,
+            mx,
+            my,
             shadow,
             width,
             height,

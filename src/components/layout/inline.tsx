@@ -32,7 +32,7 @@ const inlineVariants = cva('flex-wrap', {
       end: 'items-end',
       baseline: 'items-baseline',
     },
-    padding: {
+    p: {
       none: '',
       1: 'p-[var(--spacing-1)]',
       2: 'p-[var(--spacing-2)]',
@@ -44,7 +44,31 @@ const inlineVariants = cva('flex-wrap', {
       16: 'p-[var(--spacing-16)]',
       20: 'p-[var(--spacing-20)]',
     },
-    margin: {
+    px: {
+      none: '',
+      1: 'px-[var(--spacing-1)]',
+      2: 'px-[var(--spacing-2)]',
+      3: 'px-[var(--spacing-3)]',
+      4: 'px-[var(--spacing-4)]',
+      6: 'px-[var(--spacing-6)]',
+      8: 'px-[var(--spacing-8)]',
+      12: 'px-[var(--spacing-12)]',
+      16: 'px-[var(--spacing-16)]',
+      20: 'px-[var(--spacing-20)]',
+    },
+    py: {
+      none: '',
+      1: 'py-[var(--spacing-1)]',
+      2: 'py-[var(--spacing-2)]',
+      3: 'py-[var(--spacing-3)]',
+      4: 'py-[var(--spacing-4)]',
+      6: 'py-[var(--spacing-6)]',
+      8: 'py-[var(--spacing-8)]',
+      12: 'py-[var(--spacing-12)]',
+      16: 'py-[var(--spacing-16)]',
+      20: 'py-[var(--spacing-20)]',
+    },
+    m: {
       none: '',
       1: 'm-[var(--spacing-1)]',
       2: 'm-[var(--spacing-2)]',
@@ -55,6 +79,30 @@ const inlineVariants = cva('flex-wrap', {
       12: 'm-[var(--spacing-12)]',
       16: 'm-[var(--spacing-16)]',
       20: 'm-[var(--spacing-20)]',
+    },
+    mx: {
+      none: '',
+      1: 'mx-[var(--spacing-1)]',
+      2: 'mx-[var(--spacing-2)]',
+      3: 'mx-[var(--spacing-3)]',
+      4: 'mx-[var(--spacing-4)]',
+      6: 'mx-[var(--spacing-6)]',
+      8: 'mx-[var(--spacing-8)]',
+      12: 'mx-[var(--spacing-12)]',
+      16: 'mx-[var(--spacing-16)]',
+      20: 'mx-[var(--spacing-20)]',
+    },
+    my: {
+      none: '',
+      1: 'my-[var(--spacing-1)]',
+      2: 'my-[var(--spacing-2)]',
+      3: 'my-[var(--spacing-3)]',
+      4: 'my-[var(--spacing-4)]',
+      6: 'my-[var(--spacing-6)]',
+      8: 'my-[var(--spacing-8)]',
+      12: 'my-[var(--spacing-12)]',
+      16: 'my-[var(--spacing-16)]',
+      20: 'my-[var(--spacing-20)]',
     },
     width: {
       auto: 'w-auto',
@@ -91,8 +139,12 @@ const inlineVariants = cva('flex-wrap', {
   defaultVariants: {
     gap: 2,
     align: 'center',
-    padding: 'none',
-    margin: 'none',
+    p: 'none',
+    px: 'none',
+    py: 'none',
+    m: 'none',
+    mx: 'none',
+    my: 'none',
     width: 'auto',
     height: 'auto',
     shadow: 'none',
@@ -105,12 +157,16 @@ type InlineVariantProps = VariantProps<typeof inlineVariants>
 export interface InlineProps
   extends
     React.HTMLAttributes<HTMLDivElement>,
-    Omit<InlineVariantProps, 'gap'> {
+    Omit<InlineVariantProps, 'gap' | 'padding' | 'margin'> {
   as?: React.ElementType
   children?: React.ReactNode
   gap?: WithNumberish<InlineVariantProps['gap']>
-  padding?: VariantProps<typeof inlineVariants>['padding']
-  margin?: VariantProps<typeof inlineVariants>['margin']
+  p?: VariantProps<typeof inlineVariants>['p']
+  px?: VariantProps<typeof inlineVariants>['px']
+  py?: VariantProps<typeof inlineVariants>['py']
+  m?: VariantProps<typeof inlineVariants>['m']
+  mx?: VariantProps<typeof inlineVariants>['mx']
+  my?: VariantProps<typeof inlineVariants>['my']
   width?: VariantProps<typeof inlineVariants>['width']
   height?: VariantProps<typeof inlineVariants>['height']
   shadow?: VariantProps<typeof inlineVariants>['shadow']
@@ -124,8 +180,12 @@ export const Inline = React.forwardRef<HTMLDivElement, InlineProps>(
       className,
       gap,
       align,
-      padding,
-      margin,
+      p,
+      px,
+      py,
+      m,
+      mx,
+      my,
       width,
       height,
       shadow,
@@ -153,8 +213,12 @@ export const Inline = React.forwardRef<HTMLDivElement, InlineProps>(
                 : undefined
             })(),
             align,
-            padding,
-            margin,
+            p,
+            px,
+            py,
+            m,
+            mx,
+            my,
             width,
             height,
             shadow,
