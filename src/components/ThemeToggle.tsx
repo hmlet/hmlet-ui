@@ -1,3 +1,20 @@
+/**
+ * Hook to apply theme from localStorage on initial load, before ThemeToggle is mounted.
+ * Call this in your app root or layout to ensure theme is set early.
+ */
+export function useApplyTheme() {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('theme')
+      const root = document.documentElement
+      if (stored === 'dark') {
+        root.classList.add('dark')
+      } else {
+        root.classList.remove('dark')
+      }
+    }
+  }, [])
+}
 import {Moon, Sun} from 'lucide-react'
 import {Button} from './ui/button'
 import {useEffect, useState} from 'react'
