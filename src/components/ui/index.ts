@@ -1,3 +1,4 @@
+export * from './multiselect'
 export * from './icon'
 export * from './form-input'
 export * from './count-badge'
