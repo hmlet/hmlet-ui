@@ -278,10 +278,30 @@ function DropdownMenuSubTrigger({
   )
 }
 
+type DropdownMenuSubContentProps = React.ComponentProps<
+  typeof DropdownMenuPrimitive.SubContent
+> & {
+  loading?: boolean
+  apiError?: ApiErrorType
+  emptyText?: string
+  children?: React.ReactNode
+}
+
 function DropdownMenuSubContent({
   className,
+  loading = false,
+  apiError,
+  emptyText = 'No Options',
+  children,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.SubContent>) {
+}: DropdownMenuSubContentProps) {
+  // Determine if there are any options
+  const hasOptions = React.Children.toArray(children).some(
+    child =>
+      React.isValidElement(child) &&
+      (child.type === DropdownMenuItem || child.type === DropdownMenuGroup),
+  )
+
   return (
     <DropdownMenuPrimitive.SubContent
       data-slot="dropdown-menu-sub-content"
@@ -290,7 +310,31 @@ function DropdownMenuSubContent({
         className,
       )}
       {...props}
-    />
+    >
+      {/* Loading State */}
+      {loading ? (
+        <div className="flex flex-col items-center justify-center py-6 text-muted-foreground">
+          <Spinner />
+        </div>
+      ) : apiError?.error ? (
+        <div className="flex flex-col items-center justify-center py-6">
+          <button
+            type="button"
+            className="text-destructive underline text-sm px-2 py-1 rounded hover:bg-destructive/10"
+            onClick={apiError.onClick}
+          >
+            {apiError.text || 'Error'}
+          </button>
+        </div>
+      ) : !hasOptions ? (
+        <div className="flex flex-col items-center justify-center py-6 text-muted-foreground gap-2">
+          <PackageOpen className="size-8 opacity-60" />
+          <span className="text-xs">{emptyText}</span>
+        </div>
+      ) : (
+        children
+      )}
+    </DropdownMenuPrimitive.SubContent>
   )
 }
 
