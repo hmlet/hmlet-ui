@@ -2,13 +2,13 @@ import {Moon, Sun} from 'lucide-react'
 import {Button} from './ui/button'
 import {useEffect, useState} from 'react'
 
-type IconComponent = React.ComponentType<{className?: string}>
+type IconComponent = React.ComponentType<{className?: string; size?: number}>
 
 export type ThemeToggleProps = {
   LightIcon?: IconComponent
   DarkIcon?: IconComponent
   srText?: string
-  iconSize?: number | string
+  iconSize?: number
   className?: string
   iconClassName?: string
 }
@@ -21,11 +21,6 @@ export function ThemeToggle({
   className = '',
   iconClassName = '',
 }: ThemeToggleProps) {
-  // Generate Tailwind class for icon size
-  const iconSizeClass =
-    typeof iconSize === 'number'
-      ? `h-[${iconSize}px] w-[${iconSize}px]`
-      : `h-[${iconSize}] w-[${iconSize}]`
   const [isDark, setIsDark] = useState(false)
 
   useEffect(() => {
@@ -45,9 +40,9 @@ export function ThemeToggle({
       className={`rounded-full ${className}`}
     >
       {isDark ? (
-        <DarkIcon className={`${iconSizeClass} ${iconClassName}`} />
+        <DarkIcon size={iconSize} className={iconClassName} />
       ) : (
-        <LightIcon className={`${iconSizeClass} ${iconClassName}`} />
+        <LightIcon size={iconSize} className={iconClassName} />
       )}
       {srText ? <span className="sr-only">{srText}</span> : null}
     </Button>
