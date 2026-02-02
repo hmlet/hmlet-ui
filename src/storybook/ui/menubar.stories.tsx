@@ -25,6 +25,9 @@ type MenubarStoryArgs = React.ComponentProps<typeof Menubar> & {
   onItemSelect?: (item: string) => void
   onCheckboxChange?: (payload: {item: string; checked: boolean}) => void
   onRadioChange?: (payload: {group: string; value: string}) => void
+  loading?: boolean
+  apiError?: {error: boolean; text?: string}
+  emptyText?: string
 }
 
 const meta: Meta<MenubarStoryArgs> = {
@@ -41,12 +44,15 @@ const meta: Meta<MenubarStoryArgs> = {
         'onItemSelect',
         'onCheckboxChange',
         'onRadioChange',
+        'loading',
+        'apiError',
+        'emptyText',
       ],
     },
     docs: {
       description: {
         component:
-          'A visually persistent menu common in desktop applications. Content is portaled; in tests, query `document.body` for menu items.',
+          'A visually persistent menu common in desktop applications. Content is portaled; in tests, query `document.body` for menu items.\n\nNew props: `loading`, `apiError`, and `emptyText` allow for loading, error, and empty states.',
       },
     },
   },
@@ -60,11 +66,70 @@ const meta: Meta<MenubarStoryArgs> = {
     onItemSelect: {action: 'onItemSelect'},
     onCheckboxChange: {action: 'onCheckboxChange'},
     onRadioChange: {action: 'onRadioChange'},
+    loading: {control: 'boolean'},
+    apiError: {
+      control: 'object',
+      description: 'Show error button with text and onClick',
+    },
+    emptyText: {control: 'text'},
   },
   args: {
     dir: 'ltr',
     loop: true,
+    loading: false,
+    apiError: {error: false, text: ''},
+    emptyText: 'No Options',
   },
+}
+export const Loading: Story = {
+  name: 'Loading',
+  args: {
+    loading: true,
+  },
+  render: args => (
+    <Menubar {...args}>
+      <MenubarMenu>
+        <MenubarTrigger>File</MenubarTrigger>
+        <MenubarContent loading={args.loading}>
+          {/* No items shown while loading */}
+        </MenubarContent>
+      </MenubarMenu>
+    </Menubar>
+  ),
+}
+
+export const ApiError: Story = {
+  name: 'API Error',
+  args: {
+    apiError: {error: true, text: 'Retry fetch'},
+  },
+  render: args => (
+    <Menubar {...args}>
+      <MenubarMenu>
+        <MenubarTrigger>File</MenubarTrigger>
+        <MenubarContent apiError={args.apiError}>
+          {/* No items shown on error */}
+        </MenubarContent>
+      </MenubarMenu>
+    </Menubar>
+  ),
+}
+
+export const Empty: Story = {
+  name: 'Empty',
+  args: {
+    emptyText: 'Nothing found',
+  },
+  render: args => (
+    <Menubar {...args}>
+      <MenubarMenu>
+        <MenubarTrigger>File</MenubarTrigger>
+        <MenubarContent emptyText={args.emptyText}>
+          {/* No items, triggers empty state */}
+        </MenubarContent>
+      </MenubarMenu>
+    </Menubar>
+  ),
 }
 
 export default meta

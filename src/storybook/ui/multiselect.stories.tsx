@@ -1,3 +1,8 @@
+import type {Meta, StoryObj} from '@storybook/react'
+import * as React from 'react'
+import {Multiselect} from '../../components/ui/multiselect'
+import type {MultiselectOption} from '../../components/ui/multiselect'
+
 const manyOptions: MultiselectOption[] = [
   {value: 'apple', label: 'Apple'},
   {value: 'banana', label: 'Banana'},
@@ -12,6 +17,55 @@ const manyOptions: MultiselectOption[] = [
   {value: 'melon', label: 'Melon'},
   {value: 'berry', label: 'Berry'},
 ]
+
+export const Loading: Story = {
+  args: {
+    options: manyOptions,
+    placeholder: 'Loading fruits...',
+    loading: true,
+  },
+  render: function LoadingRender(args) {
+    return (
+      <div style={{maxWidth: 300}}>
+        <Multiselect {...args} />
+      </div>
+    )
+  },
+}
+
+export const ApiError: Story = {
+  args: {
+    options: [],
+    placeholder: 'Select fruits...',
+    apiError: {
+      error: true,
+      text: 'Failed to load. Retry?',
+      onClick: () => alert('Retry clicked!'),
+    },
+  },
+  render: function ApiErrorRender(args) {
+    return (
+      <div style={{maxWidth: 300}}>
+        <Multiselect {...args} />
+      </div>
+    )
+  },
+}
+
+export const EmptyState: Story = {
+  args: {
+    options: [],
+    placeholder: 'No fruits available',
+  },
+  render: function EmptyStateRender(args) {
+    return (
+      <div style={{maxWidth: 300}}>
+        <Multiselect {...args} />
+      </div>
+    )
+  },
+}
+
 export const EllipsisOverflow: Story = {
   args: {
     options: manyOptions,
@@ -64,10 +118,6 @@ export const TooltipOnOverflow: Story = {
     )
   },
 }
-import type {Meta, StoryObj} from '@storybook/react'
-import * as React from 'react'
-import {Multiselect} from '../../components/ui/multiselect'
-import type {MultiselectOption} from '../../components/ui/multiselect'
 
 const options: MultiselectOption[] = [
   {value: 'apple', label: 'Apple'},

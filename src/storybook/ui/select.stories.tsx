@@ -20,6 +20,9 @@ type SelectStoryArgs = React.ComponentProps<typeof Select> & {
   placeholder?: string
   disabled?: boolean
   items?: Array<{value: string; label: string; disabled?: boolean}>
+  loading?: boolean
+  apiError?: {error: boolean; text?: string}
+  emptyText?: string
 }
 
 const DEFAULT_ITEMS: Array<{value: string; label: string; disabled?: boolean}> =
@@ -45,20 +48,25 @@ function SimpleSelect(args: SelectStoryArgs) {
       onOpenChange={open => {
         args.onOpenChange?.(open)
       }}
+      loading={args.loading}
+      apiError={args.apiError}
+      emptyText={args.emptyText}
     >
       <SelectTrigger size={triggerSize} style={{width: triggerWidth}}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
-        {items.map(item => (
-          <SelectItem
-            key={item.value}
-            value={item.value}
-            disabled={item.disabled}
-          >
-            {item.label}
-          </SelectItem>
-        ))}
+        {!args.loading &&
+          !args.apiError?.error &&
+          items.map(item => (
+            <SelectItem
+              key={item.value}
+              value={item.value}
+              disabled={item.disabled}
+            >
+              {item.label}
+            </SelectItem>
+          ))}
       </SelectContent>
     </Select>
   )
@@ -159,12 +167,16 @@ const meta: Meta<SelectStoryArgs> = {
         'placeholder',
         'onValueChange',
         'onOpenChange',
+        'loading',
+        'apiError',
+        'emptyText',
+        'items',
       ],
     },
     docs: {
       description: {
         component:
-          'Displays a list of options for the user to pick from—triggered by a button. Content is portaled; in play functions, query `document.body` for options.',
+          'Displays a list of options for the user to pick from—triggered by a button. Content is portaled; in play functions, query `document.body` for options.\n\nNew props: `loading`, `apiError`, and `emptyText` allow for loading, error, and empty states.',
       },
     },
   },
@@ -178,6 +190,13 @@ const meta: Meta<SelectStoryArgs> = {
     defaultValue: {control: 'text'},
     onValueChange: {action: 'onValueChange'},
     onOpenChange: {action: 'onOpenChange'},
+    loading: {control: 'boolean'},
+    apiError: {
+      control: 'object',
+      description: 'Show error button with text and onClick',
+    },
+    emptyText: {control: 'text'},
+    items: {control: 'object'},
   },
   args: {
     dir: 'ltr',
@@ -185,7 +204,40 @@ const meta: Meta<SelectStoryArgs> = {
     triggerSize: 'default',
     placeholder: 'Select a fruit',
     disabled: false,
+    loading: false,
+    apiError: {error: false, text: ''},
+    emptyText: 'No Options',
+    items: DEFAULT_ITEMS,
   },
+}
+export const Loading: Story = {
+  name: 'Loading',
+  args: {
+    loading: true,
+    items: [],
+    placeholder: 'Loading...',
+  },
+  render: args => <SimpleSelect {...args} />,
+}
+
+export const ApiError: Story = {
+  name: 'API Error',
+  args: {
+    apiError: {error: true, text: 'Retry fetch'},
+    items: [],
+    placeholder: 'Error',
+  },
+  render: args => <SimpleSelect {...args} />,
+}
+
+export const Empty: Story = {
+  name: 'Empty',
+  args: {
+    items: [],
+    emptyText: 'Nothing found',
+    placeholder: 'Empty',
+  },
+  render: args => <SimpleSelect {...args} />,
 }
 
 export default meta

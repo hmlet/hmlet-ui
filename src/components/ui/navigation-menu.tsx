@@ -1,9 +1,10 @@
 import * as React from 'react'
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu'
 import {cva} from 'class-variance-authority'
-import {ChevronDownIcon} from 'lucide-react'
+import {ChevronDownIcon, PackageOpen} from 'lucide-react'
 
 import {cn} from './utils'
+import {Spinner} from './spinner'
 
 function NavigationMenu({
   className,
@@ -82,10 +83,34 @@ function NavigationMenuTrigger({
   )
 }
 
+type ApiErrorType = {
+  error: boolean
+  text?: string
+  onClick?: () => void
+}
+
+type NavigationMenuContentProps = React.ComponentProps<
+  typeof NavigationMenuPrimitive.Content
+> & {
+  loading?: boolean
+  apiError?: ApiErrorType
+  emptyText?: string
+  children?: React.ReactNode
+}
+
 function NavigationMenuContent({
   className,
+  loading = false,
+  apiError,
+  emptyText = 'No Options',
+  children,
   ...props
-}: React.ComponentProps<typeof NavigationMenuPrimitive.Content>) {
+}: NavigationMenuContentProps) {
+  // Determine if there are any options
+  const hasOptions = React.Children.toArray(children).some(
+    child => React.isValidElement(child) && child.type === NavigationMenuLink,
+  )
+
   return (
     <NavigationMenuPrimitive.Content
       data-slot="navigation-menu-content"
@@ -95,7 +120,31 @@ function NavigationMenuContent({
         className,
       )}
       {...props}
-    />
+    >
+      {/* Loading State */}
+      {loading ? (
+        <div className="flex flex-col items-center justify-center py-6 text-muted-foreground">
+          <Spinner />
+        </div>
+      ) : apiError?.error ? (
+        <div className="flex flex-col items-center justify-center py-6">
+          <button
+            type="button"
+            className="text-destructive underline text-sm px-2 py-1 rounded hover:bg-destructive/10"
+            onClick={apiError.onClick}
+          >
+            {apiError.text || 'Error'}
+          </button>
+        </div>
+      ) : !hasOptions ? (
+        <div className="flex flex-col items-center justify-center py-6 text-muted-foreground gap-2">
+          <PackageOpen className="size-8 opacity-60" />
+          <span className="text-xs">{emptyText}</span>
+        </div>
+      ) : (
+        children
+      )}
+    </NavigationMenuPrimitive.Content>
   )
 }
 

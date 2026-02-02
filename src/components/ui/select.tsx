@@ -2,12 +2,71 @@
 
 import * as React from 'react'
 import * as SelectPrimitive from '@radix-ui/react-select'
-import {CheckIcon, ChevronDownIcon, ChevronUpIcon} from 'lucide-react'
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  PackageOpen,
+} from 'lucide-react'
 
 import {cn} from './utils'
+import {Spinner} from './spinner'
 
-function Select({...props}: React.ComponentProps<typeof SelectPrimitive.Root>) {
-  return <SelectPrimitive.Root data-slot="select" {...props} />
+type ApiErrorType = {
+  error: boolean
+  text?: string
+  onClick?: () => void
+}
+
+type SelectProps = React.ComponentProps<typeof SelectPrimitive.Root> & {
+  loading?: boolean
+  apiError?: ApiErrorType
+  emptyText?: string
+  /**
+   * Children should be SelectItem or SelectGroup, etc.
+   */
+  children?: React.ReactNode
+}
+
+function Select({
+  loading = false,
+  apiError,
+  emptyText = 'No Options',
+  children,
+  ...props
+}: SelectProps) {
+  // Determine if there are any options
+  const hasOptions = React.Children.toArray(children).some(
+    child =>
+      React.isValidElement(child) &&
+      (child.type === SelectItem || child.type === SelectGroup),
+  )
+
+  return (
+    <SelectPrimitive.Root data-slot="select" {...props}>
+      {/*
+        We inject a custom context to SelectContent to pass loading, apiError, emptyText, hasOptions, children
+        But since Radix Select expects children, we wrap SelectContent to handle these states
+      */}
+      {React.Children.map(children, child => {
+        if (React.isValidElement(child) && child.type === SelectContent) {
+          // Only pass custom props to SelectContent, not to all elements
+          type SelectContentElement = React.ReactElement<
+            React.ComponentProps<typeof SelectContent>
+          >
+          const childElement = child as SelectContentElement
+          return React.cloneElement(childElement, {
+            loading,
+            apiError,
+            emptyText,
+            hasOptions,
+            children: childElement.props.children || children,
+          })
+        }
+        return child
+      })}
+    </SelectPrimitive.Root>
+  )
 }
 
 function SelectGroup({
@@ -48,12 +107,25 @@ function SelectTrigger({
   )
 }
 
+type SelectContentProps = React.ComponentProps<
+  typeof SelectPrimitive.Content
+> & {
+  loading?: boolean
+  apiError?: ApiErrorType
+  emptyText?: string
+  hasOptions?: boolean
+}
+
 function SelectContent({
   className,
   children,
   position = 'popper',
+  loading = false,
+  apiError,
+  emptyText = 'No Options',
+  hasOptions,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Content>) {
+}: SelectContentProps) {
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Content
@@ -75,7 +147,29 @@ function SelectContent({
               'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] scroll-my-1',
           )}
         >
-          {children}
+          {/* Loading State */}
+          {loading ? (
+            <div className="flex flex-col items-center justify-center py-6 text-muted-foreground">
+              <Spinner />
+            </div>
+          ) : apiError?.error ? (
+            <div className="flex flex-col items-center justify-center py-6">
+              <button
+                type="button"
+                className="text-destructive underline text-sm px-2 py-1 rounded hover:bg-destructive/10"
+                onClick={apiError.onClick}
+              >
+                {apiError.text || 'Error'}
+              </button>
+            </div>
+          ) : !hasOptions ? (
+            <div className="flex flex-col items-center justify-center py-6 text-muted-foreground gap-2">
+              <PackageOpen className="size-8 opacity-60" />
+              <span className="text-xs">{emptyText}</span>
+            </div>
+          ) : (
+            children
+          )}
         </SelectPrimitive.Viewport>
         <SelectScrollDownButton />
       </SelectPrimitive.Content>

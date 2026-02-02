@@ -2,9 +2,20 @@
 
 import * as React from 'react'
 import * as ContextMenuPrimitive from '@radix-ui/react-context-menu'
-import {CheckIcon, ChevronRightIcon, CircleIcon} from 'lucide-react'
+import {
+  CheckIcon,
+  ChevronRightIcon,
+  CircleIcon,
+  PackageOpen,
+} from 'lucide-react'
 
 import {cn} from './utils'
+import {Spinner} from './spinner'
+type ApiErrorType = {
+  error: boolean
+  text?: string
+  onClick?: () => void
+}
 
 function ContextMenu({
   ...props
@@ -93,10 +104,30 @@ function ContextMenuSubContent({
   )
 }
 
+type ContextMenuContentProps = React.ComponentProps<
+  typeof ContextMenuPrimitive.Content
+> & {
+  loading?: boolean
+  apiError?: ApiErrorType
+  emptyText?: string
+  children?: React.ReactNode
+}
+
 function ContextMenuContent({
   className,
+  loading = false,
+  apiError,
+  emptyText = 'No Options',
+  children,
   ...props
-}: React.ComponentProps<typeof ContextMenuPrimitive.Content>) {
+}: ContextMenuContentProps) {
+  // Determine if there are any options
+  const hasOptions = React.Children.toArray(children).some(
+    child =>
+      React.isValidElement(child) &&
+      (child.type === ContextMenuItem || child.type === ContextMenuGroup),
+  )
+
   return (
     <ContextMenuPrimitive.Portal>
       <ContextMenuPrimitive.Content
@@ -106,7 +137,31 @@ function ContextMenuContent({
           className,
         )}
         {...props}
-      />
+      >
+        {/* Loading State */}
+        {loading ? (
+          <div className="flex flex-col items-center justify-center py-6 text-muted-foreground">
+            <Spinner />
+          </div>
+        ) : apiError?.error ? (
+          <div className="flex flex-col items-center justify-center py-6">
+            <button
+              type="button"
+              className="text-destructive underline text-sm px-2 py-1 rounded hover:bg-destructive/10"
+              onClick={apiError.onClick}
+            >
+              {apiError.text || 'Error'}
+            </button>
+          </div>
+        ) : !hasOptions ? (
+          <div className="flex flex-col items-center justify-center py-6 text-muted-foreground gap-2">
+            <PackageOpen className="size-8 opacity-60" />
+            <span className="text-xs">{emptyText}</span>
+          </div>
+        ) : (
+          children
+        )}
+      </ContextMenuPrimitive.Content>
     </ContextMenuPrimitive.Portal>
   )
 }

@@ -2,9 +2,15 @@
 
 import * as React from 'react'
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu'
-import {CheckIcon, ChevronRightIcon, CircleIcon} from 'lucide-react'
+import {
+  CheckIcon,
+  ChevronRightIcon,
+  CircleIcon,
+  PackageOpen,
+} from 'lucide-react'
 
 import {cn} from './utils'
+import {Spinner} from './spinner'
 
 function DropdownMenu({
   ...props
@@ -31,11 +37,37 @@ function DropdownMenuTrigger({
   )
 }
 
+type ApiErrorType = {
+  error: boolean
+  text?: string
+  onClick?: () => void
+}
+
+type DropdownMenuContentProps = React.ComponentProps<
+  typeof DropdownMenuPrimitive.Content
+> & {
+  loading?: boolean
+  apiError?: ApiErrorType
+  emptyText?: string
+  children?: React.ReactNode
+}
+
 function DropdownMenuContent({
   className,
   sideOffset = 4,
+  loading = false,
+  apiError,
+  emptyText = 'No Options',
+  children,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Content>) {
+}: DropdownMenuContentProps) {
+  // Determine if there are any options
+  const hasOptions = React.Children.toArray(children).some(
+    child =>
+      React.isValidElement(child) &&
+      (child.type === DropdownMenuItem || child.type === DropdownMenuGroup),
+  )
+
   return (
     <DropdownMenuPrimitive.Portal>
       <DropdownMenuPrimitive.Content
@@ -46,7 +78,31 @@ function DropdownMenuContent({
           className,
         )}
         {...props}
-      />
+      >
+        {/* Loading State */}
+        {loading ? (
+          <div className="flex flex-col items-center justify-center py-6 text-muted-foreground">
+            <Spinner />
+          </div>
+        ) : apiError?.error ? (
+          <div className="flex flex-col items-center justify-center py-6">
+            <button
+              type="button"
+              className="text-destructive underline text-sm px-2 py-1 rounded hover:bg-destructive/10"
+              onClick={apiError.onClick}
+            >
+              {apiError.text || 'Error'}
+            </button>
+          </div>
+        ) : !hasOptions ? (
+          <div className="flex flex-col items-center justify-center py-6 text-muted-foreground gap-2">
+            <PackageOpen className="size-8 opacity-60" />
+            <span className="text-xs">{emptyText}</span>
+          </div>
+        ) : (
+          children
+        )}
+      </DropdownMenuPrimitive.Content>
     </DropdownMenuPrimitive.Portal>
   )
 }

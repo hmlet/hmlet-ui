@@ -43,6 +43,10 @@ type ContextMenuStoryArgs = React.ComponentProps<typeof ContextMenu> & {
   urlsChecked?: CheckedState
   person?: 'pedro' | 'colm'
 
+  loading?: boolean
+  apiError?: {error: boolean; text?: string}
+  emptyText?: string
+
   onItemSelect?: (item: string) => void
   onBookmarksCheckedChange?: (checked: CheckedState) => void
   onUrlsCheckedChange?: (checked: CheckedState) => void
@@ -230,6 +234,9 @@ const meta: Meta<ContextMenuStoryArgs> = {
         'bookmarksChecked',
         'urlsChecked',
         'person',
+        'loading',
+        'apiError',
+        'emptyText',
         'onItemSelect',
         'onBookmarksCheckedChange',
         'onUrlsCheckedChange',
@@ -243,7 +250,7 @@ const meta: Meta<ContextMenuStoryArgs> = {
     docs: {
       description: {
         component:
-          'Displays a menu located at the pointer, triggered by a right click or a long press. Docs: https://www.radix-ui.com/primitives/docs/components/context-menu',
+          'Displays a menu located at the pointer, triggered by a right click or a long press. Docs: https://www.radix-ui.com/primitives/docs/components/context-menu\n\nNew props: `loading`, `apiError`, and `emptyText` allow for loading, error, and empty states.',
       },
     },
   },
@@ -283,6 +290,12 @@ const meta: Meta<ContextMenuStoryArgs> = {
       options: ['pedro', 'colm'],
       control: {type: 'inline-radio'},
     },
+    loading: {control: 'boolean'},
+    apiError: {
+      control: 'object',
+      description: 'Show error button with text and onClick',
+    },
+    emptyText: {control: 'text'},
 
     onItemSelect: {action: 'onItemSelect'},
     onBookmarksCheckedChange: {action: 'onBookmarksCheckedChange'},
@@ -316,7 +329,60 @@ const meta: Meta<ContextMenuStoryArgs> = {
     bookmarksChecked: true,
     urlsChecked: false,
     person: 'pedro',
+    loading: false,
+    apiError: {error: false, text: ''},
+    emptyText: 'No Options',
   },
+}
+export const Loading: Story = {
+  name: 'Loading',
+  args: {
+    loading: true,
+  },
+  render: args => (
+    <ContextMenu>
+      <ContextMenuTrigger asChild>
+        <TriggerBox text="Right click this area" />
+      </ContextMenuTrigger>
+      <ContextMenuContent loading={args.loading}>
+        {/* No items shown while loading */}
+      </ContextMenuContent>
+    </ContextMenu>
+  ),
+}
+
+export const ApiError: Story = {
+  name: 'API Error',
+  args: {
+    apiError: {error: true, text: 'Retry fetch'},
+  },
+  render: args => (
+    <ContextMenu>
+      <ContextMenuTrigger asChild>
+        <TriggerBox text="Right click this area" />
+      </ContextMenuTrigger>
+      <ContextMenuContent apiError={args.apiError}>
+        {/* No items shown on error */}
+      </ContextMenuContent>
+    </ContextMenu>
+  ),
+}
+
+export const Empty: Story = {
+  name: 'Empty',
+  args: {
+    emptyText: 'Nothing found',
+  },
+  render: args => (
+    <ContextMenu>
+      <ContextMenuTrigger asChild>
+        <TriggerBox text="Right click this area" />
+      </ContextMenuTrigger>
+      <ContextMenuContent emptyText={args.emptyText}>
+        {/* No items, triggers empty state */}
+      </ContextMenuContent>
+    </ContextMenu>
+  ),
 }
 
 export default meta

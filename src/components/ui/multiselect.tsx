@@ -1,6 +1,7 @@
 import * as React from 'react'
-import {CheckIcon} from 'lucide-react'
+import {CheckIcon, PackageOpen} from 'lucide-react'
 import {Checkbox} from './checkbox'
+import {Spinner} from './spinner'
 import {cn} from './utils'
 import {
   Tooltip,
@@ -14,7 +15,6 @@ export type MultiselectOption = {
   label: React.ReactNode
   disabled?: boolean
 }
-
 export type MultiselectProps = {
   options: MultiselectOption[]
   value?: string[]
@@ -28,6 +28,9 @@ export type MultiselectProps = {
     option: MultiselectOption,
     selected: boolean,
   ) => React.ReactNode
+  loading?: boolean
+  apiError?: {error: boolean; text?: string; onClick?: () => void}
+  emptyText?: string
 }
 
 export function Multiselect({
@@ -40,6 +43,9 @@ export function Multiselect({
   className,
   optionVariant = 'default',
   renderOption,
+  loading = false,
+  apiError,
+  emptyText = 'No options',
 }: MultiselectProps) {
   const isControlled = value !== undefined
   const [internalValue, setInternalValue] = React.useState<string[]>(
@@ -164,35 +170,56 @@ export function Multiselect({
           className="absolute left-0 right-0 z-10 mt-1 rounded-md border bg-popover shadow-md max-h-60 overflow-auto"
           role="listbox"
         >
-          {options.map(opt => {
-            const isSelected = selected.includes(opt.value)
-            return (
-              <div
-                key={opt.value}
-                className={cn(
-                  'flex items-center gap-2 px-3 py-2 cursor-pointer select-none text-sm hover:bg-accent hover:text-accent-foreground',
-                  isSelected && 'bg-accent text-accent-foreground',
-                  opt.disabled && 'opacity-50 pointer-events-none',
-                )}
-                onClick={() => !opt.disabled && toggleOption(opt.value)}
-                aria-selected={isSelected}
-                role="option"
-                tabIndex={-1}
+          {loading ? (
+            <div className="flex items-center justify-center py-6">
+              <Spinner size="md" />
+            </div>
+          ) : apiError?.error ? (
+            <div className="flex flex-col items-center justify-center py-6 px-4 gap-2">
+              <button
+                type="button"
+                className="text-destructive underline text-sm px-2 py-1 rounded hover:bg-destructive/10 transition-colors"
+                onClick={apiError.onClick}
               >
-                {optionVariant === 'checkbox' ? (
-                  <Checkbox
-                    checked={isSelected}
-                    tabIndex={-1}
-                    className="size-4 mr-2 pointer-events-none"
-                    aria-hidden
-                  />
-                ) : (
-                  isSelected && <CheckIcon className="size-4 mr-2" />
-                )}
-                {renderOption ? renderOption(opt, isSelected) : opt.label}
-              </div>
-            )
-          })}
+                {apiError.text || 'Error loading options. Click to retry.'}
+              </button>
+            </div>
+          ) : options.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-6 px-4 gap-2 text-muted-foreground">
+              <PackageOpen className="size-8 mb-2" />
+              <span>{emptyText}</span>
+            </div>
+          ) : (
+            options.map(opt => {
+              const isSelected = selected.includes(opt.value)
+              return (
+                <div
+                  key={opt.value}
+                  className={cn(
+                    'flex items-center gap-2 px-3 py-2 cursor-pointer select-none text-sm hover:bg-accent hover:text-accent-foreground',
+                    isSelected && 'bg-accent text-accent-foreground',
+                    opt.disabled && 'opacity-50 pointer-events-none',
+                  )}
+                  onClick={() => !opt.disabled && toggleOption(opt.value)}
+                  aria-selected={isSelected}
+                  role="option"
+                  tabIndex={-1}
+                >
+                  {optionVariant === 'checkbox' ? (
+                    <Checkbox
+                      checked={isSelected}
+                      tabIndex={-1}
+                      className="size-4 mr-2 pointer-events-none"
+                      aria-hidden
+                    />
+                  ) : (
+                    isSelected && <CheckIcon className="size-4 mr-2" />
+                  )}
+                  {renderOption ? renderOption(opt, isSelected) : opt.label}
+                </div>
+              )
+            })
+          )}
         </div>
       )}
     </div>

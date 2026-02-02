@@ -2,9 +2,20 @@
 
 import * as React from 'react'
 import * as MenubarPrimitive from '@radix-ui/react-menubar'
-import {CheckIcon, ChevronRightIcon, CircleIcon} from 'lucide-react'
+import {
+  CheckIcon,
+  ChevronRightIcon,
+  CircleIcon,
+  PackageOpen,
+} from 'lucide-react'
 
 import {cn} from './utils'
+import {Spinner} from './spinner'
+type ApiErrorType = {
+  error: boolean
+  text?: string
+  onClick?: () => void
+}
 
 function Menubar({
   className,
@@ -64,13 +75,36 @@ function MenubarTrigger({
   )
 }
 
+type MenubarContentProps = React.ComponentProps<
+  typeof MenubarPrimitive.Content
+> & {
+  loading?: boolean
+  apiError?: ApiErrorType
+  emptyText?: string
+  /**
+   * Children should be MenubarItem, MenubarGroup, etc.
+   */
+  children?: React.ReactNode
+}
+
 function MenubarContent({
   className,
   align = 'start',
   alignOffset = -4,
   sideOffset = 8,
+  loading = false,
+  apiError,
+  emptyText = 'No Options',
+  children,
   ...props
-}: React.ComponentProps<typeof MenubarPrimitive.Content>) {
+}: MenubarContentProps) {
+  // Determine if there are any options
+  const hasOptions = React.Children.toArray(children).some(
+    child =>
+      React.isValidElement(child) &&
+      (child.type === MenubarItem || child.type === MenubarGroup),
+  )
+
   return (
     <MenubarPortal>
       <MenubarPrimitive.Content
@@ -83,7 +117,31 @@ function MenubarContent({
           className,
         )}
         {...props}
-      />
+      >
+        {/* Loading State */}
+        {loading ? (
+          <div className="flex flex-col items-center justify-center py-6 text-muted-foreground">
+            <Spinner />
+          </div>
+        ) : apiError?.error ? (
+          <div className="flex flex-col items-center justify-center py-6">
+            <button
+              type="button"
+              className="text-destructive underline text-sm px-2 py-1 rounded hover:bg-destructive/10"
+              onClick={apiError.onClick}
+            >
+              {apiError.text || 'Error'}
+            </button>
+          </div>
+        ) : !hasOptions ? (
+          <div className="flex flex-col items-center justify-center py-6 text-muted-foreground gap-2">
+            <PackageOpen className="size-8 opacity-60" />
+            <span className="text-xs">{emptyText}</span>
+          </div>
+        ) : (
+          children
+        )}
+      </MenubarPrimitive.Content>
     </MenubarPortal>
   )
 }
