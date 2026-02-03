@@ -69,6 +69,11 @@
   --warning: #ffb2a3; /* Secondary 300 */
   --warning-foreground: #1a1a1a;
 
+  --info: #cecae0; /* Primary 200 */
+  --info-foreground: #1f1c32;
+  --info-light: #f1f0f5; /* Primary 100 */
+  --info-dark: #251f42; /* Primary 400 */
+
   --red: #f0d8cc; /* Red 100 */
   --red-dark: #8a4d58; /* Red 500 */
 
