@@ -1,3 +1,4 @@
+export * from './form-multiselect'
 export * from './chip'
 export * from './multiselect'
 export * from './icon'
