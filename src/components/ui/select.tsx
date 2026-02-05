@@ -12,13 +12,13 @@ import {
 import {cn} from './utils'
 import {Spinner} from './spinner'
 
-type ApiErrorType = {
+export type ApiErrorType = {
   error: boolean
   text?: string
   onClick?: () => void
 }
 
-type SelectProps = React.ComponentProps<typeof SelectPrimitive.Root> & {
+export type SelectProps = React.ComponentProps<typeof SelectPrimitive.Root> & {
   loading?: boolean
   apiError?: ApiErrorType
   emptyText?: string
@@ -35,13 +35,6 @@ function Select({
   children,
   ...props
 }: SelectProps) {
-  // Determine if there are any options
-  const hasOptions = React.Children.toArray(children).some(
-    child =>
-      React.isValidElement(child) &&
-      (child.type === SelectItem || child.type === SelectGroup),
-  )
-
   return (
     <SelectPrimitive.Root data-slot="select" {...props}>
       {/*
@@ -59,7 +52,6 @@ function Select({
             loading,
             apiError,
             emptyText,
-            hasOptions,
             children: childElement.props.children || children,
           })
         }
@@ -83,18 +75,26 @@ function SelectValue({
 
 function SelectTrigger({
   className,
-  size = 'default',
+  size = 'md',
   children,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
-  size?: 'sm' | 'default'
+  size?: 'sm' | 'md' | 'lg'
 }) {
+  // Match Input heights: sm=h-9, md=h-11, lg=h-12
+  const sizeClass =
+    size === 'sm'
+      ? 'h-9 text-sm'
+      : size === 'lg'
+        ? 'h-12 text-lg'
+        : 'h-11 text-base'
   return (
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:hover:bg-input/50 flex w-full items-center justify-between gap-2 rounded-md border bg-input-background px-3 py-2 text-sm whitespace-nowrap transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:hover:bg-input/50 flex w-full items-center justify-between gap-2 rounded-md border bg-input-background px-3 py-2 whitespace-nowrap transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        sizeClass,
         className,
       )}
       {...props}
@@ -123,9 +123,10 @@ function SelectContent({
   loading = false,
   apiError,
   emptyText = 'No Options',
-  hasOptions,
+
   ...props
 }: SelectContentProps) {
+  const hasOptions = React.Children.count(children) > 0
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Content

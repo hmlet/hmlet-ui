@@ -16,7 +16,7 @@ import {
 
 type SelectStoryArgs = React.ComponentProps<typeof Select> & {
   triggerWidth?: number
-  triggerSize?: React.ComponentProps<typeof SelectTrigger>['size']
+  triggerSize?: 'sm' | 'md' | 'lg'
   placeholder?: string
   disabled?: boolean
   items?: Array<{value: string; label: string; disabled?: boolean}>
@@ -35,7 +35,7 @@ const DEFAULT_ITEMS: Array<{value: string; label: string; disabled?: boolean}> =
 function SimpleSelect(args: SelectStoryArgs) {
   const triggerWidth = args.triggerWidth ?? 200
   const placeholder = args.placeholder ?? 'Select an option'
-  const triggerSize = args.triggerSize ?? 'default'
+  const triggerSize = args.triggerSize ?? 'md'
   const items = args.items ?? DEFAULT_ITEMS
 
   return (
@@ -75,7 +75,7 @@ function SimpleSelect(args: SelectStoryArgs) {
 function GroupedSelect(args: SelectStoryArgs) {
   const triggerWidth = args.triggerWidth ?? 240
   const placeholder = args.placeholder ?? 'Theme'
-  const triggerSize = args.triggerSize ?? 'default'
+  const triggerSize = args.triggerSize ?? 'md'
 
   return (
     <Select
@@ -113,7 +113,7 @@ function GroupedSelect(args: SelectStoryArgs) {
 function ScrollableSelect(args: SelectStoryArgs) {
   const triggerWidth = args.triggerWidth ?? 280
   const placeholder = args.placeholder ?? 'Pick a country'
-  const triggerSize = args.triggerSize ?? 'default'
+  const triggerSize = args.triggerSize ?? 'md'
 
   const items = React.useMemo(
     () =>
@@ -183,7 +183,7 @@ const meta: Meta<SelectStoryArgs> = {
   argTypes: {
     dir: {options: ['ltr', 'rtl'], control: {type: 'inline-radio'}},
     triggerWidth: {control: {type: 'number', min: 140, max: 420, step: 20}},
-    triggerSize: {options: ['sm', 'default'], control: {type: 'inline-radio'}},
+    triggerSize: {options: ['sm', 'md', 'lg'], control: {type: 'inline-radio'}},
     placeholder: {control: 'text'},
     disabled: {control: 'boolean'},
     value: {control: 'text'},
@@ -201,7 +201,7 @@ const meta: Meta<SelectStoryArgs> = {
   args: {
     dir: 'ltr',
     triggerWidth: 200,
-    triggerSize: 'default',
+    triggerSize: 'md',
     placeholder: 'Select a fruit',
     disabled: false,
     loading: false,
@@ -276,12 +276,21 @@ export const Sizes: Story = {
         />
       </div>
       <div className="grid gap-2">
-        <div className="text-sm text-muted-foreground">Default</div>
+        <div className="text-sm text-muted-foreground">Medium</div>
         <SimpleSelect
           {...args}
-          triggerSize="default"
+          triggerSize="md"
           triggerWidth={240}
-          placeholder="Default trigger"
+          placeholder="Medium trigger"
+        />
+      </div>
+      <div className="grid gap-2">
+        <div className="text-sm text-muted-foreground">Large</div>
+        <SimpleSelect
+          {...args}
+          triggerSize="lg"
+          triggerWidth={240}
+          placeholder="Large trigger"
         />
       </div>
     </div>
@@ -335,7 +344,7 @@ export const Controlled: Story = {
           }}
         >
           <SelectTrigger
-            size={args.triggerSize ?? 'default'}
+            size={args.triggerSize ?? 'md'}
             style={{width: args.triggerWidth ?? 200}}
           >
             <SelectValue placeholder={args.placeholder ?? 'Select'} />

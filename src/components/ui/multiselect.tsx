@@ -31,6 +31,7 @@ export type MultiselectProps = {
   loading?: boolean
   apiError?: {error: boolean; text?: string; onClick?: () => void}
   emptyText?: string
+  size?: 'sm' | 'md' | 'lg'
 }
 
 export function Multiselect({
@@ -46,6 +47,7 @@ export function Multiselect({
   loading = false,
   apiError,
   emptyText = 'No options',
+  size = 'md',
 }: MultiselectProps) {
   const isControlled = value !== undefined
   const [internalValue, setInternalValue] = React.useState<string[]>(
@@ -101,7 +103,10 @@ export function Multiselect({
             <button
               type="button"
               className={cn(
-                'border-input flex w-full items-center justify-between gap-2 rounded-md border bg-input-background px-3 py-2 text-sm whitespace-nowrap transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50',
+                'border-input flex w-full items-center justify-between gap-2 rounded-md border bg-input-background whitespace-nowrap transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50',
+                size === 'sm' && 'px-2 py-1.5 text-xs h-9',
+                size === 'md' && 'px-3 py-2 text-sm h-11',
+                size === 'lg' && 'px-4 py-2.5 text-base h-12',
                 disabled && 'opacity-50 pointer-events-none',
               )}
               disabled={disabled}
@@ -196,7 +201,10 @@ export function Multiselect({
                 <div
                   key={opt.value}
                   className={cn(
-                    'flex items-center gap-2 px-3 py-2 cursor-pointer select-none text-sm hover:bg-accent hover:text-accent-foreground',
+                    'flex items-center gap-2 cursor-pointer select-none hover:bg-accent hover:text-accent-foreground',
+                    size === 'sm' && 'px-2 py-1.5 text-xs',
+                    size === 'md' && 'px-3 py-2 text-sm',
+                    size === 'lg' && 'px-4 py-2.5 text-base',
                     isSelected && 'bg-accent text-accent-foreground',
                     opt.disabled && 'opacity-50 pointer-events-none',
                   )}

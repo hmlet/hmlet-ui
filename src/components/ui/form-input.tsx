@@ -5,7 +5,16 @@ import {Typography} from './typography'
 import type {LucideIcon} from 'lucide-react'
 import {cn} from './utils'
 import {VStack, HStack} from '../layout'
-import {SelectNative} from './select-native'
+import {Label} from './label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  type ApiErrorType,
+  type SelectProps,
+} from './select'
 
 interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string
@@ -23,10 +32,10 @@ export const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
     return (
       <VStack gap="2">
         {label && (
-          <Typography variant="body-sm" className="font-medium">
+          <Label>
             {label}
             {required && <span className="text-destructive ml-1">*</span>}
-          </Typography>
+          </Label>
         )}
         {Icon ? (
           <HStack gap="2" className="relative">
@@ -75,10 +84,10 @@ export const FormTextarea = React.forwardRef<
   return (
     <VStack gap="2">
       {label && (
-        <Typography variant="body-sm" className="font-medium">
+        <Label>
           {label}
           {required && <span className="text-destructive ml-1">*</span>}
-        </Typography>
+        </Label>
       )}
       <Textarea
         ref={ref}
@@ -100,50 +109,97 @@ export const FormTextarea = React.forwardRef<
 })
 
 FormTextarea.displayName = 'FormTextarea'
+export type FormSelectOption = {
+  value: string
+  label: React.ReactNode
+  disabled?: boolean
+}
 
-interface FormSelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
+interface FormSelectProps extends SelectProps {
   label?: string
   error?: string
   helperText?: string
-  options: Array<{value: string; label: string}>
-  placeholder?: string
   required?: boolean
+  className?: string
+
+  options: FormSelectOption[]
+  placeholder?: string
+
+  /** Empty / loading / error states */
+  loading?: boolean
+  emptyText?: string
+  apiError?: ApiErrorType
 }
 
-export const FormSelect = React.forwardRef<HTMLSelectElement, FormSelectProps>(
+export const FormSelect = React.forwardRef<HTMLButtonElement, FormSelectProps>(
   (
     {
       label,
       error,
       helperText,
-      options,
-      placeholder,
       required,
       className,
+      disabled,
+
+      options,
+      placeholder = 'Select...',
+      loading = false,
+      emptyText = 'No options',
+      apiError,
+
       ...props
     },
     ref,
   ) => {
+    console.log({options, loading, emptyText, apiError})
     return (
-      <VStack gap="2">
+      <VStack gap="2" className="group" data-disabled={disabled}>
         {label && (
-          <Typography variant="body-sm" className="font-medium">
+          <Label>
             {label}
             {required && <span className="text-destructive ml-1">*</span>}
-          </Typography>
+          </Label>
         )}
-        <SelectNative
-          ref={ref}
-          options={options}
-          placeholder={placeholder}
-          className={cn(error && 'border-destructive', className)}
+
+        <Select
           {...props}
-        />
+          disabled={disabled}
+          loading={loading}
+          emptyText={emptyText}
+          apiError={apiError}
+        >
+          <SelectTrigger
+            ref={ref}
+            aria-invalid={!!error}
+            className={cn(error && 'border-destructive', className)}
+          >
+            <SelectValue placeholder={placeholder} />
+          </SelectTrigger>
+
+          <SelectContent
+            hasOptions={options && options.length > 0}
+            loading={loading}
+            apiError={apiError}
+            emptyText={emptyText}
+          >
+            {options.map(opt => (
+              <SelectItem
+                key={opt.value}
+                value={opt.value}
+                disabled={opt.disabled}
+              >
+                {opt.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
         {error && (
           <Typography variant="body-sm" className="text-destructive">
             {error}
           </Typography>
         )}
+
         {helperText && !error && (
           <Typography variant="body-sm" className="text-muted-foreground">
             {helperText}

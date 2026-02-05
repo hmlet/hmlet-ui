@@ -15,7 +15,7 @@ const inputVariants = cva(
         success:
           'border-success focus:border-success focus:shadow-[0_0_0_3px_rgba(2,177,107,0.1)]',
       },
-      inputSize: {
+      size: {
         sm: 'h-9 text-sm',
         md: 'h-11 text-base',
         lg: 'h-12 text-lg',
@@ -23,7 +23,7 @@ const inputVariants = cva(
     },
     defaultVariants: {
       variant: 'default',
-      inputSize: 'md',
+      size: 'md',
     },
   },
 )
@@ -31,15 +31,17 @@ const inputVariants = cva(
 interface InputProps
   extends
     Omit<React.ComponentProps<'input'>, 'size'>,
-    VariantProps<typeof inputVariants> {}
+    Omit<VariantProps<typeof inputVariants>, 'inputSize'> {
+  size?: 'sm' | 'md' | 'lg'
+}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({className, variant, inputSize, type, ...props}, ref) => {
+  ({className, variant, size = 'md', type, ...props}, ref) => {
     return (
       <input
         type={type}
         data-slot="input"
-        className={cn(inputVariants({variant, inputSize}), className)}
+        className={cn(inputVariants({variant, size}), className)}
         ref={ref}
         {...props}
       />

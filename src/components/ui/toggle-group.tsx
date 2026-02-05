@@ -44,7 +44,7 @@ function ToggleGroupItem({
   className,
   children,
   variant,
-  size,
+  size = 'md',
   ...props
 }: React.ComponentProps<typeof ToggleGroupPrimitive.Item> &
   VariantProps<typeof toggleVariants>) {

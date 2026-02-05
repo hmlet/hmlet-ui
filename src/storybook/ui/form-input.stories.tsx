@@ -77,7 +77,6 @@ export const SelectPlayground: SelectStory = {
   args: {
     label: 'Country',
     options: [
-      {value: '', label: 'Select a country'},
       {value: 'sg', label: 'Singapore'},
       {value: 'my', label: 'Malaysia'},
       {value: 'id', label: 'Indonesia'},
@@ -85,6 +84,11 @@ export const SelectPlayground: SelectStory = {
     required: true,
     error: '',
     helperText: 'Choose your country of residence.',
+    placeholder: 'Select a country',
+    loading: false,
+    emptyText: 'No countries available',
+    apiError: undefined,
+    defaultValue: 'sg',
   },
 }
 
@@ -93,11 +97,52 @@ export const SelectWithError: SelectStory = {
   args: {
     label: 'Country',
     options: [
-      {value: '', label: 'Select a country'},
       {value: 'sg', label: 'Singapore'},
       {value: 'my', label: 'Malaysia'},
       {value: 'id', label: 'Indonesia'},
     ],
     error: 'Country is required',
+    placeholder: 'Select a country',
+    loading: false,
+    emptyText: 'No countries available',
+    apiError: undefined,
+    defaultValue: 'my',
+  },
+}
+
+export const SelectLoading: SelectStory = {
+  render: args => <FormSelect {...args} />,
+  args: {
+    label: 'Country',
+    options: [],
+    loading: true,
+    placeholder: 'Select a country',
+    emptyText: 'Loading countries...',
+    helperText: 'Fetching country list...',
+  },
+}
+
+export const SelectEmpty: SelectStory = {
+  render: args => <FormSelect {...args} />,
+  args: {
+    label: 'Country',
+    options: [],
+    loading: false,
+    placeholder: 'Select a country',
+    emptyText: 'No countries available',
+    helperText: 'No countries found.',
+  },
+}
+
+export const SelectApiError: SelectStory = {
+  render: args => <FormSelect {...args} />,
+  args: {
+    label: 'Country',
+    options: [],
+    loading: false,
+    placeholder: 'Select a country',
+    emptyText: 'No countries available',
+    apiError: {message: 'Failed to fetch countries', code: 500},
+    helperText: 'Please try again later.',
   },
 }
