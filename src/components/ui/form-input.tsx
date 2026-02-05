@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {Input} from './input'
+import {Input, type InputProps} from './input'
 import {Textarea} from './textarea'
 import {Typography} from './typography'
 import type {LucideIcon} from 'lucide-react'
@@ -16,7 +16,7 @@ import {
   type SelectProps,
 } from './select'
 
-interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface FormInputProps extends InputProps {
   label?: string
   error?: string
   helperText?: string
