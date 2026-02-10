@@ -132,8 +132,8 @@ interface FormSelectProps extends SelectProps {
 }
 
 export const FormSelect = React.forwardRef<HTMLButtonElement, FormSelectProps>(
-  (
-    {
+  (props, ref) => {
+    const {
       label,
       error,
       helperText,
@@ -147,11 +147,12 @@ export const FormSelect = React.forwardRef<HTMLButtonElement, FormSelectProps>(
       emptyText = 'No options',
       apiError,
 
-      ...props
-    },
-    ref,
-  ) => {
-    console.log({options, loading, emptyText, apiError})
+      value,
+      onValueChange,
+
+      ...restProps
+    } = props
+
     return (
       <VStack gap="2" className="group" data-disabled={disabled}>
         {label && (
@@ -162,11 +163,13 @@ export const FormSelect = React.forwardRef<HTMLButtonElement, FormSelectProps>(
         )}
 
         <Select
-          {...props}
+          value={value}
+          onValueChange={onValueChange}
           disabled={disabled}
           loading={loading}
           emptyText={emptyText}
           apiError={apiError}
+          {...restProps}
         >
           <SelectTrigger
             ref={ref}
@@ -177,7 +180,7 @@ export const FormSelect = React.forwardRef<HTMLButtonElement, FormSelectProps>(
           </SelectTrigger>
 
           <SelectContent
-            hasOptions={options && options.length > 0}
+            hasOptions={options.length > 0}
             loading={loading}
             apiError={apiError}
             emptyText={emptyText}
