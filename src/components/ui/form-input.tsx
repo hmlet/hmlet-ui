@@ -163,7 +163,6 @@ export const FormSelect = React.forwardRef<HTMLButtonElement, FormSelectProps>(
         )}
 
         <Select
-          key={options.length}
           value={value}
           onValueChange={onValueChange}
           disabled={disabled}
