@@ -49,7 +49,7 @@ export type * from './section'
 export {Center} from './center'
 export type * from './center'
 
-export {AspectRatio as LayoutAspectRatio} from './aspect-ratio'
+export {LayoutAspectRatio} from './aspect-ratio'
 export type * from './aspect-ratio'
 
 export {Divider} from './divider'

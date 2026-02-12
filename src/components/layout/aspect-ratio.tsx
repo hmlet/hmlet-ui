@@ -38,7 +38,7 @@ export interface LayoutAspectRatioProps
   children?: React.ReactNode
 }
 
-export const AspectRatio = React.forwardRef<
+export const LayoutAspectRatio = React.forwardRef<
   HTMLDivElement,
   LayoutAspectRatioProps
 >(({as: Component = 'div', className, ratio, children, ...props}, ref) => {
@@ -53,4 +53,4 @@ export const AspectRatio = React.forwardRef<
   )
 })
 
-AspectRatio.displayName = 'AspectRatio'
+LayoutAspectRatio.displayName = 'LayoutAspectRatio'
