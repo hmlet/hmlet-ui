@@ -66,8 +66,8 @@ function CalendarSingle(props: Extract<CalendarProps, {mode: 'single'}>) {
             inputProps?.className,
           )}
           value={inputValue}
-          placeholder={inputProps?.placeholder || 'Select date'}
           {...inputProps}
+          placeholder={inputProps?.placeholder || 'Select date'}
           onClick={e => {
             setOpen(true)
             inputProps?.onClick?.(e)
@@ -170,8 +170,8 @@ function CalendarMultiple(props: Extract<CalendarProps, {mode: 'multiple'}>) {
             inputProps?.className,
           )}
           value={inputValue}
-          placeholder={inputProps?.placeholder || 'Select date(s)'}
           {...inputProps}
+          placeholder={inputProps?.placeholder || 'Select date(s)'}
           onClick={e => {
             setOpen(true)
             inputProps?.onClick?.(e)
@@ -284,8 +284,8 @@ function CalendarRange(props: Extract<CalendarProps, {mode: 'range'}>) {
             inputProps?.className,
           )}
           value={inputValue}
-          placeholder={inputProps?.placeholder || 'Select date range'}
           {...inputProps}
+          placeholder={inputProps?.placeholder || 'Select date range'}
           onClick={e => {
             setOpen(true)
             inputProps?.onClick?.(e)
