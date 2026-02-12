@@ -1,3 +1,4 @@
+import {Calendar} from './calendar'
 import * as React from 'react'
 import {Input, type InputProps} from './input'
 import {Textarea} from './textarea'
@@ -214,3 +215,40 @@ export const FormSelect = React.forwardRef<HTMLButtonElement, FormSelectProps>(
 )
 
 FormSelect.displayName = 'FormSelect'
+
+type FormCalendarProps = React.ComponentProps<typeof Calendar> & {
+  label?: string
+  error?: string
+  helperText?: string
+  required?: boolean
+  className?: string
+}
+
+export const FormCalendar = React.forwardRef<HTMLDivElement, FormCalendarProps>(
+  ({label, error, helperText, required, className, ...props}, ref) => {
+    return (
+      <VStack gap="2">
+        {label && (
+          <Label>
+            {label}
+            {required && <span className="text-destructive ml-1">*</span>}
+          </Label>
+        )}
+        <div ref={ref} className={className}>
+          <Calendar {...props} />
+        </div>
+        {error && (
+          <Typography variant="body-sm" className="text-destructive">
+            {error}
+          </Typography>
+        )}
+        {helperText && !error && (
+          <Typography variant="body-sm" className="text-muted-foreground">
+            {helperText}
+          </Typography>
+        )}
+      </VStack>
+    )
+  },
+)
+FormCalendar.displayName = 'FormCalendar'

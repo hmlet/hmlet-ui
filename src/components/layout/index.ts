@@ -14,49 +14,49 @@
 
 // Primitives
 export {Box} from './box'
-export type {BoxProps} from './box'
+export type * from './box'
 
 export {Stack} from './stack'
-export type {StackProps} from './stack'
+export type * from './stack'
 
 export {HStack} from './hstack'
-export type {HStackProps} from './hstack'
+export type * from './hstack'
 
 export {VStack} from './vstack'
-export type {VStackProps} from './vstack'
+export type * from './vstack'
 
 export {Inline} from './inline'
-export type {InlineProps} from './inline'
+export type * from './inline'
 
 export {Spacer} from './spacer'
-export type {SpacerProps} from './spacer'
+export type * from './spacer'
 
 // Grid
 export {Grid} from './grid'
-export type {GridProps} from './grid'
+export type * from './grid'
 
 export {GridItem} from './grid-item'
-export type {GridItemProps} from './grid-item'
+export type * from './grid-item'
 
 // Containers
 export {Container} from './container'
-export type {ContainerProps} from './container'
+export type * from './container'
 
 export {Section} from './section'
-export type {SectionProps} from './section'
+export type * from './section'
 
 // Utilities
 export {Center} from './center'
-export type {CenterProps} from './center'
+export type * from './center'
 
 export {AspectRatio as LayoutAspectRatio} from './aspect-ratio'
-export type {AspectRatioProps as LayoutAspectRatioProps} from './aspect-ratio'
+export type * from './aspect-ratio'
 
 export {Divider} from './divider'
-export type {DividerProps} from './divider'
+export type * from './divider'
 
 export {Wrap} from './wrap'
-export type {WrapProps} from './wrap'
+export type * from './wrap'
 
 export {Bleed} from './bleed'
 export type {BleedProps} from './bleed'
