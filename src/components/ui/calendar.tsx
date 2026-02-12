@@ -266,7 +266,7 @@ function CalendarRange(props: Extract<CalendarProps, {mode: 'range'}>) {
     inputValue = selected.from.toLocaleDateString()
     if (selected.to) inputValue += ' - ' + selected.to.toLocaleDateString()
   }
-  console.log('selected', {selected, inputValue})
+  console.log('selected', {selected, inputValue, inputProps, props})
 
   // Compute hovered range
   const hoveredRange =
