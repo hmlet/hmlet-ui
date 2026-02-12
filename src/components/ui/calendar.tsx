@@ -249,6 +249,7 @@ function CalendarRange(props: Extract<CalendarProps, {mode: 'range'}>) {
   const [selected, setSelected] = React.useState<DateRange | undefined>(
     props.selected,
   )
+  const [hoveredDate, setHoveredDate] = React.useState<Date | undefined>()
   React.useEffect(() => {
     setSelected(props.selected)
   }, [props.selected])
@@ -265,6 +266,12 @@ function CalendarRange(props: Extract<CalendarProps, {mode: 'range'}>) {
     inputValue = selected.from.toLocaleDateString()
     if (selected.to) inputValue += ' - ' + selected.to.toLocaleDateString()
   }
+  // Compute hovered range
+  const hoveredRange =
+    selected?.from && !selected?.to && hoveredDate
+      ? {from: selected.from, to: hoveredDate}
+      : null
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -287,13 +294,29 @@ function CalendarRange(props: Extract<CalendarProps, {mode: 'range'}>) {
         <DayPicker
           showOutsideDays={showOutsideDays}
           selected={selected}
-          onSelect={(range: DateRange | undefined) => {
+          onSelect={(range: DateRange | undefined, selectedDate?: Date) => {
+            // If both from and to are already selected, and user selects another date, reset range
+            if (selected?.from && selected?.to && selectedDate) {
+              const newRange = {from: selectedDate, to: undefined}
+              setSelected(newRange)
+              onSelect?.(newRange)
+              // Do not close popover
+              return
+            }
             setSelected(range)
+            onSelect?.(range)
             // Only close if both from and to are selected (range complete)
             if (range?.from && range?.to) {
               setOpen(false)
             }
-            onSelect?.(range)
+          }}
+          onDayMouseEnter={date => setHoveredDate(date)}
+          onDayMouseLeave={() => setHoveredDate(undefined)}
+          modifiers={{
+            hoveredRange: hoveredRange ? [hoveredRange] : [],
+          }}
+          modifiersClassNames={{
+            hoveredRange: 'bg-accent/50 text-accent-foreground',
           }}
           className={cn('p-3', className)}
           classNames={{
