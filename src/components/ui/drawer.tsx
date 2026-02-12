@@ -43,6 +43,16 @@ function DrawerOverlay({
   )
 }
 
+function DrawerBody({className, ...props}: React.ComponentProps<'div'>) {
+  return (
+    <div
+      data-slot="drawer-body"
+      className={cn('flex-1', className)}
+      {...props}
+    />
+  )
+}
+
 function DrawerContent({
   className,
   children,
@@ -64,7 +74,7 @@ function DrawerContent({
         {...props}
       >
         <div className="bg-muted mx-auto mt-4 hidden h-2 w-[100px] shrink-0 rounded-full group-data-[vaul-drawer-direction=bottom]/drawer-content:block" />
-        {children}
+        <DrawerBody>{children}</DrawerBody>
       </DrawerPrimitive.Content>
     </DrawerPortal>
   )
@@ -123,6 +133,7 @@ export {
   DrawerTrigger,
   DrawerClose,
   DrawerContent,
+  DrawerBody,
   DrawerHeader,
   DrawerFooter,
   DrawerTitle,
