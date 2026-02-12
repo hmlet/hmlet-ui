@@ -20,6 +20,7 @@ export const MultipleDates: Story = {
           {...storyArgs}
           mode="multiple"
           selected={selected}
+          inputProps={{placeholder: 'Select date(s)'}}
           onSelect={(next: Date[] | undefined) => {
             updateArgs({
               selectedTimestamp: next
@@ -162,6 +163,7 @@ const meta: Meta<CalendarStoryArgs> = {
     cellSize: 'md',
     fromYear: new Date().getFullYear() - 100,
     toYear: new Date().getFullYear() + 10,
+    inputProps: {placeholder: 'Select date'},
   },
 }
 
@@ -291,6 +293,7 @@ export const SingleDate: Story = {
           {...storyArgs}
           mode="single"
           selected={selected}
+          inputProps={{placeholder: 'Select date'}}
           onSelect={(next: Date | undefined) => {
             updateArgs({selectedTimestamp: dateToTimestamp(next)})
             storyArgs.onSelectDate?.(next)
@@ -327,6 +330,7 @@ export const Range: Story = {
           {...storyArgs}
           mode="range"
           selected={selected}
+          inputProps={{placeholder: 'Select date range'}}
           onSelect={(next: {from?: Date; to?: Date} | undefined) => {
             updateArgs({
               rangeFromTimestamp: dateToTimestamp(next?.from),

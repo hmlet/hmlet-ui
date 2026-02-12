@@ -8,12 +8,13 @@ import {buttonVariants} from './button'
 import {Popover, PopoverContent, PopoverTrigger} from './popover'
 
 import type {DateRange} from 'react-day-picker'
+import {Input, type InputProps} from './input'
 
 export type CalendarBaseProps = Omit<
   React.ComponentProps<typeof DayPicker>,
   'selected' | 'onSelect'
 > & {
-  inputProps?: React.InputHTMLAttributes<HTMLInputElement>
+  inputProps?: InputProps
 }
 
 export type CalendarProps =
@@ -55,16 +56,12 @@ function CalendarSingle(props: Extract<CalendarProps, {mode: 'single'}>) {
     onSelect,
     ...rest
   } = props
-  const inputValue = selected ? selected.toLocaleDateString() : ''
+  const inputValue = selected ? selected.toLocaleDateString() : undefined
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <input
+      <PopoverTrigger>
+        <Input
           readOnly
-          className={cn(
-            'w-full cursor-pointer rounded-md border bg-input-background px-3 py-2 text-base outline-none transition-all text-left',
-            inputProps?.className,
-          )}
           value={inputValue}
           {...inputProps}
           placeholder={inputProps?.placeholder || 'Select date'}
@@ -159,16 +156,12 @@ function CalendarMultiple(props: Extract<CalendarProps, {mode: 'multiple'}>) {
   const inputValue =
     selected && selected.length > 0
       ? selected.map(d => d.toLocaleDateString()).join(', ')
-      : ''
+      : undefined
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <input
+      <PopoverTrigger>
+        <Input
           readOnly
-          className={cn(
-            'w-full cursor-pointer rounded-md border bg-input-background px-3 py-2 text-base outline-none transition-all text-left',
-            inputProps?.className,
-          )}
           value={inputValue}
           {...inputProps}
           placeholder={inputProps?.placeholder || 'Select date(s)'}
@@ -261,13 +254,13 @@ function CalendarRange(props: Extract<CalendarProps, {mode: 'range'}>) {
     onSelect,
     ...rest
   } = props
-  let inputValue = ''
-  if (selected?.from) {
-    inputValue = selected.from.toLocaleDateString()
-    if (selected.to) inputValue += ' - ' + selected.to.toLocaleDateString()
+  let inputValue: string | undefined = undefined
+  if (selected?.from && selected?.to) {
+    inputValue =
+      selected.from.toLocaleDateString() +
+      ' - ' +
+      selected.to.toLocaleDateString()
   }
-  console.log('selected', {selected, inputValue, inputProps, props})
-
   // Compute hovered range
   const hoveredRange =
     selected?.from && !selected?.to && hoveredDate
@@ -276,14 +269,10 @@ function CalendarRange(props: Extract<CalendarProps, {mode: 'range'}>) {
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <input
+      <PopoverTrigger>
+        <Input
           readOnly
-          className={cn(
-            'w-full cursor-pointer rounded-md border bg-input-background px-3 py-2 text-base outline-none transition-all text-left',
-            inputProps?.className,
-          )}
-          value={inputValue}
+          value={inputValue ? inputValue : undefined}
           {...inputProps}
           placeholder={inputProps?.placeholder || 'Select date range'}
           onClick={e => {
