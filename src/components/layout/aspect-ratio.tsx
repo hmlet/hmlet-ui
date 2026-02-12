@@ -30,7 +30,7 @@ const aspectRatioVariants = cva('relative w-full overflow-hidden', {
   },
 })
 
-export interface AspectRatioProps
+export interface LayoutAspectRatioProps
   extends
     React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof aspectRatioVariants> {
@@ -38,18 +38,19 @@ export interface AspectRatioProps
   children?: React.ReactNode
 }
 
-export const AspectRatio = React.forwardRef<HTMLDivElement, AspectRatioProps>(
-  ({as: Component = 'div', className, ratio, children, ...props}, ref) => {
-    return (
-      <Component
-        ref={ref}
-        className={cn(aspectRatioVariants({ratio}), className)}
-        {...props}
-      >
-        {children}
-      </Component>
-    )
-  },
-)
+export const AspectRatio = React.forwardRef<
+  HTMLDivElement,
+  LayoutAspectRatioProps
+>(({as: Component = 'div', className, ratio, children, ...props}, ref) => {
+  return (
+    <Component
+      ref={ref}
+      className={cn(aspectRatioVariants({ratio}), className)}
+      {...props}
+    >
+      {children}
+    </Component>
+  )
+})
 
 AspectRatio.displayName = 'AspectRatio'
