@@ -1,3 +1,44 @@
+// --- Multiple mode story ---
+export const MultipleDates: Story = {
+  name: 'Multiple Dates',
+  args: {
+    selectedTimestamp: undefined,
+  },
+  render: function MultipleDatesRender(storyArgs) {
+    const [{selectedTimestamp}, updateArgs] = useArgs<{
+      selectedTimestamp?: number[]
+    }>()
+
+    // selectedTimestamp is an array of timestamps
+    const selected = Array.isArray(selectedTimestamp)
+      ? selectedTimestamp.map(toDate).filter((d): d is Date => !!d)
+      : []
+
+    return (
+      <div className="flex flex-col gap-3">
+        <Calendar
+          {...storyArgs}
+          mode="multiple"
+          selected={selected}
+          onSelect={(next: Date[] | undefined) => {
+            updateArgs({
+              selectedTimestamp: next
+                ?.map(dateToTimestamp)
+                .filter((n): n is number => typeof n === 'number'),
+            })
+            // Optionally call a story action if needed
+          }}
+        />
+        <div className="text-muted-foreground text-sm">
+          Selected:{' '}
+          {selected.length > 0
+            ? selected.map(d => d?.toDateString()).join(', ')
+            : '—'}
+        </div>
+      </div>
+    )
+  },
+}
 import type {Meta, StoryObj} from '@storybook/react'
 import {useArgs} from '@storybook/preview-api'
 import * as React from 'react'
