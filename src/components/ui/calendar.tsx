@@ -59,7 +59,7 @@ function CalendarSingle(props: Extract<CalendarProps, {mode: 'single'}>) {
   const inputValue = selected ? selected.toLocaleDateString() : undefined
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger>
+      <PopoverTrigger className="w-full flex-1">
         <Input
           readOnly
           value={inputValue}
@@ -159,7 +159,7 @@ function CalendarMultiple(props: Extract<CalendarProps, {mode: 'multiple'}>) {
       : undefined
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger>
+      <PopoverTrigger className="w-full flex-1">
         <Input
           readOnly
           value={inputValue}
@@ -269,7 +269,7 @@ function CalendarRange(props: Extract<CalendarProps, {mode: 'range'}>) {
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger>
+      <PopoverTrigger className="w-full flex-1">
         <Input
           readOnly
           value={inputValue ? inputValue : undefined}
