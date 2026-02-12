@@ -350,8 +350,16 @@ function CalendarRange(props: Extract<CalendarProps, {mode: 'range'}>) {
 
 // Wrapper Calendar
 function Calendar(props: CalendarProps) {
-  if (props.mode === 'multiple') return <CalendarMultiple {...props} />
-  if (props.mode === 'range') return <CalendarRange {...props} />
+  if (props.mode === 'multiple')
+    return (
+      <CalendarMultiple
+        {...(props as Extract<CalendarProps, {mode: 'multiple'}>)}
+      />
+    )
+  if (props.mode === 'range')
+    return (
+      <CalendarRange {...(props as Extract<CalendarProps, {mode: 'range'}>)} />
+    )
   // Default to single
   return (
     <CalendarSingle {...(props as Extract<CalendarProps, {mode: 'single'}>)} />
