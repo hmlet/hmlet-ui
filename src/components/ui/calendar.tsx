@@ -62,7 +62,7 @@ function CalendarSingle(props: Extract<CalendarProps, {mode: 'single'}>) {
         <input
           readOnly
           className={cn(
-            'w-full cursor-pointer rounded-md border bg-input-background px-3 py-2 text-base outline-none transition-all',
+            'w-full cursor-pointer rounded-md border bg-input-background px-3 py-2 text-base outline-none transition-all text-left',
             inputProps?.className,
           )}
           value={inputValue}
@@ -166,7 +166,7 @@ function CalendarMultiple(props: Extract<CalendarProps, {mode: 'multiple'}>) {
         <input
           readOnly
           className={cn(
-            'w-full cursor-pointer rounded-md border bg-input-background px-3 py-2 text-base outline-none transition-all',
+            'w-full cursor-pointer rounded-md border bg-input-background px-3 py-2 text-base outline-none transition-all text-left',
             inputProps?.className,
           )}
           value={inputValue}
@@ -271,7 +271,7 @@ function CalendarRange(props: Extract<CalendarProps, {mode: 'range'}>) {
         <input
           readOnly
           className={cn(
-            'w-full cursor-pointer rounded-md border bg-input-background px-3 py-2 text-base outline-none transition-all',
+            'w-full cursor-pointer rounded-md border bg-input-background px-3 py-2 text-base outline-none transition-all text-left',
             inputProps?.className,
           )}
           value={inputValue}
@@ -289,7 +289,10 @@ function CalendarRange(props: Extract<CalendarProps, {mode: 'range'}>) {
           selected={selected}
           onSelect={(range: DateRange | undefined) => {
             setSelected(range)
-            setOpen(false)
+            // Only close if both from and to are selected (range complete)
+            if (range?.from && range?.to) {
+              setOpen(false)
+            }
             onSelect?.(range)
           }}
           className={cn('p-3', className)}
