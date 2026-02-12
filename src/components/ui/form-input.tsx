@@ -1,4 +1,4 @@
-import {Calendar} from './calendar'
+import {Calendar, type CalendarProps} from './calendar'
 import * as React from 'react'
 import {Input, type InputProps} from './input'
 import {Textarea} from './textarea'
@@ -16,6 +16,7 @@ import {
   type ApiErrorType,
   type SelectProps,
 } from './select'
+import type {DateRange} from 'react-day-picker'
 
 interface FormInputProps extends InputProps {
   label?: string
@@ -215,8 +216,7 @@ export const FormSelect = React.forwardRef<HTMLButtonElement, FormSelectProps>(
 )
 
 FormSelect.displayName = 'FormSelect'
-
-type FormCalendarProps = React.ComponentProps<typeof Calendar> & {
+type BaseFormCalendarProps = {
   label?: string
   error?: string
   helperText?: string
@@ -224,8 +224,70 @@ type FormCalendarProps = React.ComponentProps<typeof Calendar> & {
   className?: string
 }
 
+type FormCalendarProps =
+  | (BaseFormCalendarProps &
+      Extract<CalendarProps, {mode: 'single'}> & {
+        value?: Date
+        onChange?: (date?: Date) => void
+      })
+  | (BaseFormCalendarProps &
+      Extract<CalendarProps, {mode: 'multiple'}> & {
+        value?: Date[]
+        onChange?: (dates?: Date[]) => void
+      })
+  | (BaseFormCalendarProps &
+      Extract<CalendarProps, {mode: 'range'}> & {
+        value?: DateRange
+        onChange?: (range?: DateRange) => void
+      })
+
 export const FormCalendar = React.forwardRef<HTMLDivElement, FormCalendarProps>(
-  ({label, error, helperText, required, className, ...props}, ref) => {
+  (props, ref) => {
+    const {
+      label,
+      error,
+      helperText,
+      required,
+      className,
+      value,
+      onChange,
+      ...rest
+    } = props
+
+    const renderCalendar = () => {
+      switch (props.mode) {
+        case 'multiple':
+          return (
+            <Calendar
+              {...rest}
+              mode="multiple"
+              selected={value as Date[] | undefined}
+              onSelect={onChange as (dates?: Date[]) => void}
+            />
+          )
+
+        case 'range':
+          return (
+            <Calendar
+              {...rest}
+              mode="range"
+              selected={value as DateRange | undefined}
+              onSelect={onChange as (range?: DateRange) => void}
+            />
+          )
+
+        default:
+          return (
+            <Calendar
+              {...rest}
+              mode="single"
+              selected={value as Date | undefined}
+              onSelect={onChange as (date?: Date) => void}
+            />
+          )
+      }
+    }
+
     return (
       <VStack gap="2">
         {label && (
@@ -234,14 +296,17 @@ export const FormCalendar = React.forwardRef<HTMLDivElement, FormCalendarProps>(
             {required && <span className="text-destructive ml-1">*</span>}
           </Label>
         )}
+
         <div ref={ref} className={className}>
-          <Calendar {...props} />
+          {renderCalendar()}
         </div>
+
         {error && (
           <Typography variant="body-sm" className="text-destructive">
             {error}
           </Typography>
         )}
+
         {helperText && !error && (
           <Typography variant="body-sm" className="text-muted-foreground">
             {helperText}
@@ -251,4 +316,5 @@ export const FormCalendar = React.forwardRef<HTMLDivElement, FormCalendarProps>(
     )
   },
 )
+
 FormCalendar.displayName = 'FormCalendar'

@@ -9,14 +9,14 @@ import {Popover, PopoverContent, PopoverTrigger} from './popover'
 
 import type {DateRange} from 'react-day-picker'
 
-type CalendarBaseProps = Omit<
+export type CalendarBaseProps = Omit<
   React.ComponentProps<typeof DayPicker>,
   'selected' | 'onSelect'
 > & {
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>
 }
 
-type CalendarProps =
+export type CalendarProps =
   | (CalendarBaseProps & {
       mode: 'single'
       selected?: Date
