@@ -4,13 +4,8 @@ import {useArgs} from '@storybook/preview-api'
 import * as React from 'react'
 
 import {Checkbox} from '../../components/ui/checkbox'
-import {Label} from '../../components/ui/label'
 
-type CheckboxRootProps = React.ComponentProps<typeof Checkbox>
-
-type CheckboxStoryArgs = CheckboxRootProps & {
-  label: string
-}
+type CheckboxStoryArgs = React.ComponentProps<typeof Checkbox>
 
 const meta: Meta<CheckboxStoryArgs> = {
   title: 'UI/Checkbox',
@@ -20,6 +15,8 @@ const meta: Meta<CheckboxStoryArgs> = {
     controls: {
       include: [
         'label',
+        'variant',
+        'size',
         'asChild',
         'checked',
         'defaultChecked',
@@ -34,12 +31,20 @@ const meta: Meta<CheckboxStoryArgs> = {
     docs: {
       description: {
         component:
-          'Radix Checkbox wrapper. Key props: `checked`/`defaultChecked` (can be `true`, `false`, or `indeterminate`), `onCheckedChange`, `disabled`, `required`, `name`, `value`, and `asChild`.',
+          'Radix Checkbox wrapper with built-in label support. Key props: `label`, `variant`, `size`, `checked`/`defaultChecked` (can be `true`, `false`, or `indeterminate`), `onCheckedChange`, `disabled`, `required`, `name`, `value`, and `asChild`.',
       },
     },
   },
   argTypes: {
     label: {control: 'text'},
+    variant: {
+      options: ['primary', 'secondary', 'error'],
+      control: {type: 'inline-radio'},
+    },
+    size: {
+      options: ['sm', 'md', 'lg'],
+      control: {type: 'inline-radio'},
+    },
     asChild: {control: 'boolean'},
     checked: {
       options: [true, false, 'indeterminate'],
@@ -65,6 +70,8 @@ const meta: Meta<CheckboxStoryArgs> = {
   args: {
     label: 'Accept terms',
     value: 'on',
+    variant: 'primary',
+    size: 'md',
   },
 }
 
@@ -72,37 +79,18 @@ export default meta
 
 type Story = StoryObj<CheckboxStoryArgs>
 
-function CheckboxRow({
-  id,
-  label,
-  children,
-}: {
-  id: string
-  label: string
-  children: React.ReactNode
-}) {
-  return (
-    <div className="flex items-center gap-2">
-      {children}
-      <Label htmlFor={id}>{label}</Label>
-    </div>
-  )
-}
-
 export const Default: Story = {
   render: args => {
-    const {label, checked, defaultChecked, ...rest} = args as CheckboxStoryArgs
+    const {checked, defaultChecked, ...rest} = args
     const id = 'terms'
 
     return (
-      <CheckboxRow id={id} label={label}>
-        <Checkbox
-          id={id}
-          {...rest}
-          {...(checked !== undefined ? {checked} : {})}
-          {...(defaultChecked !== undefined ? {defaultChecked} : {})}
-        />
-      </CheckboxRow>
+      <Checkbox
+        id={id}
+        {...rest}
+        {...(checked !== undefined ? {checked} : {})}
+        {...(defaultChecked !== undefined ? {defaultChecked} : {})}
+      />
     )
   },
 }
@@ -112,26 +100,22 @@ export const Controlled: Story = {
     checked: false,
   },
   render: function ControlledRender(storyArgs) {
-    const args = storyArgs as CheckboxStoryArgs
     const [{checked}, updateArgs] = useArgs<{
-      checked?: CheckboxRootProps['checked']
+      checked?: CheckboxStoryArgs['checked']
     }>()
     const id = 'controlled'
 
     return (
       <div className="flex flex-col gap-3">
-        <CheckboxRow id={id} label={args.label}>
-          <Checkbox
-            id={id}
-            {...args}
-            checked={checked}
-            onCheckedChange={next => {
-              updateArgs({checked: next})
-              args.onCheckedChange?.(next)
-            }}
-          />
-        </CheckboxRow>
-
+        <Checkbox
+          id={id}
+          {...storyArgs}
+          checked={checked}
+          onCheckedChange={next => {
+            updateArgs({checked: next})
+            storyArgs.onCheckedChange?.(next)
+          }}
+        />
         <div className="text-muted-foreground text-sm">
           State:{' '}
           {checked === 'indeterminate'
@@ -151,26 +135,22 @@ export const Indeterminate: Story = {
     checked: 'indeterminate',
   },
   render: function IndeterminateRender(storyArgs) {
-    const args = storyArgs as CheckboxStoryArgs
     const [{checked}, updateArgs] = useArgs<{
-      checked?: CheckboxRootProps['checked']
+      checked?: CheckboxStoryArgs['checked']
     }>()
     const id = 'indeterminate'
 
     return (
       <div className="flex flex-col gap-3">
-        <CheckboxRow id={id} label={args.label}>
-          <Checkbox
-            id={id}
-            {...args}
-            checked={checked}
-            onCheckedChange={next => {
-              updateArgs({checked: next})
-              args.onCheckedChange?.(next)
-            }}
-          />
-        </CheckboxRow>
-
+        <Checkbox
+          id={id}
+          {...storyArgs}
+          checked={checked}
+          onCheckedChange={next => {
+            updateArgs({checked: next})
+            storyArgs.onCheckedChange?.(next)
+          }}
+        />
         <div className="text-muted-foreground text-sm">
           Tip: Click to cycle between indeterminate → checked → unchecked.
         </div>
@@ -185,18 +165,16 @@ export const Disabled: Story = {
     defaultChecked: true,
   },
   render: args => {
-    const {label, checked, defaultChecked, ...rest} = args as CheckboxStoryArgs
+    const {checked, defaultChecked, ...rest} = args
     const id = 'disabled'
 
     return (
-      <CheckboxRow id={id} label={label}>
-        <Checkbox
-          id={id}
-          {...rest}
-          {...(checked !== undefined ? {checked} : {})}
-          {...(defaultChecked !== undefined ? {defaultChecked} : {})}
-        />
-      </CheckboxRow>
+      <Checkbox
+        id={id}
+        {...rest}
+        {...(checked !== undefined ? {checked} : {})}
+        {...(defaultChecked !== undefined ? {defaultChecked} : {})}
+      />
     )
   },
 }
@@ -208,7 +186,7 @@ export const Required: Story = {
     value: 'yes',
   },
   render: args => {
-    const {label, checked, defaultChecked, ...rest} = args as CheckboxStoryArgs
+    const {checked, defaultChecked, ...rest} = args
     const id = 'required'
 
     return (
@@ -218,18 +196,45 @@ export const Required: Story = {
           e.preventDefault()
         }}
       >
-        <CheckboxRow id={id} label={label}>
-          <Checkbox
-            id={id}
-            {...rest}
-            {...(checked !== undefined ? {checked} : {})}
-            {...(defaultChecked !== undefined ? {defaultChecked} : {})}
-          />
-        </CheckboxRow>
+        <Checkbox
+          id={id}
+          {...rest}
+          {...(checked !== undefined ? {checked} : {})}
+          {...(defaultChecked !== undefined ? {defaultChecked} : {})}
+        />
         <button type="submit" className="underline underline-offset-4 text-sm">
           Submit (demo)
         </button>
       </form>
+    )
+  },
+}
+
+export const Sizes: Story = {
+  name: 'Sizes',
+  render: args => {
+    return (
+      <div className="flex flex-col gap-4">
+        <Checkbox {...args} size="sm" label="Small checkbox" />
+        <Checkbox {...args} size="md" label="Medium checkbox" />
+        <Checkbox {...args} size="lg" label="Large checkbox" />
+      </div>
+    )
+  },
+}
+
+export const Variants: Story = {
+  name: 'Variants',
+  args: {
+    defaultChecked: true,
+  },
+  render: args => {
+    return (
+      <div className="flex flex-col gap-4">
+        <Checkbox {...args} variant="primary" label="Primary variant" />
+        <Checkbox {...args} variant="secondary" label="Secondary variant" />
+        <Checkbox {...args} variant="error" label="Error variant" />
+      </div>
     )
   },
 }
@@ -239,26 +244,23 @@ export const AsChild: Story = {
     asChild: true,
   },
   render: args => {
-    const {label, checked, defaultChecked, asChild, ...rest} =
-      args as CheckboxStoryArgs
+    const {checked, defaultChecked, asChild, ...rest} = args
     const id = 'as-child'
 
     return (
       <div className="flex flex-col gap-2">
         <div className="text-muted-foreground text-sm">
-          `asChild` lets you render the checkbox root as your own element.
+          \`asChild\` lets you render the checkbox root as your own element.
         </div>
-        <CheckboxRow id={id} label={label}>
-          <Checkbox
-            id={id}
-            asChild={asChild}
-            {...rest}
-            {...(checked !== undefined ? {checked} : {})}
-            {...(defaultChecked !== undefined ? {defaultChecked} : {})}
-          >
-            <button type="button" />
-          </Checkbox>
-        </CheckboxRow>
+        <Checkbox
+          id={id}
+          asChild={asChild}
+          {...rest}
+          {...(checked !== undefined ? {checked} : {})}
+          {...(defaultChecked !== undefined ? {defaultChecked} : {})}
+        >
+          <button type="button" />
+        </Checkbox>
       </div>
     )
   },

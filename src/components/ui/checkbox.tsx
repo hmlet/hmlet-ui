@@ -35,30 +35,43 @@ const checkboxVariants = cva(
 interface CheckboxProps
   extends
     React.ComponentProps<typeof CheckboxPrimitive.Root>,
-    VariantProps<typeof checkboxVariants> {}
+    VariantProps<typeof checkboxVariants> {
+  label?: React.ReactNode
+}
 
 const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
   CheckboxProps
->(({className, variant, size, ...props}, ref) => (
-  <CheckboxPrimitive.Root
-    ref={ref}
-    data-slot="checkbox"
-    className={cn(checkboxVariants({variant, size}), className)}
-    {...props}
-  >
-    <CheckboxPrimitive.Indicator
-      data-slot="checkbox-indicator"
-      className="flex items-center justify-center text-current transition-none"
-    >
-      <CheckIcon
-        className={cn(
-          size === 'sm' ? 'size-3' : size === 'lg' ? 'size-4' : 'size-3.5',
-        )}
-      />
-    </CheckboxPrimitive.Indicator>
-  </CheckboxPrimitive.Root>
-))
+>(({className, variant, size, label, ...props}, ref) => {
+  // Determine label text size based on checkbox size
+  let labelClass = 'ml-2 align-middle select-none'
+  if (size === 'sm') labelClass += ' text-xs'
+  else if (size === 'lg') labelClass += ' text-base'
+  else labelClass += ' text-sm'
+
+  return (
+    <label className="inline-flex items-center cursor-pointer">
+      <CheckboxPrimitive.Root
+        ref={ref}
+        data-slot="checkbox"
+        className={cn(checkboxVariants({variant, size}), className)}
+        {...props}
+      >
+        <CheckboxPrimitive.Indicator
+          data-slot="checkbox-indicator"
+          className="flex items-center justify-center text-current transition-none"
+        >
+          <CheckIcon
+            className={cn(
+              size === 'sm' ? 'size-3' : size === 'lg' ? 'size-4' : 'size-3.5',
+            )}
+          />
+        </CheckboxPrimitive.Indicator>
+      </CheckboxPrimitive.Root>
+      {label && <span className={labelClass}>{label}</span>}
+    </label>
+  )
+})
 Checkbox.displayName = CheckboxPrimitive.Root.displayName
 
 export {Checkbox, checkboxVariants}

@@ -16,6 +16,7 @@ import {
   type ApiErrorType,
   type SelectProps,
 } from './select'
+import {Checkbox} from './checkbox'
 import type {DateRange} from 'react-day-picker'
 
 interface FormInputProps extends InputProps {
@@ -318,3 +319,65 @@ export const FormCalendar = React.forwardRef<HTMLDivElement, FormCalendarProps>(
 )
 
 FormCalendar.displayName = 'FormCalendar'
+
+interface FormCheckboxProps extends Omit<
+  React.ComponentProps<typeof Checkbox>,
+  'label'
+> {
+  /** Field label displayed above the checkbox */
+  label?: string
+  /** Checkbox text displayed next to the checkbox */
+  checkboxLabel?: React.ReactNode
+  error?: string
+  helperText?: string
+  required?: boolean
+  className?: string
+}
+
+export const FormCheckbox = React.forwardRef<
+  HTMLButtonElement,
+  FormCheckboxProps
+>((props, ref) => {
+  const {
+    label,
+    checkboxLabel,
+    error,
+    helperText,
+    required,
+    className,
+    ...rest
+  } = props
+
+  return (
+    <VStack gap="2">
+      {label && (
+        <Label>
+          {label}
+          {required && <span className="text-destructive ml-1">*</span>}
+        </Label>
+      )}
+
+      <Checkbox
+        ref={ref}
+        label={checkboxLabel}
+        variant={error ? 'error' : rest.variant}
+        className={cn(className)}
+        {...rest}
+      />
+
+      {error && (
+        <Typography variant="body-sm" className="text-destructive">
+          {error}
+        </Typography>
+      )}
+
+      {helperText && !error && (
+        <Typography variant="body-sm" className="text-muted-foreground">
+          {helperText}
+        </Typography>
+      )}
+    </VStack>
+  )
+})
+
+FormCheckbox.displayName = 'FormCheckbox'
