@@ -8,7 +8,8 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
+# dist is committed for git-hosted package installs
+# dist
 dist-ssr
 *.local
 
