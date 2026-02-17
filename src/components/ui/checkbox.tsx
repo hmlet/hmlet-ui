@@ -3,7 +3,7 @@
 import * as React from 'react'
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
 import {CheckIcon} from 'lucide-react'
-import {cva, type VariantProps} from 'class-variance-authority'
+import {cva, type VariantProps} from './cva'
 
 import {cn} from './utils'
 

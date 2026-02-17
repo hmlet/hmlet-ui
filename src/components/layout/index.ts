@@ -60,3 +60,6 @@ export type * from './wrap'
 
 export {Bleed} from './bleed'
 export type {BleedProps} from './bleed'
+
+// CVA re-export for consumers
+export * from './cva'

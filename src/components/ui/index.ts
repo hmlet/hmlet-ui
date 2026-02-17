@@ -123,3 +123,4 @@ export type * from './typography'
 
 export * from './use-mobile'
 export * from './utils'
+export * from './cva'
