@@ -40,7 +40,7 @@ interface CheckboxProps
 }
 
 const Checkbox = React.forwardRef<
-  React.ElementRef<typeof CheckboxPrimitive.Root>,
+  React.ComponentRef<typeof CheckboxPrimitive.Root>,
   CheckboxProps
 >(({className, variant, size, label, ...props}, ref) => {
   // Determine label text size based on checkbox size

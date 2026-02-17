@@ -28,7 +28,7 @@ module.exports = {
     // ---- Message rules ----
     'subject-case': [0], // let humans write readable subjects
     'subject-full-stop': [2, 'never', '.'],
-    'header-max-length': [2, 'always', 72],
+    'header-max-length': [2, 'always', 100],
 
     // ---- UX improvements ----
     'body-leading-blank': [1, 'always'],
