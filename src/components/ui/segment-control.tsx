@@ -98,9 +98,14 @@ SegmentControlItem.displayName = 'SegmentControlItem'
 
 const SegmentControlContent = TabsPrimitive.Content
 
+export type SegmentControlVariants = VariantProps<typeof segmentControlVariants>
+export type SegmentItemVariants = VariantProps<typeof segmentItemVariants>
+
 export {
   SegmentControl,
   SegmentControlList,
   SegmentControlItem,
   SegmentControlContent,
+  segmentControlVariants,
+  segmentItemVariants,
 }

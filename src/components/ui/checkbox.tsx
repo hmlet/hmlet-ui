@@ -74,4 +74,6 @@ const Checkbox = React.forwardRef<
 })
 Checkbox.displayName = CheckboxPrimitive.Root.displayName
 
+export type CheckboxVariants = VariantProps<typeof checkboxVariants>
+
 export {Checkbox, checkboxVariants}

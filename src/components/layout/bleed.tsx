@@ -73,3 +73,7 @@ export const Bleed = React.forwardRef<HTMLDivElement, BleedProps>(
 )
 
 Bleed.displayName = 'Bleed'
+
+export type BleedVariants = VariantProps<typeof bleedVariants>
+
+export {bleedVariants}

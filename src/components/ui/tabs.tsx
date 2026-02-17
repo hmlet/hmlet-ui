@@ -104,6 +104,9 @@ function TabsContent({
   )
 }
 
+export type TabsListVariants = VariantProps<typeof tabsListVariants>
+export type TabsTriggerVariants = VariantProps<typeof tabsTriggerVariants>
+
 export {
   Tabs,
   TabsList,

@@ -194,3 +194,7 @@ export const Spacer = React.forwardRef<HTMLDivElement, SpacerProps>(
 )
 
 Spacer.displayName = 'Spacer'
+
+export type SpacerVariants = VariantProps<typeof spacerVariants>
+
+export {spacerVariants}

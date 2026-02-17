@@ -48,6 +48,8 @@ const Spinner = React.forwardRef<SVGSVGElement, SpinnerProps>(
 
 Spinner.displayName = 'Spinner'
 
+export type SpinnerVariants = VariantProps<typeof spinnerVariants>
+
 interface SpinnerContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode
   text?: string

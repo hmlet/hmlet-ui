@@ -54,3 +54,7 @@ export const LayoutAspectRatio = React.forwardRef<
 })
 
 LayoutAspectRatio.displayName = 'LayoutAspectRatio'
+
+export type LayoutAspectRatioVariants = VariantProps<typeof aspectRatioVariants>
+
+export {aspectRatioVariants}

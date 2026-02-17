@@ -222,6 +222,9 @@ const ItemFooter = React.forwardRef<
 
 ItemFooter.displayName = 'ItemFooter'
 
+export type ItemVariants = VariantProps<typeof itemVariants>
+export type ItemMediaVariants = VariantProps<typeof itemMediaVariants>
+
 export {
   Item,
   ItemGroup,
@@ -233,4 +236,6 @@ export {
   ItemActions,
   ItemHeader,
   ItemFooter,
+  itemVariants,
+  itemMediaVariants,
 }

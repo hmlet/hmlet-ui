@@ -45,4 +45,6 @@ function Toggle({
   )
 }
 
+export type ToggleVariants = VariantProps<typeof toggleVariants>
+
 export {Toggle, toggleVariants}

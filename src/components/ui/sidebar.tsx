@@ -1014,6 +1014,10 @@ function SidebarMenuSubButton({
   )
 }
 
+export type SidebarMenuButtonVariants = VariantProps<
+  typeof sidebarMenuButtonVariants
+>
+
 export {
   Sidebar,
   SidebarContent,
@@ -1039,4 +1043,5 @@ export {
   SidebarSeparator,
   SidebarTrigger,
   useSidebar,
+  sidebarMenuButtonVariants,
 }

@@ -48,3 +48,7 @@ export const CountBadge = React.forwardRef<HTMLSpanElement, CountBadgeProps>(
 )
 
 CountBadge.displayName = 'CountBadge'
+
+export type CountBadgeVariants = VariantProps<typeof countBadgeVariants>
+
+export {countBadgeVariants}

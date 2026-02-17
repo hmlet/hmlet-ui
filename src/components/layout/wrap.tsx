@@ -244,3 +244,7 @@ export const Wrap = React.forwardRef<HTMLDivElement, WrapProps>(
 )
 
 Wrap.displayName = 'Wrap'
+
+export type WrapVariants = VariantProps<typeof wrapVariants>
+
+export {wrapVariants}

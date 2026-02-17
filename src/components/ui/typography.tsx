@@ -88,5 +88,7 @@ function Typography({
   )
 }
 
+export type TypographyVariants = VariantProps<typeof typographyVariants>
+
 export {Typography, typographyVariants}
 export type {TypographyProps, TypographyVariant}

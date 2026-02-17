@@ -58,4 +58,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 )
 Input.displayName = 'Input'
 
+export type InputVariants = VariantProps<typeof inputVariants>
+
 export {Input, inputVariants}
