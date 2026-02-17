@@ -45,7 +45,7 @@
     "format:check": "prettier --check .",
     "preinstall": "corepack enable && node ./internals/scripts/preflight.mjs",
     "commit": "node internals/scripts/commit.mjs",
-    "prepare": "husky",
+    "prepare": "pnpm build && husky",
     "release": "semantic-release",
     "deps:check": "pnpm install --frozen-lockfile",
     "licenses:check": "license-checker --production --failOn \"GPL;AGPL\""
