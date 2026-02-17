@@ -28,7 +28,7 @@ const aspectRatioVariants = cva('relative w-full overflow-hidden', {
   defaultVariants: {
     ratio: '16/9',
   },
-})
+}) satisfies ReturnType<typeof cva>
 
 export interface LayoutAspectRatioProps
   extends

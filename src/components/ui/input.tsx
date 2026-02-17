@@ -26,7 +26,7 @@ const inputVariants = cva(
       size: 'md',
     },
   },
-)
+) satisfies ReturnType<typeof cva>
 
 export interface InputProps
   extends

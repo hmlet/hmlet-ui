@@ -131,7 +131,7 @@ const boxVariants = cva('', {
     height: 'auto',
     shadow: 'none',
   },
-})
+}) satisfies ReturnType<typeof cva>
 
 export interface BoxProps
   extends

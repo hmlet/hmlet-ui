@@ -111,7 +111,7 @@ const containerVariants = cva('mx-auto w-full', {
     shadow: 'none',
     display: 'block',
   },
-})
+}) satisfies ReturnType<typeof cva>
 
 type ContainerVariantProps = VariantProps<typeof containerVariants>
 

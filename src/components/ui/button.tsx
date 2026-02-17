@@ -55,7 +55,7 @@ const buttonVariants = cva(
       size: 'md',
     },
   },
-)
+) satisfies ReturnType<typeof cva>
 
 function ButtonSpinner({className}: {className?: string}) {
   return (

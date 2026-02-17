@@ -134,7 +134,7 @@ const spacerVariants = cva('flex-1', {
     shadow: 'none',
     display: undefined,
   },
-})
+}) satisfies ReturnType<typeof cva>
 
 export interface SpacerProps
   extends

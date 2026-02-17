@@ -159,7 +159,7 @@ const wrapVariants = cva('flex flex-wrap', {
     shadow: 'none',
     display: 'flex',
   },
-})
+}) satisfies ReturnType<typeof cva>
 
 type WrapVariantProps = VariantProps<typeof wrapVariants>
 

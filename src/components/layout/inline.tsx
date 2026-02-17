@@ -150,7 +150,7 @@ const inlineVariants = cva('flex-wrap', {
     shadow: 'none',
     display: 'inline-flex',
   },
-})
+}) satisfies ReturnType<typeof cva>
 
 type InlineVariantProps = VariantProps<typeof inlineVariants>
 

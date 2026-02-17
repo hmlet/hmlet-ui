@@ -810,7 +810,7 @@ const sidebarMenuButtonVariants = cva(
       size: 'default',
     },
   },
-)
+) satisfies ReturnType<typeof cva>
 
 function SidebarMenuButton({
   asChild = false,

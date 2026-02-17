@@ -25,7 +25,7 @@ const itemVariants = cva(
       size: 'default',
     },
   },
-)
+) satisfies ReturnType<typeof cva>
 
 type ItemVariantProps = VariantProps<typeof itemVariants>
 
@@ -90,7 +90,7 @@ const itemMediaVariants = cva(
       variant: 'default',
     },
   },
-)
+) satisfies ReturnType<typeof cva>
 
 interface ItemMediaProps
   extends React.ComponentProps<'div'>, VariantProps<typeof itemMediaVariants> {}

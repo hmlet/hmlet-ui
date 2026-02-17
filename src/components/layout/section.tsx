@@ -152,7 +152,7 @@ const sectionVariants = cva('w-full', {
     display: 'block',
     background: 'none',
   },
-})
+}) satisfies ReturnType<typeof cva>
 
 type SectionVariantProps = VariantProps<typeof sectionVariants>
 

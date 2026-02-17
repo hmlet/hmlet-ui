@@ -136,7 +136,7 @@ const centerVariants = cva('items-center justify-center', {
     shadow: 'none',
     display: 'flex',
   },
-})
+}) satisfies ReturnType<typeof cva>
 
 export interface CenterProps
   extends

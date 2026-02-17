@@ -34,7 +34,7 @@ const tabsListVariants = cva(
       variant: 'default',
     },
   },
-)
+) satisfies ReturnType<typeof cva>
 
 interface TabsListProps
   extends
@@ -71,7 +71,7 @@ const tabsTriggerVariants = cva(
       variant: 'default',
     },
   },
-)
+) satisfies ReturnType<typeof cva>
 
 interface TabsTriggerProps
   extends

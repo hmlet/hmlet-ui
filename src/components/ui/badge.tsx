@@ -23,7 +23,7 @@ const badgeVariants = cva(
       variant: 'default',
     },
   },
-)
+) satisfies ReturnType<typeof cva>
 
 function Badge({
   className,

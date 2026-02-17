@@ -31,7 +31,7 @@ const typographyVariants = cva('', {
   defaultVariants: {
     variant: 'body-base',
   },
-})
+}) satisfies ReturnType<typeof cva>
 
 type TypographyVariant = NonNullable<
   VariantProps<typeof typographyVariants>['variant']

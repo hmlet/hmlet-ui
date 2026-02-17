@@ -37,7 +37,7 @@ const bleedVariants = cva('', {
     vertical: false,
     all: false,
   },
-})
+}) satisfies ReturnType<typeof cva>
 
 export interface BleedProps
   extends

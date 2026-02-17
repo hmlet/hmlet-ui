@@ -27,7 +27,7 @@ const toggleVariants = cva(
       size: 'default',
     },
   },
-)
+) satisfies ReturnType<typeof cva>
 
 function Toggle({
   className,

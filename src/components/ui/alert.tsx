@@ -17,7 +17,7 @@ const alertVariants = cva(
       variant: 'default',
     },
   },
-)
+) satisfies ReturnType<typeof cva>
 
 function Alert({
   className,

@@ -20,7 +20,7 @@ const segmentControlVariants = cva(
       variant: 'neutral',
     },
   },
-)
+) satisfies ReturnType<typeof cva>
 
 const segmentItemVariants = cva(
   'inline-flex flex-1 items-center justify-center whitespace-nowrap rounded-md px-4 py-2.5 text-sm font-semibold transition-all duration-200 outline-none disabled:pointer-events-none disabled:opacity-50',
@@ -39,7 +39,7 @@ const segmentItemVariants = cva(
       variant: 'neutral',
     },
   },
-)
+) satisfies ReturnType<typeof cva>
 
 interface SegmentControlProps
   extends

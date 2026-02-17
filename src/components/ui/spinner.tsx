@@ -24,7 +24,7 @@ const spinnerVariants = cva('inline-block shrink-0 animate-spin', {
     variant: 'muted',
     size: 'sm',
   },
-})
+}) satisfies ReturnType<typeof cva>
 
 interface SpinnerProps
   extends React.ComponentProps<'svg'>, VariantProps<typeof spinnerVariants> {

@@ -30,7 +30,7 @@ const checkboxVariants = cva(
       size: 'md',
     },
   },
-)
+) satisfies ReturnType<typeof cva>
 
 interface CheckboxProps
   extends

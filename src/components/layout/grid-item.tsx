@@ -138,7 +138,7 @@ const gridItemVariants = cva('', {
     mx: 'none',
     my: 'none',
   },
-})
+}) satisfies ReturnType<typeof cva>
 
 type GridItemVariantProps = VariantProps<typeof gridItemVariants>
 

@@ -20,7 +20,7 @@ const textareaVariants = cva(
       variant: 'default',
     },
   },
-)
+) satisfies ReturnType<typeof cva>
 
 interface TextareaProps
   extends

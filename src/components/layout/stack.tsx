@@ -175,7 +175,7 @@ const stackVariants = cva('flex', {
     shadow: 'none',
     display: 'flex',
   },
-})
+}) satisfies ReturnType<typeof cva>
 
 type StackVariantProps = VariantProps<typeof stackVariants>
 

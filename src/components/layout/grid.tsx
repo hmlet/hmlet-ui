@@ -155,7 +155,7 @@ const gridVariants = cva('grid', {
     mx: 'none',
     my: 'none',
   },
-})
+}) satisfies ReturnType<typeof cva>
 
 export interface GridProps
   extends

@@ -95,7 +95,7 @@ const dividerVariants = cva('bg-border shrink-0', {
     thickness: 1,
     spacing: 'none',
   },
-})
+}) satisfies ReturnType<typeof cva>
 
 type DividerVariantProps = VariantProps<typeof dividerVariants>
 

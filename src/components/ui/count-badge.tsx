@@ -24,7 +24,7 @@ const countBadgeVariants = cva(
       size: 'sm',
     },
   },
-)
+) satisfies ReturnType<typeof cva>
 
 interface CountBadgeProps
   extends
