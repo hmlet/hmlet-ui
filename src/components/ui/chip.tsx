@@ -101,13 +101,13 @@ export function Chip({
     default:
       'bg-muted text-muted-foreground dark:bg-muted dark:text-muted-foreground border border-border',
     neutral:
-      'bg-neutral-200 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-600',
+      'bg-muted text-muted-foreground dark:bg-muted dark:text-foreground/80 border border-border',
 
     // Status variants
     active:
       'bg-success-lightest text-success-dark dark:bg-success-dark dark:text-success-lightest border border-success-lighter dark:border-success',
     inactive:
-      'bg-neutral-200 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-300 border border-neutral-300 dark:border-neutral-600',
+      'bg-muted text-muted-foreground dark:bg-muted dark:text-muted-foreground border border-border',
     pending:
       'bg-secondary-lightest text-secondary-dark dark:bg-secondary-dark/80 dark:text-secondary-lightest border border-secondary-lighter dark:border-secondary-light',
     approved:
@@ -121,7 +121,7 @@ export function Chip({
     processing:
       'bg-primary-lightest text-primary-dark dark:bg-primary-dark dark:text-primary-lightest border border-primary-lighter dark:border-primary-light',
     draft:
-      'bg-neutral-200 text-neutral-700 dark:bg-neutral-700 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-600',
+      'bg-muted text-muted-foreground dark:bg-muted dark:text-foreground/80 border border-border',
     urgent:
       'bg-destructive-lightest text-destructive-dark dark:bg-destructive-dark dark:text-destructive-lightest border border-destructive dark:border-destructive font-semibold',
   }

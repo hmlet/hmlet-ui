@@ -6,12 +6,12 @@
   min-height: 0 !important;
   height: auto !important;
   padding: 32px !important; /* adjust as needed */
-  background: #18142a; /* optional: match your theme */
+  background: var(--background); /* use theme variable */
 }
 
 .docs-story {
   min-height: 0 !important;
   height: auto !important;
   padding: 32px !important; /* adjust as needed */
-  background: #18142a; /* optional */
+  background: var(--background); /* use theme variable */
 }

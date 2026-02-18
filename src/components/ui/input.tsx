@@ -9,11 +9,11 @@ const inputVariants = cva(
     variants: {
       variant: {
         default:
-          'border-input hover:border-neutral-400 focus:border-primary focus:shadow-[0_0_0_3px_rgba(37,31,66,0.1)]',
+          'border-input hover:border-muted-foreground dark:hover:border-muted-foreground focus:border-primary focus:ring-2 focus:ring-ring/20',
         error:
-          'border-destructive focus:border-destructive focus:shadow-[0_0_0_3px_rgba(209,113,113,0.1)]',
+          'border-destructive focus:border-destructive focus:ring-2 focus:ring-destructive/20',
         success:
-          'border-success focus:border-success focus:shadow-[0_0_0_3px_rgba(2,177,107,0.1)]',
+          'border-success focus:border-success focus:ring-2 focus:ring-success/20',
       },
       size: {
         sm: 'h-9 text-sm',

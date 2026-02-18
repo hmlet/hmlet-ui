@@ -236,7 +236,7 @@ export const UseCases: Story = {
 
 export const DarkMode: Story = {
   render: () => (
-    <Box className="p-6 bg-[#1F1C32] rounded-lg dark">
+    <Box className="p-6 bg-[#111111] rounded-lg dark">
       <VStack gap={4}>
         <HStack gap={3} className="flex-wrap">
           <Chip label="Success" variant="success" />

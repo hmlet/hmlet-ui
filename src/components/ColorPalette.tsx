@@ -9,199 +9,279 @@ import {
 export function ColorPalette() {
   const colors = [
     {
-      category: 'Neutral Scale',
+      category: 'Background & Surface',
       swatches: [
         {
-          name: 'Neutral 100',
-          class: 'bg-[#FFFFFF] text-foreground border border-border',
-          desc: '#FFFFFF',
+          name: 'Background',
+          class: 'bg-background text-foreground border border-border',
+          token: 'bg-background',
         },
         {
-          name: 'Neutral 200',
-          class: 'bg-[#F2F2F2] text-foreground',
-          desc: '#F2F2F2',
+          name: 'Card',
+          class: 'bg-card text-card-foreground border border-border',
+          token: 'bg-card',
         },
         {
-          name: 'Neutral 300',
-          class: 'bg-[#CCCCCC] text-foreground',
-          desc: '#CCCCCC',
+          name: 'Popover',
+          class: 'bg-popover text-popover-foreground border border-border',
+          token: 'bg-popover',
         },
         {
-          name: 'Neutral 400',
-          class: 'bg-[#B3B3B3] text-foreground',
-          desc: '#B3B3B3',
-        },
-        {
-          name: 'Neutral 500',
-          class: 'bg-[#999999] text-white',
-          desc: '#999999',
-        },
-        {
-          name: 'Neutral 600',
-          class: 'bg-[#7F7F7F] text-white',
-          desc: '#7F7F7F',
-        },
-        {
-          name: 'Neutral 700',
-          class: 'bg-[#505050] text-white',
-          desc: '#505050',
-        },
-        {
-          name: 'Neutral 800',
-          class: 'bg-[#262626] text-white',
-          desc: '#262626',
-        },
-        {
-          name: 'Neutral 900',
-          class: 'bg-[#1A1A1A] text-white',
-          desc: '#1A1A1A',
-        },
-        {
-          name: 'Neutral 1000',
-          class: 'bg-[#000000] text-white',
-          desc: '#000000',
+          name: 'Muted',
+          class: 'bg-muted text-muted-foreground',
+          token: 'bg-muted',
         },
       ],
     },
     {
-      category: 'Primary (Navy/Purple)',
+      category: 'Primary',
       swatches: [
         {
-          name: 'Primary 100',
-          class: 'bg-[#F1F0F5] text-foreground',
-          desc: '#F1F0F5',
-        },
-        {
-          name: 'Primary 200',
-          class: 'bg-[#CECAE0] text-foreground',
-          desc: '#CECAE0',
-        },
-        {
-          name: 'Primary 300',
-          class: 'bg-[#767091] text-white',
-          desc: '#767091',
-        },
-        {
-          name: 'Primary 400',
+          name: 'Primary',
           class: 'bg-primary text-primary-foreground',
-          desc: '#251F42',
+          token: 'bg-primary',
         },
         {
-          name: 'Primary 500',
-          class: 'bg-[#1F1C32] text-white',
-          desc: '#1F1C32',
+          name: 'Primary Dark',
+          class: 'bg-primary-dark text-primary-foreground',
+          token: 'bg-primary-dark',
+        },
+        {
+          name: 'Primary Light',
+          class:
+            'bg-primary-light text-primary-foreground dark:text-primary-dark',
+          token: 'bg-primary-light',
+        },
+        {
+          name: 'Primary Lighter',
+          class: 'bg-primary-lighter text-foreground',
+          token: 'bg-primary-lighter',
+        },
+        {
+          name: 'Primary Lightest',
+          class: 'bg-primary-lightest text-foreground border border-border',
+          token: 'bg-primary-lightest',
         },
       ],
     },
     {
-      category: 'Secondary (Coral/Peach)',
+      category: 'Secondary (Accent)',
       swatches: [
         {
-          name: 'Secondary 100',
-          class: 'bg-[#FFF0ED] text-foreground',
-          desc: '#FFF0ED',
-        },
-        {
-          name: 'Secondary 200',
-          class: 'bg-[#FFE1DB] text-foreground',
-          desc: '#FFE1DB',
-        },
-        {
-          name: 'Secondary 300',
-          class: 'bg-[#FFB2A3] text-white',
-          desc: '#FFB2A3',
-        },
-        {
-          name: 'Secondary 400 (Accent)',
+          name: 'Secondary',
           class: 'bg-secondary text-secondary-foreground',
-          desc: '#FF7960',
+          token: 'bg-secondary',
         },
         {
-          name: 'Secondary 500',
-          class: 'bg-[#8A4D58] text-white',
-          desc: '#8A4D58',
+          name: 'Secondary Dark',
+          class: 'bg-secondary-dark text-secondary-foreground',
+          token: 'bg-secondary-dark',
+        },
+        {
+          name: 'Secondary Light',
+          class: 'bg-secondary-light text-secondary-dark',
+          token: 'bg-secondary-light',
+        },
+        {
+          name: 'Secondary Lighter',
+          class: 'bg-secondary-lighter text-foreground',
+          token: 'bg-secondary-lighter',
+        },
+        {
+          name: 'Secondary Lightest',
+          class: 'bg-secondary-lightest text-foreground border border-border',
+          token: 'bg-secondary-lightest',
         },
       ],
     },
     {
-      category: 'Success (Green)',
+      category: 'Accent & CTA',
       swatches: [
         {
-          name: 'Success 100',
-          class: 'bg-[#E6F7F0] text-foreground',
-          desc: '#E6F7F0',
+          name: 'Accent',
+          class: 'bg-accent text-accent-foreground',
+          token: 'bg-accent',
         },
         {
-          name: 'Success 200',
-          class: 'bg-[#BEE8D7] text-foreground',
-          desc: '#BEE8D7',
+          name: 'Accent Hover',
+          class: 'bg-accent-hover text-accent-foreground',
+          token: 'bg-accent-hover',
         },
+      ],
+    },
+    {
+      category: 'Semantic - Success',
+      swatches: [
         {
-          name: 'Success 300',
-          class: 'bg-[#70D4AC] text-white',
-          desc: '#70D4AC',
-        },
-        {
-          name: 'Success 400',
+          name: 'Success',
           class: 'bg-success text-success-foreground',
-          desc: '#02B16B',
+          token: 'bg-success',
         },
         {
-          name: 'Success 500',
-          class: 'bg-[#1E6942] text-white',
-          desc: '#1E6942',
+          name: 'Success Dark',
+          class: 'bg-success-dark text-white',
+          token: 'bg-success-dark',
+        },
+        {
+          name: 'Success Light',
+          class: 'bg-success-light text-success-dark',
+          token: 'bg-success-light',
+        },
+        {
+          name: 'Success Lighter',
+          class: 'bg-success-lighter text-foreground',
+          token: 'bg-success-lighter',
+        },
+        {
+          name: 'Success Lightest',
+          class: 'bg-success-lightest text-foreground border border-border',
+          token: 'bg-success-lightest',
         },
       ],
     },
     {
-      category: 'Error (Red)',
+      category: 'Semantic - Destructive / Error',
       swatches: [
         {
-          name: 'Error 100',
-          class: 'bg-[#F7F0F0] text-foreground',
-          desc: '#F7F0F0',
-        },
-        {
-          name: 'Error 200',
-          class: 'bg-[#E3CCCC] text-foreground',
-          desc: '#E3CCCC',
-        },
-        {
-          name: 'Error 300',
-          class: 'bg-[#D99898] text-foreground',
-          desc: '#D99898',
-        },
-        {
-          name: 'Error 400',
+          name: 'Destructive',
           class: 'bg-destructive text-destructive-foreground',
-          desc: '#D17171',
+          token: 'bg-destructive',
         },
-        {name: 'Error 500', class: 'bg-[#C24F4F] text-white', desc: '#C24F4F'},
+        {
+          name: 'Destructive Dark',
+          class: 'bg-destructive-dark text-white',
+          token: 'bg-destructive-dark',
+        },
+        {
+          name: 'Destructive Light',
+          class: 'bg-destructive-light text-destructive-dark',
+          token: 'bg-destructive-light',
+        },
+        {
+          name: 'Destructive Lighter',
+          class: 'bg-destructive-lighter text-foreground',
+          token: 'bg-destructive-lighter',
+        },
+        {
+          name: 'Destructive Lightest',
+          class: 'bg-destructive-lightest text-foreground border border-border',
+          token: 'bg-destructive-lightest',
+        },
       ],
     },
     {
-      category: 'Red Accent',
+      category: 'Semantic - Warning & Info',
       swatches: [
         {
-          name: 'Red 100',
-          class: 'bg-[#F0D8CC] text-foreground',
-          desc: '#F0D8CC',
+          name: 'Warning',
+          class: 'bg-warning text-warning-foreground',
+          token: 'bg-warning',
         },
-        {name: 'Red 500', class: 'bg-[#8A4D58] text-white', desc: '#8A4D58'},
+        {
+          name: 'Info',
+          class: 'bg-info text-info-foreground',
+          token: 'bg-info',
+        },
+        {
+          name: 'Info Light',
+          class: 'bg-info-light text-info-dark',
+          token: 'bg-info-light',
+        },
+        {
+          name: 'Info Dark',
+          class: 'bg-info-dark text-white',
+          token: 'bg-info-dark',
+        },
       ],
     },
     {
-      category: 'Ivory Background',
+      category: 'UI Elements',
       swatches: [
         {
-          name: 'Ivory 100',
-          class: 'bg-[#FCFBF9] text-foreground border border-border',
-          desc: '#FCFBF9',
+          name: 'Border',
+          class: 'bg-border text-foreground',
+          token: 'bg-border',
         },
         {
-          name: 'Ivory 200',
-          class: 'bg-[#FAF5F0] text-foreground',
-          desc: '#FAF5F0',
+          name: 'Input',
+          class: 'bg-input text-foreground',
+          token: 'bg-input',
+        },
+        {
+          name: 'Input Background',
+          class: 'bg-input-background text-foreground border border-border',
+          token: 'bg-input-background',
+        },
+        {
+          name: 'Ring',
+          class: 'bg-ring text-white',
+          token: 'bg-ring',
+        },
+      ],
+    },
+    {
+      category: 'Text Colors',
+      swatches: [
+        {
+          name: 'Foreground',
+          class: 'bg-foreground text-background',
+          token: 'text-foreground',
+        },
+        {
+          name: 'Muted Foreground',
+          class: 'bg-muted-foreground text-background',
+          token: 'text-muted-foreground',
+        },
+      ],
+    },
+    {
+      category: 'Sidebar',
+      swatches: [
+        {
+          name: 'Sidebar',
+          class:
+            'bg-sidebar text-sidebar-foreground border border-sidebar-border',
+          token: 'bg-sidebar',
+        },
+        {
+          name: 'Sidebar Primary',
+          class: 'bg-sidebar-primary text-sidebar-primary-foreground',
+          token: 'bg-sidebar-primary',
+        },
+        {
+          name: 'Sidebar Accent',
+          class: 'bg-sidebar-accent text-sidebar-accent-foreground',
+          token: 'bg-sidebar-accent',
+        },
+      ],
+    },
+    {
+      category: 'Chart Colors',
+      swatches: [
+        {
+          name: 'Chart 1',
+          class: 'bg-chart-1 text-background',
+          token: 'bg-chart-1',
+        },
+        {
+          name: 'Chart 2',
+          class: 'bg-chart-2 text-white',
+          token: 'bg-chart-2',
+        },
+        {
+          name: 'Chart 3',
+          class: 'bg-chart-3 text-white',
+          token: 'bg-chart-3',
+        },
+        {
+          name: 'Chart 4',
+          class: 'bg-chart-4 text-white',
+          token: 'bg-chart-4',
+        },
+        {
+          name: 'Chart 5',
+          class: 'bg-chart-5 text-background',
+          token: 'bg-chart-5',
         },
       ],
     },
@@ -210,10 +290,10 @@ export function ColorPalette() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Color Palette - Production Design System</CardTitle>
+        <CardTitle>Color Palette - Theme Tokens</CardTitle>
         <CardDescription>
-          Navy primary with coral secondary - exact color scales for
-          real-estate/hospitality platform
+          Semantic color tokens that automatically adapt to light and dark
+          themes. Toggle the theme to see the colors change.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -226,9 +306,9 @@ export function ColorPalette() {
               {category.swatches.map(swatch => (
                 <div key={swatch.name} className="space-y-2">
                   <div
-                    className={`h-20 rounded-lg ${swatch.class} flex items-center justify-center text-xs font-medium transition-transform hover:scale-105`}
+                    className={`h-20 rounded-lg ${swatch.class} flex items-center justify-center text-xs font-medium transition-transform hover:scale-105 shadow-sm`}
                   >
-                    {swatch.desc}
+                    {swatch.token}
                   </div>
                   <p className="text-xs text-muted-foreground">{swatch.name}</p>
                 </div>
@@ -244,19 +324,25 @@ export function ColorPalette() {
             <div className="flex items-start gap-2">
               <span className="font-medium min-w-24">Primary:</span>
               <span className="text-muted-foreground">
-                Headings, primary CTAs, links, focus states
+                Headings, primary buttons, links, focus states
               </span>
             </div>
             <div className="flex items-start gap-2">
               <span className="font-medium min-w-24">Secondary:</span>
               <span className="text-muted-foreground">
-                Secondary CTAs, accents, highlights, badges
+                Secondary buttons, accents, highlights, badges
               </span>
             </div>
             <div className="flex items-start gap-2">
-              <span className="font-medium min-w-24">Neutral:</span>
+              <span className="font-medium min-w-24">Accent:</span>
               <span className="text-muted-foreground">
-                Text, backgrounds, dividers, borders, disabled states
+                Call-to-action buttons, important interactive elements
+              </span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="font-medium min-w-24">Muted:</span>
+              <span className="text-muted-foreground">
+                Subtle backgrounds, disabled states, secondary text
               </span>
             </div>
             <div className="flex items-start gap-2">
@@ -266,15 +352,21 @@ export function ColorPalette() {
               </span>
             </div>
             <div className="flex items-start gap-2">
-              <span className="font-medium min-w-24">Error:</span>
+              <span className="font-medium min-w-24">Destructive:</span>
               <span className="text-muted-foreground">
                 Error messages, destructive actions, validation errors
               </span>
             </div>
             <div className="flex items-start gap-2">
-              <span className="font-medium min-w-24">Ivory:</span>
+              <span className="font-medium min-w-24">Warning:</span>
               <span className="text-muted-foreground">
-                Page backgrounds, content areas, subtle surfaces
+                Caution states, pending actions, alerts
+              </span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="font-medium min-w-24">Info:</span>
+              <span className="text-muted-foreground">
+                Informational messages, tips, help content
               </span>
             </div>
           </div>

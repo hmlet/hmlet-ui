@@ -12,13 +12,13 @@ const buttonVariants = cva(
       variant: {
         // Primary Variants
         default:
-          'bg-primary text-primary-foreground hover:bg-primary-dark active:bg-primary-dark focus:border-primary focus:shadow-[0_0_0_3px_rgba(37,31,66,0.1)] shadow-sm hover:shadow-md',
+          'bg-primary text-primary-foreground hover:bg-primary-dark active:bg-primary-dark focus:border-primary focus:ring-2 focus:ring-ring/20 shadow-sm hover:shadow-md',
         primary:
-          'bg-primary text-primary-foreground hover:bg-primary-dark active:bg-primary-dark focus:border-primary focus:shadow-[0_0_0_3px_rgba(37,31,66,0.1)] shadow-sm hover:shadow-md',
+          'bg-primary text-primary-foreground hover:bg-primary-dark active:bg-primary-dark focus:border-primary focus:ring-2 focus:ring-ring/20 shadow-sm hover:shadow-md',
         'primary-outline':
-          'border-2 border-primary text-primary bg-transparent hover:bg-primary hover:text-primary-foreground active:bg-primary-dark active:border-primary-dark focus:shadow-[0_0_0_3px_rgba(37,31,66,0.1)]',
+          'border-2 border-primary text-primary bg-transparent hover:bg-primary hover:text-primary-foreground active:bg-primary-dark active:border-primary-dark focus:ring-2 focus:ring-ring/20',
         'primary-ghost':
-          'text-primary hover:bg-primary-lightest active:bg-primary-lighter focus:bg-primary-lightest focus:shadow-[0_0_0_3px_rgba(37,31,66,0.1)]',
+          'text-primary hover:bg-primary-lightest dark:hover:bg-muted active:bg-primary-lighter dark:active:bg-muted/80 focus:bg-primary-lightest dark:focus:bg-muted focus:ring-2 focus:ring-ring/20',
 
         // Secondary Variants
         secondary:
@@ -36,9 +36,9 @@ const buttonVariants = cva(
 
         // Neutral Variants
         outline:
-          'border-2 border-border bg-transparent text-foreground hover:bg-muted active:bg-neutral-300 focus:border-primary focus:shadow-[0_0_0_3px_rgba(37,31,66,0.1)]',
+          'border-2 border-border bg-transparent text-foreground hover:bg-muted active:bg-muted/80 dark:active:bg-muted/60 focus:border-primary focus:ring-2 focus:ring-ring/20',
         ghost:
-          'text-foreground hover:bg-muted active:bg-neutral-300 focus:bg-muted focus:shadow-[0_0_0_3px_rgba(0,0,0,0.05)]',
+          'text-foreground hover:bg-muted active:bg-muted/80 dark:active:bg-muted/60 focus:bg-muted focus:ring-2 focus:ring-ring/10',
         link: 'text-primary underline-offset-4 hover:underline focus:underline',
       },
       size: {

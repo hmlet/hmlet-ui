@@ -52,7 +52,7 @@ export const CustomColor: Story = {
       }}
     >
       <Icon icon={Sun} size={32} color="#ff7960" />
-      <Icon icon={Moon} size={32} color="#251f42" />
+      <Icon icon={Moon} size={32} color="#eaeaea" />
       <Icon icon={Heart} size={32} color="#02b16b" />
     </div>
   ),

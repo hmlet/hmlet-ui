@@ -13,11 +13,11 @@ const checkboxVariants = cva(
     variants: {
       variant: {
         primary:
-          'border-input data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=checked]:border-primary focus:border-primary focus:shadow-[0_0_0_3px_rgba(37,31,66,0.1)]',
+          'border-input data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=checked]:border-primary focus:border-primary focus:ring-2 focus:ring-ring/20',
         secondary:
-          'border-input data-[state=checked]:bg-secondary data-[state=checked]:text-secondary-foreground data-[state=checked]:border-secondary focus:border-secondary focus:shadow-[0_0_0_3px_rgba(255,121,96,0.1)]',
+          'border-input data-[state=checked]:bg-secondary data-[state=checked]:text-secondary-foreground data-[state=checked]:border-secondary focus:border-secondary focus:ring-2 focus:ring-secondary/20',
         error:
-          'border-destructive data-[state=checked]:bg-destructive data-[state=checked]:text-destructive-foreground focus:shadow-[0_0_0_3px_rgba(209,113,113,0.1)]',
+          'border-destructive data-[state=checked]:bg-destructive data-[state=checked]:text-destructive-foreground focus:ring-2 focus:ring-destructive/20',
       },
       size: {
         sm: 'size-4',
