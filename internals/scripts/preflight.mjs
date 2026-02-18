@@ -9,7 +9,7 @@
  */
 
 import process from 'node:process'
-
+import {execSync} from 'node:child_process'
 import {dim, ok, warn, err, info} from '../utils/color.mjs'
 
 // FLAGS & ENV
@@ -75,7 +75,16 @@ run('Sync .nvmrc with package.json', checkSyncNode, {
 run('Check OS (WSL warning)', checkOS, {
   localOnly: true,
 })
-
+run('Build UI library (local-only)', () => {
+  if (IS_CI) {
+    console.log(warn('⚠️  Skipping UI build in CI'))
+    return
+  }
+  // Simulate a local-only check (e.g. building a UI lib)
+  // In real usage, this would run the actual build command
+  console.log(info('Building UI library...'))
+  execSync('pnpm build') // Replace with real build command
+})
 // SUMMARY TABLE
 function printSummary() {
   console.log(info('\n📊 Preflight Summary'))

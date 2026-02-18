@@ -6934,7 +6934,7 @@ function Ae({ className: e, ...t }) {
     "div",
     {
       "data-slot": "skeleton",
-      className: o("bg-accent animate-pulse rounded-md", e),
+      className: o("bg-foreground/15 dark:bg-foreground/20 animate-pulse rounded-md", e),
       ...t
     }
   );
