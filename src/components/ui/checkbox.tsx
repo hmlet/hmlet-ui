@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
-import {CheckIcon} from 'lucide-react'
+import {CheckIcon, MinusIcon} from 'lucide-react'
 import {cva, type VariantProps} from './cva'
 
 import {cn} from './utils'
@@ -13,11 +13,11 @@ const checkboxVariants = cva(
     variants: {
       variant: {
         primary:
-          'border-input data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=checked]:border-primary focus:border-primary focus:ring-2 focus:ring-ring/20',
+          'border-input data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=checked]:border-primary data-[state=indeterminate]:bg-primary data-[state=indeterminate]:text-primary-foreground data-[state=indeterminate]:border-primary focus:border-primary focus:ring-2 focus:ring-ring/20',
         secondary:
-          'border-input data-[state=checked]:bg-secondary data-[state=checked]:text-secondary-foreground data-[state=checked]:border-secondary focus:border-secondary focus:ring-2 focus:ring-secondary/20',
+          'border-input data-[state=checked]:bg-secondary data-[state=checked]:text-secondary-foreground data-[state=checked]:border-secondary data-[state=indeterminate]:bg-secondary data-[state=indeterminate]:text-secondary-foreground data-[state=indeterminate]:border-secondary focus:border-secondary focus:ring-2 focus:ring-secondary/20',
         error:
-          'border-destructive data-[state=checked]:bg-destructive data-[state=checked]:text-destructive-foreground focus:ring-2 focus:ring-destructive/20',
+          'border-destructive data-[state=checked]:bg-destructive data-[state=checked]:text-destructive-foreground data-[state=indeterminate]:bg-destructive data-[state=indeterminate]:text-destructive-foreground focus:ring-2 focus:ring-destructive/20',
       },
       size: {
         sm: 'size-4',
@@ -42,12 +42,16 @@ interface CheckboxProps
 const Checkbox = React.forwardRef<
   React.ComponentRef<typeof CheckboxPrimitive.Root>,
   CheckboxProps
->(({className, variant, size, label, ...props}, ref) => {
+>(({className, variant, size, label, checked, ...props}, ref) => {
   // Determine label text size based on checkbox size
   let labelClass = 'ml-2 align-middle select-none'
   if (size === 'sm') labelClass += ' text-xs'
   else if (size === 'lg') labelClass += ' text-base'
   else labelClass += ' text-sm'
+
+  const iconSize = cn(
+    size === 'sm' ? 'size-3' : size === 'lg' ? 'size-4' : 'size-3.5',
+  )
 
   return (
     <label className="inline-flex items-center cursor-pointer">
@@ -55,17 +59,18 @@ const Checkbox = React.forwardRef<
         ref={ref}
         data-slot="checkbox"
         className={cn(checkboxVariants({variant, size}), className)}
+        checked={checked}
         {...props}
       >
         <CheckboxPrimitive.Indicator
           data-slot="checkbox-indicator"
           className="flex items-center justify-center text-current transition-none"
         >
-          <CheckIcon
-            className={cn(
-              size === 'sm' ? 'size-3' : size === 'lg' ? 'size-4' : 'size-3.5',
-            )}
-          />
+          {checked === 'indeterminate' ? (
+            <MinusIcon className={iconSize} />
+          ) : (
+            <CheckIcon className={iconSize} />
+          )}
         </CheckboxPrimitive.Indicator>
       </CheckboxPrimitive.Root>
       {label && <span className={labelClass}>{label}</span>}
