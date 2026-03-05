@@ -18,6 +18,7 @@ import {
 } from './select'
 import {Checkbox} from './checkbox'
 import type {DateRange} from 'react-day-picker'
+import {RadioGroup, RadioGroupItem} from './radio-group'
 
 interface FormInputProps extends InputProps {
   label?: string
@@ -381,3 +382,72 @@ export const FormCheckbox = React.forwardRef<
 })
 
 FormCheckbox.displayName = 'FormCheckbox'
+
+interface FormRadioGroupOption {
+  value: string
+  label: React.ReactNode
+  disabled?: boolean
+}
+
+interface FormRadioGroupProps extends Omit<
+  React.ComponentProps<typeof RadioGroup>,
+  'children'
+> {
+  label?: string
+  error?: string
+  helperText?: string
+  required?: boolean
+  className?: string
+  options: FormRadioGroupOption[]
+}
+
+export const FormRadioGroup = React.forwardRef<
+  HTMLDivElement,
+  FormRadioGroupProps
+>((props, ref) => {
+  const {label, error, helperText, required, className, options, ...rest} =
+    props
+
+  return (
+    <VStack gap="2">
+      {label && (
+        <Label>
+          {label}
+          {required && <span className="text-destructive ml-1">*</span>}
+        </Label>
+      )}
+
+      <RadioGroup
+        ref={ref}
+        aria-invalid={!!error}
+        className={cn(error && 'ring-2 ring-destructive/20', className)}
+        {...rest}
+      >
+        {options.map(opt => (
+          <HStack as="label" key={opt.value} gap="2" className="items-center">
+            <RadioGroupItem
+              value={opt.value}
+              disabled={opt.disabled}
+              aria-label={typeof opt.label === 'string' ? opt.label : undefined}
+            />
+            <span>{opt.label}</span>
+          </HStack>
+        ))}
+      </RadioGroup>
+
+      {error && (
+        <Typography variant="body-sm" className="text-destructive">
+          {error}
+        </Typography>
+      )}
+
+      {helperText && !error && (
+        <Typography variant="body-sm" className="text-muted-foreground">
+          {helperText}
+        </Typography>
+      )}
+    </VStack>
+  )
+})
+
+FormRadioGroup.displayName = 'FormRadioGroup'

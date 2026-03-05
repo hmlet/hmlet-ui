@@ -5,6 +5,7 @@ import type { LucideIcon } from 'lucide-react';
 import { type ApiErrorType, type SelectProps } from './select';
 import { Checkbox } from './checkbox';
 import type { DateRange } from 'react-day-picker';
+import { RadioGroup } from './radio-group';
 interface FormInputProps extends InputProps {
     label?: string;
     error?: string;
@@ -74,4 +75,18 @@ interface FormCheckboxProps extends Omit<React.ComponentProps<typeof Checkbox>, 
     className?: string;
 }
 export declare const FormCheckbox: React.ForwardRefExoticComponent<Omit<FormCheckboxProps, "ref"> & React.RefAttributes<HTMLButtonElement>>;
+interface FormRadioGroupOption {
+    value: string;
+    label: React.ReactNode;
+    disabled?: boolean;
+}
+interface FormRadioGroupProps extends Omit<React.ComponentProps<typeof RadioGroup>, 'children'> {
+    label?: string;
+    error?: string;
+    helperText?: string;
+    required?: boolean;
+    className?: string;
+    options: FormRadioGroupOption[];
+}
+export declare const FormRadioGroup: React.ForwardRefExoticComponent<Omit<FormRadioGroupProps, "ref"> & React.RefAttributes<HTMLDivElement>>;
 export {};

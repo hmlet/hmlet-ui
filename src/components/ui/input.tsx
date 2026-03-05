@@ -37,13 +37,6 @@ export interface InputProps
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({className, variant, size = 'md', type, ...props}, ref) => {
-    console.log('Input render', {
-      variant,
-      size,
-      type,
-      value: props.value,
-      placeholder: props.placeholder,
-    })
     return (
       <input
         placeholder="name"
