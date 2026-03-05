@@ -14,7 +14,7 @@ interface FormInputProps extends InputProps {
     required?: boolean;
 }
 export declare const FormInput: React.ForwardRefExoticComponent<Omit<FormInputProps, "ref"> & React.RefAttributes<HTMLInputElement>>;
-interface FormTextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+export interface FormTextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
     label?: string;
     error?: string;
     helperText?: string;
@@ -26,7 +26,7 @@ export type FormSelectOption = {
     label: React.ReactNode;
     disabled?: boolean;
 };
-interface FormSelectProps extends SelectProps {
+export interface FormSelectProps extends SelectProps {
     label?: string;
     error?: string;
     helperText?: string;
@@ -40,14 +40,14 @@ interface FormSelectProps extends SelectProps {
     apiError?: ApiErrorType;
 }
 export declare const FormSelect: React.ForwardRefExoticComponent<FormSelectProps & React.RefAttributes<HTMLButtonElement>>;
-type BaseFormCalendarProps = {
+export type BaseFormCalendarProps = {
     label?: string;
     error?: string;
     helperText?: string;
     required?: boolean;
     className?: string;
 };
-type FormCalendarProps = (BaseFormCalendarProps & Extract<CalendarProps, {
+export type FormCalendarProps = (BaseFormCalendarProps & Extract<CalendarProps, {
     mode: 'single';
 }> & {
     value?: Date;
@@ -64,7 +64,7 @@ type FormCalendarProps = (BaseFormCalendarProps & Extract<CalendarProps, {
     onChange?: (range?: DateRange) => void;
 });
 export declare const FormCalendar: React.ForwardRefExoticComponent<FormCalendarProps & React.RefAttributes<HTMLDivElement>>;
-interface FormCheckboxProps extends Omit<React.ComponentProps<typeof Checkbox>, 'label'> {
+export interface FormCheckboxProps extends Omit<React.ComponentProps<typeof Checkbox>, 'label'> {
     /** Field label displayed above the checkbox */
     label?: string;
     /** Checkbox text displayed next to the checkbox */
@@ -75,12 +75,12 @@ interface FormCheckboxProps extends Omit<React.ComponentProps<typeof Checkbox>, 
     className?: string;
 }
 export declare const FormCheckbox: React.ForwardRefExoticComponent<Omit<FormCheckboxProps, "ref"> & React.RefAttributes<HTMLButtonElement>>;
-interface FormRadioGroupOption {
+export interface FormRadioGroupOption {
     value: string;
     label: React.ReactNode;
     disabled?: boolean;
 }
-interface FormRadioGroupProps extends Omit<React.ComponentProps<typeof RadioGroup>, 'children'> {
+export interface FormRadioGroupProps extends Omit<React.ComponentProps<typeof RadioGroup>, 'children'> {
     label?: string;
     error?: string;
     helperText?: string;

@@ -74,7 +74,7 @@ export const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
 
 FormInput.displayName = 'FormInput'
 
-interface FormTextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+export interface FormTextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string
   error?: string
   helperText?: string
@@ -113,13 +113,14 @@ export const FormTextarea = React.forwardRef<
 })
 
 FormTextarea.displayName = 'FormTextarea'
+
 export type FormSelectOption = {
   value: string
   label: React.ReactNode
   disabled?: boolean
 }
 
-interface FormSelectProps extends SelectProps {
+export interface FormSelectProps extends SelectProps {
   label?: string
   error?: string
   helperText?: string
@@ -218,7 +219,8 @@ export const FormSelect = React.forwardRef<HTMLButtonElement, FormSelectProps>(
 )
 
 FormSelect.displayName = 'FormSelect'
-type BaseFormCalendarProps = {
+
+export type BaseFormCalendarProps = {
   label?: string
   error?: string
   helperText?: string
@@ -226,7 +228,7 @@ type BaseFormCalendarProps = {
   className?: string
 }
 
-type FormCalendarProps =
+export type FormCalendarProps =
   | (BaseFormCalendarProps &
       Extract<CalendarProps, {mode: 'single'}> & {
         value?: Date
@@ -321,7 +323,7 @@ export const FormCalendar = React.forwardRef<HTMLDivElement, FormCalendarProps>(
 
 FormCalendar.displayName = 'FormCalendar'
 
-interface FormCheckboxProps extends Omit<
+export interface FormCheckboxProps extends Omit<
   React.ComponentProps<typeof Checkbox>,
   'label'
 > {
@@ -383,13 +385,13 @@ export const FormCheckbox = React.forwardRef<
 
 FormCheckbox.displayName = 'FormCheckbox'
 
-interface FormRadioGroupOption {
+export interface FormRadioGroupOption {
   value: string
   label: React.ReactNode
   disabled?: boolean
 }
 
-interface FormRadioGroupProps extends Omit<
+export interface FormRadioGroupProps extends Omit<
   React.ComponentProps<typeof RadioGroup>,
   'children'
 > {
