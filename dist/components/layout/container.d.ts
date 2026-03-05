@@ -16,7 +16,7 @@ declare const containerVariants: (props?: {
     p?: "none" | 4 | 6 | 8;
     px?: "none" | 4 | 6 | 8;
     py?: "none" | 4 | 6 | 8;
-    m?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    m?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
     mx?: "none" | 4 | 6 | 8;
     my?: "none" | 4 | 6 | 8;
     width?: "auto" | "full" | "fit" | "screen";

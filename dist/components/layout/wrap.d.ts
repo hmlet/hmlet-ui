@@ -15,15 +15,15 @@ import { type WithNumberish } from './types';
  * </Wrap>
  */
 declare const wrapVariants: (props?: {
-    gap?: 0 | 1 | 2 | 3 | 4 | 6;
+    gap?: 0 | 2 | 1 | 3 | 4 | 6;
     align?: "center" | "end" | "baseline" | "start" | "stretch";
     justify?: "center" | "end" | "start" | "space-between";
-    p?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    px?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    py?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    m?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    mx?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    my?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    p?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    px?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    py?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    m?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    mx?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    my?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
     width?: "auto" | "full" | "fit" | "screen";
     height?: "auto" | "full" | "fit" | "screen";
     shadow?: "sm" | "md" | "lg" | "none" | "default" | "xl" | "2xl" | "inner" | "outline";

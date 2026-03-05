@@ -135,6 +135,8 @@ const meta: Meta = {
     options,
     placeholder: 'Select fruits...',
     optionVariant: 'default',
+    isSearchable: true,
+    searchPlaceholder: 'Search...',
   },
   argTypes: {
     value: {control: 'object'},
@@ -143,6 +145,8 @@ const meta: Meta = {
       control: {type: 'inline-radio'},
     },
     onChange: {action: 'onChange'},
+    isSearchable: {control: 'boolean'},
+    searchPlaceholder: {control: 'text'},
   },
 }
 
@@ -166,5 +170,80 @@ export const Controlled: Story = {
   render: function ControlledRender(args) {
     const [value, setValue] = React.useState<string[]>(['banana'])
     return <Multiselect {...args} value={value} onChange={setValue} />
+  },
+}
+
+export const Searchable: Story = {
+  name: 'Searchable (Local)',
+  args: {
+    options: manyOptions,
+    placeholder: 'Search fruits...',
+    isSearchable: true,
+    searchPlaceholder: 'Type to search...',
+  },
+  render: function SearchableRender(args) {
+    return (
+      <div style={{maxWidth: 300}}>
+        <Multiselect {...args} />
+      </div>
+    )
+  },
+}
+
+export const SearchableDisabled: Story = {
+  name: 'Search Disabled',
+  args: {
+    options: manyOptions,
+    placeholder: 'Select fruits...',
+    isSearchable: false,
+  },
+  render: function SearchableDisabledRender(args) {
+    return (
+      <div style={{maxWidth: 300}}>
+        <Multiselect {...args} />
+      </div>
+    )
+  },
+}
+
+export const SearchableWithCustomFn: Story = {
+  name: 'Searchable (Custom Function)',
+  args: {
+    placeholder: 'Search fruits...',
+    isSearchable: true,
+    searchPlaceholder: 'Type to search (async)...',
+  },
+  render: function SearchableCustomFnRender(args) {
+    const [opts, setOpts] = React.useState(manyOptions)
+    const [loading, setLoading] = React.useState(false)
+
+    const handleSearch = React.useCallback((searchTerm: string) => {
+      setLoading(true)
+      // Simulate API call with setTimeout
+      setTimeout(() => {
+        if (!searchTerm) {
+          setOpts(manyOptions)
+        } else {
+          const filtered = manyOptions.filter(opt => {
+            const label =
+              typeof opt.label === 'string' ? opt.label : String(opt.value)
+            return label.toLowerCase().includes(searchTerm.toLowerCase())
+          })
+          setOpts(filtered)
+        }
+        setLoading(false)
+      }, 500)
+    }, [])
+
+    return (
+      <div style={{maxWidth: 300}}>
+        <Multiselect
+          {...args}
+          options={opts}
+          loading={loading}
+          searchFn={handleSearch}
+        />
+      </div>
+    )
   },
 }

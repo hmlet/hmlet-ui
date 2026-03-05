@@ -22,5 +22,11 @@ export type MultiselectProps = {
     };
     emptyText?: string;
     size?: 'sm' | 'md' | 'lg';
+    /** Enable search functionality */
+    isSearchable?: boolean;
+    /** Custom search function - called with 300ms debounce */
+    searchFn?: (searchTerm: string) => void;
+    /** Placeholder for search input */
+    searchPlaceholder?: string;
 };
-export declare function Multiselect({ options, value, defaultValue, onChange, placeholder, disabled, className, optionVariant, renderOption, loading, apiError, emptyText, size, }: MultiselectProps): import("react/jsx-runtime").JSX.Element;
+export declare function Multiselect({ options, value, defaultValue, onChange, placeholder, disabled, className, optionVariant, renderOption, loading, apiError, emptyText, size, isSearchable, searchFn, searchPlaceholder, }: MultiselectProps): import("react/jsx-runtime").JSX.Element;

@@ -14,14 +14,14 @@ import { type WithNumberish } from './types';
  * </Grid>
  */
 declare const gridItemVariants: (props?: {
-    p?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    px?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    py?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    m?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    mx?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    my?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    colSpan?: 1 | 2 | 3 | 4 | 5 | "full" | 6 | 8 | 12 | 7 | 9 | 10 | 11;
-    rowSpan?: 1 | 2 | 3 | 4 | 5 | "full" | 6;
+    p?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    px?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    py?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    m?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    mx?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    my?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    colSpan?: 2 | 1 | 3 | 4 | 5 | "full" | 6 | 8 | 12 | 7 | 9 | 10 | 11;
+    rowSpan?: 2 | 1 | 3 | 4 | 5 | "full" | 6;
     alignSelf?: "center" | "auto" | "end" | "start" | "stretch";
     justifySelf?: "center" | "auto" | "end" | "start" | "stretch";
 } & import("class-variance-authority/types").ClassProp) => string;

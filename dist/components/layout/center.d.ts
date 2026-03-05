@@ -14,12 +14,12 @@ import { type VariantProps } from './cva';
 declare const centerVariants: (props?: {
     inline?: boolean;
     height?: "auto" | "full" | "screen";
-    p?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    px?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    py?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    m?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    mx?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    my?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    p?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    px?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    py?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    m?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    mx?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    my?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
     width?: "auto" | "full" | "fit" | "screen";
     shadow?: "sm" | "md" | "lg" | "none" | "default" | "xl" | "2xl" | "inner" | "outline";
     display?: "grid" | "inline" | "block" | "inline-block" | "flex" | "inline-flex";

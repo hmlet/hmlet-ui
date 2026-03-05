@@ -7,9 +7,11 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
   PackageOpen,
+  SearchIcon,
 } from 'lucide-react'
 
 import {cn} from './utils'
+import useDebounce from './utils'
 import {Spinner} from './spinner'
 
 export type ApiErrorType = {
@@ -22,6 +24,12 @@ export type SelectProps = React.ComponentProps<typeof SelectPrimitive.Root> & {
   loading?: boolean
   apiError?: ApiErrorType
   emptyText?: string
+  /** Enable search functionality */
+  isSearchable?: boolean
+  /** Custom search function - called with 300ms debounce */
+  searchFn?: (searchTerm: string) => void
+  /** Placeholder for search input */
+  searchPlaceholder?: string
   /**
    * Children should be SelectItem or SelectGroup, etc.
    */
@@ -32,6 +40,9 @@ function Select({
   loading = false,
   apiError,
   emptyText = 'No Options',
+  isSearchable = true,
+  searchFn,
+  searchPlaceholder = 'Search...',
   children,
   ...props
 }: SelectProps) {
@@ -52,6 +63,9 @@ function Select({
             loading,
             apiError,
             emptyText,
+            isSearchable,
+            searchFn,
+            searchPlaceholder,
             children: childElement.props.children || children,
           })
         }
@@ -114,6 +128,9 @@ type SelectContentProps = React.ComponentProps<
   apiError?: ApiErrorType
   emptyText?: string
   hasOptions?: boolean
+  isSearchable?: boolean
+  searchFn?: (searchTerm: string) => void
+  searchPlaceholder?: string
 }
 
 function SelectContent({
@@ -123,10 +140,60 @@ function SelectContent({
   loading = false,
   apiError,
   emptyText = 'No Options',
-
+  isSearchable = true,
+  searchFn,
+  searchPlaceholder = 'Search...',
   ...props
 }: SelectContentProps) {
-  const hasOptions = React.Children.count(children) > 0
+  const [searchTerm, setSearchTerm] = React.useState('')
+  const debouncedSearchTerm = useDebounce(searchTerm, 300)
+  const searchInputRef = React.useRef<HTMLInputElement>(null)
+
+  // Call searchFn with debounced value when it exists
+  React.useEffect(() => {
+    if (searchFn && debouncedSearchTerm !== undefined) {
+      searchFn(debouncedSearchTerm)
+    }
+  }, [debouncedSearchTerm, searchFn])
+
+  // Filter children locally if no searchFn is provided
+  const filteredChildren = React.useMemo(() => {
+    if (!isSearchable || searchFn || !searchTerm) {
+      return children
+    }
+    const lowerSearch = searchTerm.toLowerCase()
+    return React.Children.toArray(children).filter(child => {
+      if (React.isValidElement(child) && child.type === SelectItem) {
+        // Get the text content from children
+        type SelectItemElement = React.ReactElement<
+          React.ComponentProps<typeof SelectPrimitive.Item>
+        >
+        const itemElement = child as SelectItemElement
+        const itemChildren = itemElement.props.children
+        const textContent =
+          typeof itemChildren === 'string'
+            ? itemChildren
+            : String(itemElement.props.value || '')
+        return textContent.toLowerCase().includes(lowerSearch)
+      }
+      // Keep non-SelectItem elements (like SelectGroup, SelectLabel, etc.)
+      return true
+    })
+  }, [children, searchTerm, isSearchable, searchFn])
+
+  const hasOptions = React.Children.count(filteredChildren) > 0
+
+  // Focus search input when content opens
+  React.useEffect(() => {
+    if (isSearchable && searchInputRef.current) {
+      // Small delay to ensure the content is rendered
+      const timer = setTimeout(() => {
+        searchInputRef.current?.focus()
+      }, 0)
+      return () => clearTimeout(timer)
+    }
+  }, [isSearchable])
+
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Content
@@ -141,6 +208,28 @@ function SelectContent({
         {...props}
       >
         <SelectScrollUpButton />
+        {isSearchable && (
+          <div className="p-2 border-b sticky top-0 bg-popover z-10">
+            <div className="relative">
+              <SearchIcon className="absolute left-2 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+              <input
+                ref={searchInputRef}
+                type="text"
+                className="w-full rounded-md border border-input bg-transparent py-1.5 pl-8 pr-2 text-sm outline-none focus:ring-2 focus:ring-ring/50"
+                placeholder={searchPlaceholder}
+                value={searchTerm}
+                onChange={e => setSearchTerm(e.target.value)}
+                onClick={e => e.stopPropagation()}
+                onKeyDown={e => {
+                  // Prevent select from handling these keys when typing
+                  if (e.key !== 'Escape' && e.key !== 'Tab') {
+                    e.stopPropagation()
+                  }
+                }}
+              />
+            </div>
+          </div>
+        )}
         <SelectPrimitive.Viewport
           className={cn(
             'p-1',
@@ -166,10 +255,12 @@ function SelectContent({
           ) : !hasOptions ? (
             <div className="flex flex-col items-center justify-center py-6 text-muted-foreground gap-2">
               <PackageOpen className="size-8 opacity-60" />
-              <span className="text-xs">{emptyText}</span>
+              <span className="text-xs">
+                {searchTerm ? 'No matches found' : emptyText}
+              </span>
             </div>
           ) : (
-            children
+            filteredChildren
           )}
         </SelectPrimitive.Viewport>
         <SelectScrollDownButton />

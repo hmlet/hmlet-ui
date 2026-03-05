@@ -14,14 +14,14 @@ import { type VariantProps } from './cva';
  * </Grid>
  */
 declare const gridVariants: (props?: {
-    p?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    px?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    py?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    m?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    mx?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    my?: 1 | 2 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    columns?: 1 | 2 | 3 | 4 | 5 | 6 | 8 | 12 | "responsive-2" | "responsive-3" | "responsive-4" | "responsive-1-2-3-4" | "responsive-2-3-4-5" | "responsive-auto-fit" | "responsive-auto-fill" | 7 | 9 | 10 | 11;
-    gap?: 0 | 1 | 2 | 16 | 3 | 4 | 6 | 8 | 12 | 20;
+    p?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    px?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    py?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    m?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    mx?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    my?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    columns?: 2 | 1 | 3 | 4 | 5 | 6 | 8 | 12 | "responsive-2" | "responsive-3" | "responsive-4" | "responsive-1-2-3-4" | "responsive-2-3-4-5" | "responsive-auto-fit" | "responsive-auto-fill" | 7 | 9 | 10 | 11;
+    gap?: 0 | 2 | 1 | 16 | 3 | 4 | 6 | 8 | 12 | 20;
     autoFlow?: "row" | "column" | "dense";
     alignItems?: "center" | "end" | "start" | "stretch";
     justifyItems?: "center" | "end" | "start" | "stretch";

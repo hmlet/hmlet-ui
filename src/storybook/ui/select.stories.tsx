@@ -23,6 +23,9 @@ type SelectStoryArgs = React.ComponentProps<typeof Select> & {
   loading?: boolean
   apiError?: {error: boolean; text?: string}
   emptyText?: string
+  isSearchable?: boolean
+  searchFn?: (searchTerm: string) => void
+  searchPlaceholder?: string
 }
 
 const DEFAULT_ITEMS: Array<{value: string; label: string; disabled?: boolean}> =
@@ -51,6 +54,9 @@ function SimpleSelect(args: SelectStoryArgs) {
       loading={args.loading}
       apiError={args.apiError}
       emptyText={args.emptyText}
+      isSearchable={args.isSearchable}
+      searchFn={args.searchFn}
+      searchPlaceholder={args.searchPlaceholder}
     >
       <SelectTrigger size={triggerSize} style={{width: triggerWidth}}>
         <SelectValue placeholder={placeholder} />
@@ -171,12 +177,15 @@ const meta: Meta<SelectStoryArgs> = {
         'apiError',
         'emptyText',
         'items',
+        'isSearchable',
+        'searchFn',
+        'searchPlaceholder',
       ],
     },
     docs: {
       description: {
         component:
-          'Displays a list of options for the user to pick from—triggered by a button. Content is portaled; in play functions, query `document.body` for options.\n\nNew props: `loading`, `apiError`, and `emptyText` allow for loading, error, and empty states.',
+          'Displays a list of options for the user to pick from—triggered by a button. Content is portaled; in play functions, query `document.body` for options.\n\nNew props: `loading`, `apiError`, `emptyText`, `isSearchable`, `searchFn`, and `searchPlaceholder` allow for loading, error, empty, and searchable states.',
       },
     },
   },
@@ -197,6 +206,8 @@ const meta: Meta<SelectStoryArgs> = {
     },
     emptyText: {control: 'text'},
     items: {control: 'object'},
+    isSearchable: {control: 'boolean'},
+    searchPlaceholder: {control: 'text'},
   },
   args: {
     dir: 'ltr',
@@ -208,6 +219,8 @@ const meta: Meta<SelectStoryArgs> = {
     apiError: {error: false, text: ''},
     emptyText: 'No Options',
     items: DEFAULT_ITEMS,
+    isSearchable: true,
+    searchPlaceholder: 'Search...',
   },
 }
 export const Loading: Story = {
@@ -382,5 +395,80 @@ export const Scrollable: Story = {
     await expect(body.getByText('Country 1')).toBeInTheDocument()
     await userEvent.click(body.getByRole('option', {name: 'Country 30'}))
     await expect(canvas.getByRole('combobox')).toHaveTextContent('Country 30')
+  },
+}
+
+const MANY_ITEMS = [
+  {value: 'apple', label: 'Apple'},
+  {value: 'banana', label: 'Banana'},
+  {value: 'orange', label: 'Orange'},
+  {value: 'grape', label: 'Grape'},
+  {value: 'kiwi', label: 'Kiwi'},
+  {value: 'mango', label: 'Mango'},
+  {value: 'pineapple', label: 'Pineapple'},
+  {value: 'strawberry', label: 'Strawberry'},
+  {value: 'watermelon', label: 'Watermelon'},
+  {value: 'blueberry', label: 'Blueberry'},
+]
+
+export const Searchable: Story = {
+  name: 'Searchable (Local)',
+  args: {
+    items: MANY_ITEMS,
+    placeholder: 'Search fruits...',
+    isSearchable: true,
+    searchPlaceholder: 'Type to search...',
+    triggerWidth: 280,
+  },
+  render: args => <SimpleSelect {...args} />,
+}
+
+export const SearchableDisabled: Story = {
+  name: 'Search Disabled',
+  args: {
+    items: MANY_ITEMS,
+    placeholder: 'Select a fruit',
+    isSearchable: false,
+    triggerWidth: 280,
+  },
+  render: args => <SimpleSelect {...args} />,
+}
+
+export const SearchableWithCustomFn: Story = {
+  name: 'Searchable (Custom Function)',
+  args: {
+    placeholder: 'Search fruits...',
+    isSearchable: true,
+    searchPlaceholder: 'Type to search (async)...',
+    triggerWidth: 280,
+  },
+  render: function SearchableCustomFnRender(args) {
+    const [items, setItems] = React.useState(MANY_ITEMS)
+    const [loading, setLoading] = React.useState(false)
+
+    const handleSearch = React.useCallback((searchTerm: string) => {
+      setLoading(true)
+      // Simulate API call with setTimeout
+      setTimeout(() => {
+        if (!searchTerm) {
+          setItems(MANY_ITEMS)
+        } else {
+          const filtered = MANY_ITEMS.filter(item =>
+            item.label.toLowerCase().includes(searchTerm.toLowerCase()),
+          )
+          setItems(filtered)
+        }
+        setLoading(false)
+      }, 500)
+    }, [])
+
+    return (
+      <SimpleSelect
+        {...args}
+        items={items}
+        loading={loading}
+        searchFn={handleSearch}
+      />
+    )
   },
 }

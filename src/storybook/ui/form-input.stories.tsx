@@ -146,3 +146,43 @@ export const SelectApiError: SelectStory = {
     helperText: 'Please try again later.',
   },
 }
+
+export const SelectSearchable: SelectStory = {
+  name: 'Select Searchable',
+  render: args => <FormSelect {...args} />,
+  args: {
+    label: 'Country',
+    options: [
+      {value: 'sg', label: 'Singapore'},
+      {value: 'my', label: 'Malaysia'},
+      {value: 'id', label: 'Indonesia'},
+      {value: 'th', label: 'Thailand'},
+      {value: 'vn', label: 'Vietnam'},
+      {value: 'ph', label: 'Philippines'},
+      {value: 'jp', label: 'Japan'},
+      {value: 'kr', label: 'South Korea'},
+      {value: 'cn', label: 'China'},
+      {value: 'tw', label: 'Taiwan'},
+    ],
+    placeholder: 'Search countries...',
+    isSearchable: true,
+    searchPlaceholder: 'Type to search...',
+    helperText: 'Search through the list of countries.',
+  },
+}
+
+export const SelectSearchDisabled: SelectStory = {
+  name: 'Select Search Disabled',
+  render: args => <FormSelect {...args} />,
+  args: {
+    label: 'Country',
+    options: [
+      {value: 'sg', label: 'Singapore'},
+      {value: 'my', label: 'Malaysia'},
+      {value: 'id', label: 'Indonesia'},
+    ],
+    placeholder: 'Select a country',
+    isSearchable: false,
+    helperText: 'Search is disabled for this select.',
+  },
+}
