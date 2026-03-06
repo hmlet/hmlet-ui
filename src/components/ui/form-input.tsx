@@ -19,6 +19,7 @@ import {
 import {Checkbox} from './checkbox'
 import type {DateRange} from 'react-day-picker'
 import {RadioGroup, RadioGroupItem} from './radio-group'
+import {PhoneInput, type PhoneInputProps} from './phone-input'
 
 interface FormInputProps extends InputProps {
   label?: string
@@ -453,3 +454,44 @@ export const FormRadioGroup = React.forwardRef<
 })
 
 FormRadioGroup.displayName = 'FormRadioGroup'
+
+export interface FormPhoneInputProps extends Omit<PhoneInputProps, 'variant'> {
+  label?: string
+  error?: string
+  helperText?: string
+  required?: boolean
+}
+
+export const FormPhoneInput = React.forwardRef<
+  HTMLDivElement,
+  FormPhoneInputProps
+>(({label, error, helperText, required, className, ...props}, ref) => {
+  return (
+    <VStack gap="2">
+      {label && (
+        <Label>
+          {label}
+          {required && <span className="text-destructive ml-1">*</span>}
+        </Label>
+      )}
+      <PhoneInput
+        ref={ref}
+        variant={error ? 'error' : 'default'}
+        className={cn(className)}
+        {...props}
+      />
+      {error && (
+        <Typography variant="body-sm" className="text-destructive">
+          {error}
+        </Typography>
+      )}
+      {helperText && !error && (
+        <Typography variant="body-sm" className="text-muted-foreground">
+          {helperText}
+        </Typography>
+      )}
+    </VStack>
+  )
+})
+
+FormPhoneInput.displayName = 'FormPhoneInput'

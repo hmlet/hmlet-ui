@@ -6,6 +6,7 @@ import { type ApiErrorType, type SelectProps } from './select';
 import { Checkbox } from './checkbox';
 import type { DateRange } from 'react-day-picker';
 import { RadioGroup } from './radio-group';
+import { type PhoneInputProps } from './phone-input';
 interface FormInputProps extends InputProps {
     label?: string;
     error?: string;
@@ -89,4 +90,11 @@ export interface FormRadioGroupProps extends Omit<React.ComponentProps<typeof Ra
     options: FormRadioGroupOption[];
 }
 export declare const FormRadioGroup: React.ForwardRefExoticComponent<Omit<FormRadioGroupProps, "ref"> & React.RefAttributes<HTMLDivElement>>;
+export interface FormPhoneInputProps extends Omit<PhoneInputProps, 'variant'> {
+    label?: string;
+    error?: string;
+    helperText?: string;
+    required?: boolean;
+}
+export declare const FormPhoneInput: React.ForwardRefExoticComponent<FormPhoneInputProps & React.RefAttributes<HTMLDivElement>>;
 export {};
