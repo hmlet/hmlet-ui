@@ -20,6 +20,8 @@ import {Checkbox} from './checkbox'
 import type {DateRange} from 'react-day-picker'
 import {RadioGroup, RadioGroupItem} from './radio-group'
 import {PhoneInput, type PhoneInputProps} from './phone-input'
+import {TimePicker, type TimePickerProps} from './time-picker'
+import {DateTimePicker, type DateTimePickerProps} from './date-time-picker'
 
 interface FormInputProps extends InputProps {
   label?: string
@@ -495,3 +497,86 @@ export const FormPhoneInput = React.forwardRef<
 })
 
 FormPhoneInput.displayName = 'FormPhoneInput'
+
+export interface FormTimePickerProps extends Omit<TimePickerProps, 'variant'> {
+  label?: string
+  error?: string
+  helperText?: string
+  required?: boolean
+}
+
+export const FormTimePicker = React.forwardRef<
+  HTMLDivElement,
+  FormTimePickerProps
+>(({label, error, helperText, required, className, ...props}, ref) => {
+  return (
+    <VStack gap="2">
+      {label && (
+        <Label>
+          {label}
+          {required && <span className="text-destructive ml-1">*</span>}
+        </Label>
+      )}
+      <TimePicker
+        ref={ref}
+        variant={error ? 'error' : 'default'}
+        className={cn(className)}
+        {...props}
+      />
+      {error && (
+        <Typography variant="body-sm" className="text-destructive">
+          {error}
+        </Typography>
+      )}
+      {helperText && !error && (
+        <Typography variant="body-sm" className="text-muted-foreground">
+          {helperText}
+        </Typography>
+      )}
+    </VStack>
+  )
+})
+
+FormTimePicker.displayName = 'FormTimePicker'
+
+export type FormDateTimePickerProps = Omit<DateTimePickerProps, 'variant'> & {
+  label?: string
+  error?: string
+  helperText?: string
+  required?: boolean
+}
+
+export const FormDateTimePicker = React.forwardRef<
+  HTMLButtonElement,
+  FormDateTimePickerProps
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+>(({label, error, helperText, required, className, ...props}: any, ref) => {
+  return (
+    <VStack gap="2">
+      {label && (
+        <Label>
+          {label}
+          {required && <span className="text-destructive ml-1">*</span>}
+        </Label>
+      )}
+      <DateTimePicker
+        ref={ref}
+        variant={error ? 'error' : 'default'}
+        className={cn(className)}
+        {...props}
+      />
+      {error && (
+        <Typography variant="body-sm" className="text-destructive">
+          {error}
+        </Typography>
+      )}
+      {helperText && !error && (
+        <Typography variant="body-sm" className="text-muted-foreground">
+          {helperText}
+        </Typography>
+      )}
+    </VStack>
+  )
+})
+
+FormDateTimePicker.displayName = 'FormDateTimePicker'

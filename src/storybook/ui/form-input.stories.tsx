@@ -4,6 +4,8 @@ import {
   FormTextarea,
   FormSelect,
   FormPhoneInput,
+  FormTimePicker,
+  FormDateTimePicker,
 } from '../../components/ui/form-input'
 import {Mail} from 'lucide-react'
 import * as React from 'react'
@@ -12,6 +14,10 @@ import {isValidPhoneNumber} from '../../components/ui/phone-input'
 import {VStack, HStack} from '../../components/layout'
 import {Button} from '../../components/ui/button'
 import {Typography} from '../../components/ui/typography'
+import type {
+  DateTimeValue,
+  DateTimeRangeValue,
+} from '../../components/ui/date-time-picker'
 
 const meta: Meta<typeof FormInput> = {
   title: 'UI/FormInput',
@@ -359,6 +365,308 @@ export const PhoneInputDifferentCountries: PhoneInputStory = {
           </ul>
         </div>
       </VStack>
+    )
+  },
+}
+
+type TimePickerStory = StoryObj<typeof FormTimePicker>
+
+export const TimePickerPlayground: TimePickerStory = {
+  render: function TimePickerPlaygroundRender(args) {
+    const [value, setValue] = React.useState<string | null>('10:00')
+    return (
+      <div className="w-80">
+        <FormTimePicker {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
+  args: {
+    label: 'Meeting Time',
+    placeholder: 'Select a time',
+    required: true,
+    helperText: 'Click the clock to pick hours and minutes.',
+    error: '',
+  },
+}
+
+export const TimePickerWithError: TimePickerStory = {
+  render: function TimePickerWithErrorRender(args) {
+    const [value, setValue] = React.useState<string | null>(null)
+    return (
+      <div className="w-80">
+        <FormTimePicker {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
+  args: {
+    label: 'Deadline',
+    placeholder: 'Select deadline time',
+    error: 'Time is required',
+  },
+}
+
+export const TimePickerSizes: TimePickerStory = {
+  render: function TimePickerSizesRender() {
+    const [values, setValues] = React.useState<{[key: string]: string | null}>({
+      sm: '09:00',
+      md: '12:00',
+      lg: '17:00',
+    })
+
+    return (
+      <VStack gap="6" className="w-80">
+        <FormTimePicker
+          label="Small"
+          size="sm"
+          value={values.sm}
+          onChange={v => setValues(prev => ({...prev, sm: v}))}
+          helperText="Size: sm (h-9)"
+        />
+        <FormTimePicker
+          label="Medium (default)"
+          size="md"
+          value={values.md}
+          onChange={v => setValues(prev => ({...prev, md: v}))}
+          helperText="Size: md (h-11)"
+        />
+        <FormTimePicker
+          label="Large"
+          size="lg"
+          value={values.lg}
+          onChange={v => setValues(prev => ({...prev, lg: v}))}
+          helperText="Size: lg (h-12)"
+        />
+      </VStack>
+    )
+  },
+}
+
+export const TimePicker24Hour: TimePickerStory = {
+  render: function TimePicker24HourRender(args) {
+    const [value, setValue] = React.useState<string | null>('14:30')
+    return (
+      <div className="w-80">
+        <FormTimePicker {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
+  args: {
+    label: 'Appointment Time',
+    use12Hours: false,
+    helperText: '24-hour format.',
+  },
+}
+
+export const TimePickerValidation: TimePickerStory = {
+  render: function TimePickerValidationRender() {
+    const [time, setTime] = React.useState<string | null>(null)
+    const [errors, setErrors] = React.useState<{time?: string}>({})
+
+    const handleSubmit = (e: React.FormEvent) => {
+      e.preventDefault()
+      const newErrors: {time?: string} = {}
+
+      if (!time) {
+        newErrors.time = 'Time is required'
+      }
+
+      setErrors(newErrors)
+
+      if (Object.keys(newErrors).length === 0) {
+        alert(`Form submitted! Time: ${time}`)
+      }
+    }
+
+    return (
+      <form onSubmit={handleSubmit} className="w-80">
+        <VStack gap="4">
+          <FormTimePicker
+            label="Event Time"
+            required
+            value={time}
+            onChange={v => {
+              setTime(v)
+              if (errors.time) setErrors({})
+            }}
+            error={errors.time}
+            helperText={
+              !errors.time ? 'Select when the event starts' : undefined
+            }
+          />
+          <HStack gap="2">
+            <Button type="submit">Submit</Button>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => {
+                setTime(null)
+                setErrors({})
+              }}
+            >
+              Reset
+            </Button>
+          </HStack>
+        </VStack>
+      </form>
+    )
+  },
+}
+
+/* ─── FormDateTimePicker Stories ─── */
+
+type DateTimePickerStory = StoryObj<typeof FormDateTimePicker>
+
+export const DateTimePickerPlayground: DateTimePickerStory = {
+  render: function DateTimePickerPlaygroundRender(args) {
+    const [value, setValue] = React.useState<DateTimeValue | null>(null)
+    return (
+      <div className="w-96">
+        <FormDateTimePicker
+          {...args}
+          mode="single"
+          value={value}
+          onChange={setValue}
+        />
+      </div>
+    )
+  },
+  args: {
+    label: 'Event Date & Time',
+    helperText: 'Select the date and time for your event.',
+    required: true,
+  },
+}
+
+export const DateTimePickerWithError: DateTimePickerStory = {
+  render: function DateTimePickerWithErrorRender(args) {
+    const [value, setValue] = React.useState<DateTimeValue | null>(null)
+    return (
+      <div className="w-96">
+        <FormDateTimePicker
+          {...args}
+          mode="single"
+          value={value}
+          onChange={setValue}
+        />
+      </div>
+    )
+  },
+  args: {
+    label: 'Deadline',
+    error: 'Date and time is required',
+    required: true,
+  },
+}
+
+export const DateTimePickerSizes: DateTimePickerStory = {
+  render: function DateTimePickerSizesRender() {
+    const [val1, setVal1] = React.useState<DateTimeValue | null>(null)
+    const [val2, setVal2] = React.useState<DateTimeValue | null>(null)
+    const [val3, setVal3] = React.useState<DateTimeValue | null>(null)
+    return (
+      <VStack gap="4" className="w-96">
+        <FormDateTimePicker
+          label="Small"
+          mode="single"
+          size="sm"
+          value={val1}
+          onChange={setVal1}
+        />
+        <FormDateTimePicker
+          label="Medium (default)"
+          mode="single"
+          size="md"
+          value={val2}
+          onChange={setVal2}
+        />
+        <FormDateTimePicker
+          label="Large"
+          mode="single"
+          size="lg"
+          value={val3}
+          onChange={setVal3}
+        />
+      </VStack>
+    )
+  },
+}
+
+export const DateTimePickerRange: DateTimePickerStory = {
+  render: function DateTimePickerRangeRender(args) {
+    const [value, setValue] = React.useState<DateTimeRangeValue | null>(null)
+    return (
+      <div className="w-[28rem]">
+        <FormDateTimePicker
+          {...args}
+          mode="range"
+          value={value}
+          onChange={setValue}
+        />
+      </div>
+    )
+  },
+  args: {
+    label: 'Booking Period',
+    helperText: 'Select check-in and check-out date & time.',
+  },
+}
+
+export const DateTimePickerValidation: DateTimePickerStory = {
+  render: function DateTimePickerValidationRender() {
+    const [value, setValue] = React.useState<DateTimeValue | null>(null)
+    const [errors, setErrors] = React.useState<{datetime?: string}>({})
+
+    const handleSubmit = (e: React.FormEvent) => {
+      e.preventDefault()
+      const newErrors: {datetime?: string} = {}
+
+      if (!value) {
+        newErrors.datetime = 'Date and time is required'
+      }
+
+      setErrors(newErrors)
+
+      if (Object.keys(newErrors).length === 0) {
+        alert(
+          `Submitted! ${value!.date.toLocaleDateString()} at ${value!.hour}:${String(value!.minute).padStart(2, '0')}`,
+        )
+      }
+    }
+
+    return (
+      <form onSubmit={handleSubmit} className="w-96">
+        <VStack gap="4">
+          <FormDateTimePicker
+            label="Appointment"
+            required
+            mode="single"
+            value={value}
+            onChange={(v: DateTimeValue | null) => {
+              setValue(v)
+              if (errors.datetime) setErrors({})
+            }}
+            error={errors.datetime}
+            helperText={
+              !errors.datetime
+                ? 'Choose when your appointment starts'
+                : undefined
+            }
+          />
+          <HStack gap="2">
+            <Button type="submit">Submit</Button>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => {
+                setValue(null)
+                setErrors({})
+              }}
+            >
+              Reset
+            </Button>
+          </HStack>
+        </VStack>
+      </form>
     )
   },
 }

@@ -7,6 +7,8 @@ import { Checkbox } from './checkbox';
 import type { DateRange } from 'react-day-picker';
 import { RadioGroup } from './radio-group';
 import { type PhoneInputProps } from './phone-input';
+import { type TimePickerProps } from './time-picker';
+import { type DateTimePickerProps } from './date-time-picker';
 interface FormInputProps extends InputProps {
     label?: string;
     error?: string;
@@ -97,4 +99,23 @@ export interface FormPhoneInputProps extends Omit<PhoneInputProps, 'variant'> {
     required?: boolean;
 }
 export declare const FormPhoneInput: React.ForwardRefExoticComponent<FormPhoneInputProps & React.RefAttributes<HTMLDivElement>>;
+export interface FormTimePickerProps extends Omit<TimePickerProps, 'variant'> {
+    label?: string;
+    error?: string;
+    helperText?: string;
+    required?: boolean;
+}
+export declare const FormTimePicker: React.ForwardRefExoticComponent<FormTimePickerProps & React.RefAttributes<HTMLDivElement>>;
+export type FormDateTimePickerProps = Omit<DateTimePickerProps, 'variant'> & {
+    label?: string;
+    error?: string;
+    helperText?: string;
+    required?: boolean;
+};
+export declare const FormDateTimePicker: React.ForwardRefExoticComponent<Omit<DateTimePickerProps, "variant"> & {
+    label?: string;
+    error?: string;
+    helperText?: string;
+    required?: boolean;
+} & React.RefAttributes<HTMLButtonElement>>;
 export {};
