@@ -2553,6 +2553,10 @@ const J = P(
         link: "text-primary underline-offset-4 hover:underline focus:underline"
       },
       size: {
+        xxs: "h-6 px-2 py-1 text-xs rounded-md",
+        // Extra Extra Small
+        xs: "h-8 px-3 py-1.5 text-xs rounded-md",
+        // Extra Small
         sm: "h-9 px-4 py-2 text-sm rounded-md",
         // Small
         md: "h-11 px-6 py-3 text-base rounded-md",
