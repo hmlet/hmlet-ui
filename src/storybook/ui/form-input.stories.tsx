@@ -6,11 +6,17 @@ import {
   FormPhoneInput,
   FormTimePicker,
   FormDateTimePicker,
+  FormOTP,
 } from '../../components/ui/form-input'
 import {Mail} from 'lucide-react'
 import * as React from 'react'
 import type {Value} from 'react-phone-number-input'
 import {isValidPhoneNumber} from '../../components/ui/phone-input'
+import {
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from '../../components/ui/input-otp'
 import {VStack, HStack} from '../../components/layout'
 import {Button} from '../../components/ui/button'
 import {Typography} from '../../components/ui/typography'
@@ -40,7 +46,7 @@ const meta: Meta<typeof FormInput> = {
     docs: {
       description: {
         component:
-          'FormInput, FormTextarea, and FormSelect are form field wrappers with label, error, and helper text support.',
+          'FormInput, FormTextarea, FormSelect, FormPhoneInput, FormTimePicker, FormDateTimePicker, and FormOTP are form field wrappers with label, error, and helper text support.',
       },
     },
   },
@@ -668,5 +674,72 @@ export const DateTimePickerValidation: DateTimePickerStory = {
         </VStack>
       </form>
     )
+  },
+}
+
+/* ─── FormOTP Stories ─── */
+
+type OTPStory = StoryObj<typeof FormOTP>
+
+export const OTPPlayground: OTPStory = {
+  render: function OTPPlaygroundRender(args) {
+    const [value, setValue] = React.useState('')
+
+    return (
+      <div className="w-80">
+        <FormOTP
+          {...args}
+          value={value}
+          onChange={setValue}
+          maxLength={6}
+          required
+        >
+          <InputOTPGroup>
+            <InputOTPSlot index={0} />
+            <InputOTPSlot index={1} />
+            <InputOTPSlot index={2} />
+          </InputOTPGroup>
+          <InputOTPSeparator />
+          <InputOTPGroup>
+            <InputOTPSlot index={3} />
+            <InputOTPSlot index={4} />
+            <InputOTPSlot index={5} />
+          </InputOTPGroup>
+        </FormOTP>
+      </div>
+    )
+  },
+  args: {
+    label: 'Verification Code',
+    helperText: 'Enter the 6-digit code sent to your phone.',
+    error: '',
+  },
+}
+
+export const OTPWithError: OTPStory = {
+  render: function OTPWithErrorRender(args) {
+    const [value, setValue] = React.useState('12')
+
+    return (
+      <div className="w-80">
+        <FormOTP {...args} value={value} onChange={setValue} maxLength={6}>
+          <InputOTPGroup>
+            <InputOTPSlot index={0} />
+            <InputOTPSlot index={1} />
+            <InputOTPSlot index={2} />
+          </InputOTPGroup>
+          <InputOTPSeparator />
+          <InputOTPGroup>
+            <InputOTPSlot index={3} />
+            <InputOTPSlot index={4} />
+            <InputOTPSlot index={5} />
+          </InputOTPGroup>
+        </FormOTP>
+      </div>
+    )
+  },
+  args: {
+    label: 'Verification Code',
+    error: 'Code must be 6 digits',
   },
 }

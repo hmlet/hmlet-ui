@@ -22,6 +22,7 @@ import {RadioGroup, RadioGroupItem} from './radio-group'
 import {PhoneInput, type PhoneInputProps} from './phone-input'
 import {TimePicker, type TimePickerProps} from './time-picker'
 import {DateTimePicker, type DateTimePickerProps} from './date-time-picker'
+import {InputOTP} from './input-otp'
 
 interface FormInputProps extends InputProps {
   label?: string
@@ -580,3 +581,45 @@ export const FormDateTimePicker = React.forwardRef<
 })
 
 FormDateTimePicker.displayName = 'FormDateTimePicker'
+
+export type FormOTPProps = React.ComponentPropsWithoutRef<typeof InputOTP> & {
+  label?: string
+  error?: string
+  helperText?: string
+  required?: boolean
+}
+
+export function FormOTP({
+  label,
+  error,
+  helperText,
+  required,
+  className,
+  ...props
+}: FormOTPProps) {
+  return (
+    <VStack gap="2">
+      {label && (
+        <Label>
+          {label}
+          {required && <span className="text-destructive ml-1">*</span>}
+        </Label>
+      )}
+      <InputOTP
+        aria-invalid={!!error}
+        className={cn(error && 'border-destructive', className)}
+        {...props}
+      />
+      {error && (
+        <Typography variant="body-sm" className="text-destructive">
+          {error}
+        </Typography>
+      )}
+      {helperText && !error && (
+        <Typography variant="body-sm" className="text-muted-foreground">
+          {helperText}
+        </Typography>
+      )}
+    </VStack>
+  )
+}
