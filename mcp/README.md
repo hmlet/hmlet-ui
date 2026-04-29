@@ -56,6 +56,25 @@ pnpm exec hmlet-ui-mcp sync
 pnpm exec hmlet-ui-mcp doctor
 ```
 
+Troubleshooting (consumer repo):
+
+- If install/update did not create files at project root, run:
+
+```bash
+pnpm exec hmlet-ui-mcp sync --project-root .
+```
+
+- To inspect root detection in that repo:
+
+```bash
+pnpm exec hmlet-ui-mcp doctor --project-root .
+```
+
+- Some environments disable dependency lifecycle scripts. In that case, add a
+  consumer script (for example
+  `"ui:mcp:sync": "pnpm exec hmlet-ui-mcp sync --project-root ."`) and run it
+  after `@hmlet/ui` updates.
+
 ## Use from an MCP client
 
 - Command: `hmlet-ui-mcp` (when installed as a dependency) or

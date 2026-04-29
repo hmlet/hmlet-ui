@@ -42,6 +42,27 @@ async function findNearestPackageRoot(startDir) {
   }
 }
 
+async function getPackageNameAtRoot(rootDir) {
+  try {
+    const pkg = await readJson(path.join(rootDir, 'package.json'))
+    return typeof pkg?.name === 'string' ? pkg.name : null
+  } catch {
+    return null
+  }
+}
+
+function isInsideNodeModules(dirPath) {
+  const parts = path.resolve(dirPath).split(path.sep)
+  return parts.includes('node_modules')
+}
+
+function normalizeCandidate(value) {
+  if (!value || typeof value !== 'string') return null
+  const trimmed = value.trim()
+  if (!trimmed) return null
+  return trimmed
+}
+
 function parseArgValue(argv, name) {
   const index = argv.indexOf(name)
   if (index === -1) return null
@@ -55,10 +76,40 @@ async function resolveConsumerRoot(argv) {
     return resolved
   }
 
-  const initCwd = process.env.INIT_CWD
-  if (initCwd) {
-    const fromInit = await findNearestPackageRoot(initCwd)
-    if (fromInit) return fromInit
+  const candidateEnvValues = [
+    process.env.INIT_CWD,
+    process.env.npm_config_local_prefix,
+    process.env.npm_config_prefix,
+    process.env.PWD,
+  ]
+
+  for (const value of candidateEnvValues) {
+    const candidate = normalizeCandidate(value)
+    if (!candidate) continue
+    const root = await findNearestPackageRoot(candidate)
+    if (!root) continue
+    const packageName = await getPackageNameAtRoot(root)
+    if (packageName === PACKAGE_NAME) continue
+    return root
+  }
+
+  // Fallback: walk up from cwd and pick the first non-library package root.
+  let current = path.resolve(process.cwd())
+  while (true) {
+    const pkgPath = path.join(current, 'package.json')
+    if (await fileExists(pkgPath)) {
+      const pkgName = await getPackageNameAtRoot(current)
+      if (
+        pkgName &&
+        pkgName !== PACKAGE_NAME &&
+        !isInsideNodeModules(current)
+      ) {
+        return current
+      }
+    }
+    const parent = path.dirname(current)
+    if (parent === current) break
+    current = parent
   }
 
   const fromCwd = await findNearestPackageRoot(process.cwd())
@@ -210,6 +261,10 @@ async function runDoctor({argv = []} = {}) {
   console.log(`- package root: ${packageRoot}`)
   console.log(`- package: ${packageMeta.name}@${packageMeta.version}`)
   console.log(`- init cwd: ${process.env.INIT_CWD ?? '(unset)'}`)
+  console.log(
+    `- npm local prefix: ${process.env.npm_config_local_prefix ?? '(unset)'}`,
+  )
+  console.log(`- npm prefix: ${process.env.npm_config_prefix ?? '(unset)'}`)
   console.log(`- cwd: ${process.cwd()}`)
   console.log(`- consumer root: ${consumerRoot ?? '(not found)'}`)
 
