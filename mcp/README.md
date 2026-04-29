@@ -20,6 +20,42 @@ pnpm mcp
 
 This starts an MCP server over stdio.
 
+## Auto-sync in consumer projects
+
+When `@hmlet/ui` is installed or updated, the package runs a postinstall sync
+that creates or updates managed helper files in the consumer project root.
+
+Managed files:
+
+- `hmlet-ui.mcp.json` (MCP server config under `mcpServers.hmlet-ui`)
+- `hmlet-ui.agent.md` (agent discovery/import guidance)
+
+Behavior:
+
+- Existing `hmlet-ui.mcp.json` is merged; only `mcpServers.hmlet-ui` is managed.
+- Other MCP server entries are preserved.
+- Re-running sync is idempotent.
+
+Disable auto-sync (for CI/locked environments):
+
+```bash
+HMLET_UI_MCP_DISABLE=1 pnpm install
+```
+
+Manual commands:
+
+```bash
+pnpm mcp:sync
+pnpm mcp:doctor
+```
+
+CLI equivalents (from a consumer project):
+
+```bash
+pnpm exec hmlet-ui-mcp sync
+pnpm exec hmlet-ui-mcp doctor
+```
+
 ## Use from an MCP client
 
 - Command: `hmlet-ui-mcp` (when installed as a dependency) or
@@ -43,6 +79,8 @@ Tools exposed:
 - `hmlet_ui_list_catalog`
 - `hmlet_ui_get_source`
 - `hmlet_ui_search`
+- `hmlet_ui_recommend_components`
+- `hmlet_ui_health`
 - `hmlet_ui_scaffold_page`
 - `hmlet_ui_component_api`
 - `hmlet_ui_generate_usage_example`

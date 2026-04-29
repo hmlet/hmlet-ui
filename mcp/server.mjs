@@ -201,6 +201,204 @@ function makeSnippet(text, index, queryLength) {
   return `${prefix}${text.slice(start, end)}${suffix}`
 }
 
+function getLineNumberAt(text, index) {
+  if (index <= 0) return 1
+  let line = 1
+  for (let i = 0; i < index && i < text.length; i++) {
+    if (text[i] === '\n') line++
+  }
+  return line
+}
+
+function findAllIndexes(text, query, {maxMatches = 3} = {}) {
+  const out = []
+  if (!query) return out
+  let start = 0
+  while (start < text.length && out.length < maxMatches) {
+    const idx = text.indexOf(query, start)
+    if (idx === -1) break
+    out.push(idx)
+    start = idx + Math.max(1, query.length)
+  }
+  return out
+}
+
+function tokenizeQuery(text) {
+  return String(text ?? '')
+    .toLowerCase()
+    .split(/[^a-z0-9]+/g)
+    .filter(Boolean)
+}
+
+function inferCapabilitySignals({
+  name,
+  moduleName,
+  sourceText,
+  cvaDefinitions,
+}) {
+  const n = String(name ?? '').toLowerCase()
+  const m = String(moduleName ?? '').toLowerCase()
+  const t = String(sourceText ?? '').toLowerCase()
+  const signals = new Set()
+
+  if (n.includes('form') || m.includes('form') || t.includes('label?:')) {
+    signals.add('form')
+  }
+  if (
+    n.includes('otp') ||
+    m.includes('otp') ||
+    t.includes('maxLength') ||
+    t.includes('inputotpslot')
+  ) {
+    signals.add('otp')
+  }
+  if (
+    n.includes('select') ||
+    m.includes('select') ||
+    t.includes('options:') ||
+    t.includes('onvaluechange') ||
+    t.includes('selectitem')
+  ) {
+    signals.add('select')
+  }
+  if (
+    n.includes('date') ||
+    n.includes('calendar') ||
+    m.includes('date') ||
+    t.includes('daterange') ||
+    t.includes('react-day-picker')
+  ) {
+    signals.add('date')
+  }
+  if (n.includes('time') || m.includes('time') || t.includes('timepicker')) {
+    signals.add('time')
+  }
+  if (
+    n.includes('phone') ||
+    m.includes('phone') ||
+    t.includes('react-phone-number-input')
+  ) {
+    signals.add('phone')
+  }
+  if (n.includes('input') || m.includes('input')) signals.add('input')
+  if (n.includes('textarea') || m.includes('textarea')) signals.add('textarea')
+  if (n.includes('checkbox') || m.includes('checkbox')) signals.add('checkbox')
+  if (n.includes('radio') || m.includes('radio')) signals.add('radio')
+  if (n.includes('dialog') || m.includes('dialog')) signals.add('dialog')
+  if (n.includes('table') || m.includes('table')) signals.add('table')
+  if (n.includes('chart') || m.includes('chart')) signals.add('chart')
+  if (n.includes('alert') || m.includes('alert')) signals.add('alert')
+  if (
+    n.includes('stack') ||
+    n.includes('grid') ||
+    n.includes('box') ||
+    n.includes('container')
+  ) {
+    signals.add('layout')
+  }
+
+  const variantNames = new Set()
+  for (const def of cvaDefinitions ?? []) {
+    for (const key of Object.keys(def?.variants ?? {})) {
+      if (key) variantNames.add(String(key).toLowerCase())
+    }
+  }
+  if (variantNames.size > 0) signals.add('variantable')
+
+  return [...signals]
+}
+
+function scoreCandidate(name, moduleName, tokens, capabilities = []) {
+  const n = String(name ?? '').toLowerCase()
+  const m = String(moduleName ?? '').toLowerCase()
+  const cap = new Set((capabilities ?? []).map(v => String(v).toLowerCase()))
+  let score = 0
+  const reasons = []
+
+  for (const tok of tokens) {
+    if (!tok) continue
+    if (n === tok) {
+      score += 12
+      reasons.push(`exact name match: ${tok}`)
+      continue
+    }
+    if (n.startsWith(tok)) {
+      score += 8
+      reasons.push(`name prefix match: ${tok}`)
+    }
+    if (n.includes(tok)) {
+      score += 6
+      reasons.push(`name contains: ${tok}`)
+    }
+    if (m.includes(tok)) {
+      score += 3
+      reasons.push(`module contains: ${tok}`)
+    }
+  }
+
+  if (tokens.includes('form') && n.startsWith('form')) {
+    score += 4
+    reasons.push('form-oriented component')
+  }
+  if (
+    tokens.includes('layout') &&
+    ['stack', 'grid', 'box'].some(x => n.includes(x))
+  ) {
+    score += 4
+    reasons.push('layout-oriented component')
+  }
+
+  const tokenToCapability = {
+    otp: ['otp'],
+    verification: ['otp'],
+    code: ['otp'],
+    form: ['form'],
+    validation: ['form'],
+    select: ['select'],
+    dropdown: ['select'],
+    option: ['select'],
+    date: ['date'],
+    calendar: ['date'],
+    range: ['date'],
+    time: ['time'],
+    schedule: ['date', 'time'],
+    phone: ['phone'],
+    mobile: ['phone'],
+    input: ['input'],
+    textarea: ['textarea'],
+    checkbox: ['checkbox'],
+    radio: ['radio'],
+    modal: ['dialog'],
+    dialog: ['dialog'],
+    table: ['table'],
+    chart: ['chart'],
+    alert: ['alert'],
+    layout: ['layout'],
+    spacing: ['layout'],
+    grid: ['layout'],
+  }
+
+  for (const tok of tokens) {
+    const mapped = tokenToCapability[tok]
+    if (!mapped) continue
+    const matched = mapped.find(sig => cap.has(sig))
+    if (matched) {
+      score += 9
+      reasons.push(`capability match: ${tok} -> ${matched}`)
+    }
+  }
+
+  if (
+    cap.has('variantable') &&
+    (tokens.includes('variant') || tokens.includes('size'))
+  ) {
+    score += 4
+    reasons.push('supports variant/size-like configuration')
+  }
+
+  return {score, reasons}
+}
+
 function pickFirstMatch(options, preferred) {
   if (!Array.isArray(options) || !options.length) return null
   const optionSet = new Set(options.map(String))
@@ -1458,6 +1656,7 @@ server.registerTool(
 
     const q = query.toLowerCase()
     const results = []
+    const perFileLimit = Math.min(5, Math.max(1, Math.ceil(limit / 10)))
 
     for (const item of haystacks) {
       if (results.length >= limit) break
@@ -1468,15 +1667,17 @@ server.registerTool(
         continue
       }
       const lower = text.toLowerCase()
-      const idx = lower.indexOf(q)
-      if (idx === -1) continue
-
-      results.push({
-        kind: item.kind,
-        name: item.name,
-        path: item.path,
-        snippet: makeSnippet(text, idx, query.length),
-      })
+      const indexes = findAllIndexes(lower, q, {maxMatches: perFileLimit})
+      for (const idx of indexes) {
+        if (results.length >= limit) break
+        results.push({
+          kind: item.kind,
+          name: item.name,
+          path: item.path,
+          line: getLineNumberAt(text, idx),
+          snippet: makeSnippet(text, idx, query.length),
+        })
+      }
     }
 
     return {
@@ -1489,6 +1690,182 @@ server.registerTool(
         },
       ],
       structuredContent: {query, results},
+    }
+  },
+)
+
+server.registerTool(
+  'hmlet_ui_recommend_components',
+  {
+    title: 'Recommend components',
+    description:
+      'Suggests the most relevant @hmlet/ui components for a task description so agents can pick targets quickly.',
+    inputSchema: z.object({
+      task: z
+        .string()
+        .min(1)
+        .describe(
+          'Natural-language task description, e.g. "otp verification form".',
+        ),
+      include: z
+        .array(z.enum(['ui', 'layout']))
+        .optional()
+        .describe('Limit recommendation scope. Default: both.'),
+      limit: z.number().int().min(1).max(30).optional().default(8),
+    }),
+  },
+  async ({task, include, limit}) => {
+    const set = new Set(include ?? ['ui', 'layout'])
+    const tokens = tokenizeQuery(task)
+    const index = await loadComponentIndex(repoRoot)
+    const candidates = []
+
+    if (set.has('ui')) {
+      for (const [moduleName, entry] of index.uiByModule.entries()) {
+        let moduleText = ''
+        try {
+          moduleText = await readTextFile(entry.path)
+        } catch {
+          moduleText = ''
+        }
+        const exports = (entry.exports ?? []).filter(e => /^[A-Z]/.test(e))
+        for (const exp of exports) {
+          const capabilities = inferCapabilitySignals({
+            name: exp,
+            moduleName,
+            sourceText: moduleText,
+            cvaDefinitions: entry.cvaDefinitions,
+          })
+          const ranked = scoreCandidate(exp, moduleName, tokens, capabilities)
+          if (ranked.score <= 0) continue
+          const suggested = pickCompoundGroup(entry.exports, exp)
+          candidates.push({
+            kind: 'ui',
+            module: moduleName,
+            component: exp,
+            path: entry.path,
+            score: ranked.score,
+            reasons: [...new Set(ranked.reasons)],
+            capabilities,
+            suggestedImports: [...new Set(suggested)].sort((a, b) =>
+              a.localeCompare(b),
+            ),
+          })
+        }
+      }
+    }
+
+    if (set.has('layout')) {
+      for (const comp of index.catalog.layoutComponents) {
+        const entry = index.layoutByName.get(comp.name)
+        if (!entry) continue
+        let layoutText = ''
+        try {
+          layoutText = await readTextFile(entry.path)
+        } catch {
+          layoutText = ''
+        }
+        const capabilities = inferCapabilitySignals({
+          name: comp.name,
+          moduleName: comp.module,
+          sourceText: layoutText,
+          cvaDefinitions: entry.cvaDefinitions,
+        })
+        const ranked = scoreCandidate(
+          comp.name,
+          comp.module,
+          tokens,
+          capabilities,
+        )
+        if (ranked.score <= 0) continue
+        candidates.push({
+          kind: 'layout',
+          module: comp.module,
+          component: comp.name,
+          path: entry.path,
+          score: ranked.score,
+          reasons: [...new Set(ranked.reasons)],
+          capabilities,
+          suggestedImports: [comp.name],
+        })
+      }
+    }
+
+    const dedup = new Map()
+    for (const c of candidates) {
+      const key = `${c.kind}:${c.component}`
+      const prev = dedup.get(key)
+      if (!prev || c.score > prev.score) dedup.set(key, c)
+    }
+
+    const ranked = [...dedup.values()]
+      .sort(
+        (a, b) => b.score - a.score || a.component.localeCompare(b.component),
+      )
+      .slice(0, limit)
+
+    return {
+      content: [
+        {
+          type: 'text',
+          text: ranked.length
+            ? `Recommended ${ranked.length} component(s).`
+            : 'No recommendations found. Try broader task wording.',
+        },
+      ],
+      structuredContent: {
+        task,
+        tokens,
+        recommendations: ranked,
+      },
+    }
+  },
+)
+
+server.registerTool(
+  'hmlet_ui_health',
+  {
+    title: 'MCP health check',
+    description:
+      'Returns MCP runtime diagnostics (repo root, package, TypeScript availability, cache and catalog stats).',
+    inputSchema: z.object({}),
+  },
+  async () => {
+    const ts = await loadTypescript()
+    const catalog = await loadCatalog(repoRoot)
+
+    return {
+      content: [
+        {type: 'text', text: 'hmlet-ui MCP health snapshot generated.'},
+      ],
+      structuredContent: {
+        packageName,
+        repoRoot,
+        maxFileBytes: MAX_FILE_BYTES,
+        environment: {
+          HMLET_UI_ROOT: process.env[ENV_REPO_ROOT] ?? null,
+          HMLET_UI_PACKAGE_NAME: process.env[ENV_PACKAGE_NAME] ?? null,
+          HMLET_UI_MAX_FILE_BYTES: process.env[ENV_MAX_FILE_BYTES] ?? null,
+        },
+        typescript: {
+          available: Boolean(ts),
+        },
+        catalogCounts: {
+          uiModules: catalog.uiModules.length,
+          layoutComponents: catalog.layoutComponents.length,
+          tokenFiles: catalog.tokenFiles.length,
+          docs: catalog.docs.length,
+          styles: catalog.styles.length,
+        },
+        cacheStats: {
+          fileExists: cache.fileExists.size,
+          resolveSourceFile: cache.resolveSourceFile.size,
+          readText: cache.readText.size,
+          catalog: cache.catalog.size,
+          componentIndex: cache.componentIndex.size,
+          tsProgram: cache.tsProgram.size,
+        },
+      },
     }
   },
 )
