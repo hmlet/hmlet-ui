@@ -4719,8 +4719,8 @@ const Sr = c.forwardRef(
         ...d
       }
     ),
-    t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-destructive", children: t }),
-    r && !t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-muted-foreground", children: r })
+    t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-destructive first-letter:uppercase", children: t }),
+    r && !t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-muted-foreground first-letter:uppercase", children: r })
   ] })
 );
 Sr.displayName = "FormInput";
@@ -4737,8 +4737,8 @@ const zr = c.forwardRef(({ label: e, error: t, helperText: r, required: n, class
       ...i
     }
   ),
-  t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-destructive", children: t }),
-  r && !t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-muted-foreground", children: r })
+  t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-destructive first-letter:uppercase", children: t }),
+  r && !t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-muted-foreground first-letter:uppercase", children: r })
 ] }));
 zr.displayName = "FormTextarea";
 const _r = c.forwardRef(
@@ -4805,8 +4805,8 @@ const _r = c.forwardRef(
           ]
         }
       ),
-      n && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-destructive", children: n }),
-      s && !n && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-muted-foreground", children: s })
+      n && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-destructive first-letter:uppercase", children: n }),
+      s && !n && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-muted-foreground first-letter:uppercase", children: s })
     ] });
   }
 );
@@ -4862,8 +4862,8 @@ const Mr = c.forwardRef(
             );
         }
       })() }),
-      n && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-destructive", children: n }),
-      s && !n && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-muted-foreground", children: s })
+      n && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-destructive first-letter:uppercase", children: n }),
+      s && !n && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-muted-foreground first-letter:uppercase", children: s })
     ] });
   }
 );
@@ -4893,8 +4893,8 @@ const Ir = c.forwardRef((e, t) => {
         ...u
       }
     ),
-    s && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-destructive", children: s }),
-    i && !s && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-muted-foreground", children: i })
+    s && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-destructive first-letter:uppercase", children: s }),
+    i && !s && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-muted-foreground first-letter:uppercase", children: i })
   ] });
 });
 Ir.displayName = "FormCheckbox";
@@ -4925,8 +4925,8 @@ const Rr = c.forwardRef((e, t) => {
         ] }, g.value))
       }
     ),
-    n && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-destructive", children: n }),
-    s && !n && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-muted-foreground", children: s })
+    n && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-destructive first-letter:uppercase", children: n }),
+    s && !n && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-muted-foreground first-letter:uppercase", children: s })
   ] });
 });
 Rr.displayName = "FormRadioGroup";
@@ -4944,8 +4944,8 @@ const Pr = c.forwardRef(({ label: e, error: t, helperText: r, required: n, class
       ...i
     }
   ),
-  t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-destructive", children: t }),
-  r && !t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-muted-foreground", children: r })
+  t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-destructive first-letter:uppercase", children: t }),
+  r && !t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-muted-foreground first-letter:uppercase", children: r })
 ] }));
 Pr.displayName = "FormPhoneInput";
 const Tr = c.forwardRef(({ label: e, error: t, helperText: r, required: n, className: s, ...i }, d) => /* @__PURE__ */ p(ee, { gap: "2", children: [
@@ -4962,8 +4962,8 @@ const Tr = c.forwardRef(({ label: e, error: t, helperText: r, required: n, class
       ...i
     }
   ),
-  t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-destructive", children: t }),
-  r && !t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-muted-foreground", children: r })
+  t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-destructive first-letter:uppercase", children: t }),
+  r && !t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-muted-foreground first-letter:uppercase", children: r })
 ] }));
 Tr.displayName = "FormTimePicker";
 const Dr = c.forwardRef(({ label: e, error: t, helperText: r, required: n, className: s, ...i }, d) => /* @__PURE__ */ p(ee, { gap: "2", children: [
@@ -4980,8 +4980,8 @@ const Dr = c.forwardRef(({ label: e, error: t, helperText: r, required: n, class
       ...i
     }
   ),
-  t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-destructive", children: t }),
-  r && !t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-muted-foreground", children: r })
+  t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-destructive first-letter:uppercase", children: t }),
+  r && !t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-muted-foreground first-letter:uppercase", children: r })
 ] }));
 Dr.displayName = "FormDateTimePicker";
 function Fo({
@@ -5005,8 +5005,8 @@ function Fo({
         ...i
       }
     ),
-    t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-destructive", children: t }),
-    r && !t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-muted-foreground", children: r })
+    t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-destructive first-letter:uppercase", children: t }),
+    r && !t && /* @__PURE__ */ a($, { variant: "body-sm", className: "text-muted-foreground first-letter:uppercase", children: r })
   ] });
 }
 const jr = P(

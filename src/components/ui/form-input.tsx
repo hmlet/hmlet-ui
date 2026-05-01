@@ -62,12 +62,18 @@ export const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
           />
         )}
         {error && (
-          <Typography variant="body-sm" className="text-destructive">
+          <Typography
+            variant="body-sm"
+            className="text-destructive first-letter:uppercase"
+          >
             {error}
           </Typography>
         )}
         {helperText && !error && (
-          <Typography variant="body-sm" className="text-muted-foreground">
+          <Typography
+            variant="body-sm"
+            className="text-muted-foreground first-letter:uppercase"
+          >
             {helperText}
           </Typography>
         )}
@@ -103,12 +109,18 @@ export const FormTextarea = React.forwardRef<
         {...props}
       />
       {error && (
-        <Typography variant="body-sm" className="text-destructive">
+        <Typography
+          variant="body-sm"
+          className="text-destructive first-letter:uppercase"
+        >
           {error}
         </Typography>
       )}
       {helperText && !error && (
-        <Typography variant="body-sm" className="text-muted-foreground">
+        <Typography
+          variant="body-sm"
+          className="text-muted-foreground first-letter:uppercase"
+        >
           {helperText}
         </Typography>
       )}
@@ -207,13 +219,19 @@ export const FormSelect = React.forwardRef<HTMLButtonElement, FormSelectProps>(
         </Select>
 
         {error && (
-          <Typography variant="body-sm" className="text-destructive">
+          <Typography
+            variant="body-sm"
+            className="text-destructive first-letter:uppercase"
+          >
             {error}
           </Typography>
         )}
 
         {helperText && !error && (
-          <Typography variant="body-sm" className="text-muted-foreground">
+          <Typography
+            variant="body-sm"
+            className="text-muted-foreground first-letter:uppercase"
+          >
             {helperText}
           </Typography>
         )}
@@ -310,13 +328,19 @@ export const FormCalendar = React.forwardRef<HTMLDivElement, FormCalendarProps>(
         </div>
 
         {error && (
-          <Typography variant="body-sm" className="text-destructive">
+          <Typography
+            variant="body-sm"
+            className="text-destructive first-letter:uppercase"
+          >
             {error}
           </Typography>
         )}
 
         {helperText && !error && (
-          <Typography variant="body-sm" className="text-muted-foreground">
+          <Typography
+            variant="body-sm"
+            className="text-muted-foreground first-letter:uppercase"
+          >
             {helperText}
           </Typography>
         )}
@@ -373,13 +397,19 @@ export const FormCheckbox = React.forwardRef<
       />
 
       {error && (
-        <Typography variant="body-sm" className="text-destructive">
+        <Typography
+          variant="body-sm"
+          className="text-destructive first-letter:uppercase"
+        >
           {error}
         </Typography>
       )}
 
       {helperText && !error && (
-        <Typography variant="body-sm" className="text-muted-foreground">
+        <Typography
+          variant="body-sm"
+          className="text-muted-foreground first-letter:uppercase"
+        >
           {helperText}
         </Typography>
       )}
@@ -442,13 +472,19 @@ export const FormRadioGroup = React.forwardRef<
       </RadioGroup>
 
       {error && (
-        <Typography variant="body-sm" className="text-destructive">
+        <Typography
+          variant="body-sm"
+          className="text-destructive first-letter:uppercase"
+        >
           {error}
         </Typography>
       )}
 
       {helperText && !error && (
-        <Typography variant="body-sm" className="text-muted-foreground">
+        <Typography
+          variant="body-sm"
+          className="text-muted-foreground first-letter:uppercase"
+        >
           {helperText}
         </Typography>
       )}
@@ -484,12 +520,18 @@ export const FormPhoneInput = React.forwardRef<
         {...props}
       />
       {error && (
-        <Typography variant="body-sm" className="text-destructive">
+        <Typography
+          variant="body-sm"
+          className="text-destructive first-letter:uppercase"
+        >
           {error}
         </Typography>
       )}
       {helperText && !error && (
-        <Typography variant="body-sm" className="text-muted-foreground">
+        <Typography
+          variant="body-sm"
+          className="text-muted-foreground first-letter:uppercase"
+        >
           {helperText}
         </Typography>
       )}
@@ -525,12 +567,18 @@ export const FormTimePicker = React.forwardRef<
         {...props}
       />
       {error && (
-        <Typography variant="body-sm" className="text-destructive">
+        <Typography
+          variant="body-sm"
+          className="text-destructive first-letter:uppercase"
+        >
           {error}
         </Typography>
       )}
       {helperText && !error && (
-        <Typography variant="body-sm" className="text-muted-foreground">
+        <Typography
+          variant="body-sm"
+          className="text-muted-foreground first-letter:uppercase"
+        >
           {helperText}
         </Typography>
       )}
@@ -567,12 +615,18 @@ export const FormDateTimePicker = React.forwardRef<
         {...props}
       />
       {error && (
-        <Typography variant="body-sm" className="text-destructive">
+        <Typography
+          variant="body-sm"
+          className="text-destructive first-letter:uppercase"
+        >
           {error}
         </Typography>
       )}
       {helperText && !error && (
-        <Typography variant="body-sm" className="text-muted-foreground">
+        <Typography
+          variant="body-sm"
+          className="text-muted-foreground first-letter:uppercase"
+        >
           {helperText}
         </Typography>
       )}
@@ -611,12 +665,18 @@ export function FormOTP({
         {...props}
       />
       {error && (
-        <Typography variant="body-sm" className="text-destructive">
+        <Typography
+          variant="body-sm"
+          className="text-destructive first-letter:uppercase"
+        >
           {error}
         </Typography>
       )}
       {helperText && !error && (
-        <Typography variant="body-sm" className="text-muted-foreground">
+        <Typography
+          variant="body-sm"
+          className="text-muted-foreground first-letter:uppercase"
+        >
           {helperText}
         </Typography>
       )}
