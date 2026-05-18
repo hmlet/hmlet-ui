@@ -9,6 +9,7 @@ import { RadioGroup } from './radio-group';
 import { type PhoneInputProps } from './phone-input';
 import { type TimePickerProps } from './time-picker';
 import { type DateTimePickerProps } from './date-time-picker';
+import { InputOTP } from './input-otp';
 interface FormInputProps extends InputProps {
     label?: string;
     error?: string;
@@ -118,4 +119,11 @@ export declare const FormDateTimePicker: React.ForwardRefExoticComponent<Omit<Da
     helperText?: string;
     required?: boolean;
 } & React.RefAttributes<HTMLButtonElement>>;
+export type FormOTPProps = React.ComponentPropsWithoutRef<typeof InputOTP> & {
+    label?: string;
+    error?: string;
+    helperText?: string;
+    required?: boolean;
+};
+export declare function FormOTP({ label, error, helperText, required, className, ...props }: FormOTPProps): import("react/jsx-runtime").JSX.Element;
 export {};

@@ -22,6 +22,7 @@ import {RadioGroup, RadioGroupItem} from './radio-group'
 import {PhoneInput, type PhoneInputProps} from './phone-input'
 import {TimePicker, type TimePickerProps} from './time-picker'
 import {DateTimePicker, type DateTimePickerProps} from './date-time-picker'
+import {InputOTP} from './input-otp'
 
 interface FormInputProps extends InputProps {
   label?: string
@@ -61,12 +62,18 @@ export const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
           />
         )}
         {error && (
-          <Typography variant="body-sm" className="text-destructive">
+          <Typography
+            variant="body-sm"
+            className="text-destructive first-letter:uppercase"
+          >
             {error}
           </Typography>
         )}
         {helperText && !error && (
-          <Typography variant="body-sm" className="text-muted-foreground">
+          <Typography
+            variant="body-sm"
+            className="text-muted-foreground first-letter:uppercase"
+          >
             {helperText}
           </Typography>
         )}
@@ -102,12 +109,18 @@ export const FormTextarea = React.forwardRef<
         {...props}
       />
       {error && (
-        <Typography variant="body-sm" className="text-destructive">
+        <Typography
+          variant="body-sm"
+          className="text-destructive first-letter:uppercase"
+        >
           {error}
         </Typography>
       )}
       {helperText && !error && (
-        <Typography variant="body-sm" className="text-muted-foreground">
+        <Typography
+          variant="body-sm"
+          className="text-muted-foreground first-letter:uppercase"
+        >
           {helperText}
         </Typography>
       )}
@@ -206,13 +219,19 @@ export const FormSelect = React.forwardRef<HTMLButtonElement, FormSelectProps>(
         </Select>
 
         {error && (
-          <Typography variant="body-sm" className="text-destructive">
+          <Typography
+            variant="body-sm"
+            className="text-destructive first-letter:uppercase"
+          >
             {error}
           </Typography>
         )}
 
         {helperText && !error && (
-          <Typography variant="body-sm" className="text-muted-foreground">
+          <Typography
+            variant="body-sm"
+            className="text-muted-foreground first-letter:uppercase"
+          >
             {helperText}
           </Typography>
         )}
@@ -309,13 +328,19 @@ export const FormCalendar = React.forwardRef<HTMLDivElement, FormCalendarProps>(
         </div>
 
         {error && (
-          <Typography variant="body-sm" className="text-destructive">
+          <Typography
+            variant="body-sm"
+            className="text-destructive first-letter:uppercase"
+          >
             {error}
           </Typography>
         )}
 
         {helperText && !error && (
-          <Typography variant="body-sm" className="text-muted-foreground">
+          <Typography
+            variant="body-sm"
+            className="text-muted-foreground first-letter:uppercase"
+          >
             {helperText}
           </Typography>
         )}
@@ -372,13 +397,19 @@ export const FormCheckbox = React.forwardRef<
       />
 
       {error && (
-        <Typography variant="body-sm" className="text-destructive">
+        <Typography
+          variant="body-sm"
+          className="text-destructive first-letter:uppercase"
+        >
           {error}
         </Typography>
       )}
 
       {helperText && !error && (
-        <Typography variant="body-sm" className="text-muted-foreground">
+        <Typography
+          variant="body-sm"
+          className="text-muted-foreground first-letter:uppercase"
+        >
           {helperText}
         </Typography>
       )}
@@ -441,13 +472,19 @@ export const FormRadioGroup = React.forwardRef<
       </RadioGroup>
 
       {error && (
-        <Typography variant="body-sm" className="text-destructive">
+        <Typography
+          variant="body-sm"
+          className="text-destructive first-letter:uppercase"
+        >
           {error}
         </Typography>
       )}
 
       {helperText && !error && (
-        <Typography variant="body-sm" className="text-muted-foreground">
+        <Typography
+          variant="body-sm"
+          className="text-muted-foreground first-letter:uppercase"
+        >
           {helperText}
         </Typography>
       )}
@@ -483,12 +520,18 @@ export const FormPhoneInput = React.forwardRef<
         {...props}
       />
       {error && (
-        <Typography variant="body-sm" className="text-destructive">
+        <Typography
+          variant="body-sm"
+          className="text-destructive first-letter:uppercase"
+        >
           {error}
         </Typography>
       )}
       {helperText && !error && (
-        <Typography variant="body-sm" className="text-muted-foreground">
+        <Typography
+          variant="body-sm"
+          className="text-muted-foreground first-letter:uppercase"
+        >
           {helperText}
         </Typography>
       )}
@@ -524,12 +567,18 @@ export const FormTimePicker = React.forwardRef<
         {...props}
       />
       {error && (
-        <Typography variant="body-sm" className="text-destructive">
+        <Typography
+          variant="body-sm"
+          className="text-destructive first-letter:uppercase"
+        >
           {error}
         </Typography>
       )}
       {helperText && !error && (
-        <Typography variant="body-sm" className="text-muted-foreground">
+        <Typography
+          variant="body-sm"
+          className="text-muted-foreground first-letter:uppercase"
+        >
           {helperText}
         </Typography>
       )}
@@ -566,12 +615,18 @@ export const FormDateTimePicker = React.forwardRef<
         {...props}
       />
       {error && (
-        <Typography variant="body-sm" className="text-destructive">
+        <Typography
+          variant="body-sm"
+          className="text-destructive first-letter:uppercase"
+        >
           {error}
         </Typography>
       )}
       {helperText && !error && (
-        <Typography variant="body-sm" className="text-muted-foreground">
+        <Typography
+          variant="body-sm"
+          className="text-muted-foreground first-letter:uppercase"
+        >
           {helperText}
         </Typography>
       )}
@@ -580,3 +635,51 @@ export const FormDateTimePicker = React.forwardRef<
 })
 
 FormDateTimePicker.displayName = 'FormDateTimePicker'
+
+export type FormOTPProps = React.ComponentPropsWithoutRef<typeof InputOTP> & {
+  label?: string
+  error?: string
+  helperText?: string
+  required?: boolean
+}
+
+export function FormOTP({
+  label,
+  error,
+  helperText,
+  required,
+  className,
+  ...props
+}: FormOTPProps) {
+  return (
+    <VStack gap="2">
+      {label && (
+        <Label>
+          {label}
+          {required && <span className="text-destructive ml-1">*</span>}
+        </Label>
+      )}
+      <InputOTP
+        aria-invalid={!!error}
+        className={cn(error && 'border-destructive', className)}
+        {...props}
+      />
+      {error && (
+        <Typography
+          variant="body-sm"
+          className="text-destructive first-letter:uppercase"
+        >
+          {error}
+        </Typography>
+      )}
+      {helperText && !error && (
+        <Typography
+          variant="body-sm"
+          className="text-muted-foreground first-letter:uppercase"
+        >
+          {helperText}
+        </Typography>
+      )}
+    </VStack>
+  )
+}

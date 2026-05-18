@@ -36,6 +36,8 @@
   "scripts": {
     "build": "vite build && tsc -p tsconfig.build.json && node ./internals/scripts/copy-styles.mjs",
     "mcp": "node ./mcp/server.mjs",
+    "mcp:sync": "node ./mcp/sync.mjs sync",
+    "mcp:doctor": "node ./mcp/sync.mjs doctor",
     "storybook": "node ./internals/scripts/preflight.mjs && storybook dev -p 6006",
     "storybook:smoke": "node ./internals/scripts/preflight.mjs && storybook dev -p 6006 --smoke-test",
     "build-storybook": "node ./internals/scripts/preflight.mjs && storybook build",
@@ -44,6 +46,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "preinstall": "corepack enable && node ./internals/scripts/preflight.mjs",
+    "postinstall": "node ./mcp/sync.mjs sync --postinstall",
     "commit": "node internals/scripts/commit.mjs",
     "prepare": "husky",
     "release": "semantic-release",
