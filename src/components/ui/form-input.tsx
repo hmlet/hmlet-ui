@@ -41,7 +41,7 @@ export const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
         {label && (
           <Label>
             {label}
-            {required && <span className="text-destructive ml-1">*</span>}
+            {required && <span className="text-destructive">*</span>}
           </Label>
         )}
         {Icon ? (
@@ -93,7 +93,7 @@ export const FormTextarea = React.forwardRef<
       {label && (
         <Label>
           {label}
-          {required && <span className="text-destructive ml-1">*</span>}
+          {required && <span className="text-destructive">*</span>}
         </Label>
       )}
       <Textarea
@@ -166,7 +166,7 @@ export const FormSelect = React.forwardRef<HTMLButtonElement, FormSelectProps>(
         {label && (
           <Label>
             {label}
-            {required && <span className="text-destructive ml-1">*</span>}
+            {required && <span className="text-destructive">*</span>}
           </Label>
         )}
 
@@ -300,7 +300,7 @@ export const FormCalendar = React.forwardRef<HTMLDivElement, FormCalendarProps>(
         {label && (
           <Label>
             {label}
-            {required && <span className="text-destructive ml-1">*</span>}
+            {required && <span className="text-destructive">*</span>}
           </Label>
         )}
 
@@ -359,7 +359,7 @@ export const FormCheckbox = React.forwardRef<
       {label && (
         <Label>
           {label}
-          {required && <span className="text-destructive ml-1">*</span>}
+          {required && <span className="text-destructive">*</span>}
         </Label>
       )}
 
@@ -418,7 +418,7 @@ export const FormRadioGroup = React.forwardRef<
       {label && (
         <Label>
           {label}
-          {required && <span className="text-destructive ml-1">*</span>}
+          {required && <span className="text-destructive">*</span>}
         </Label>
       )}
 
@@ -473,7 +473,7 @@ export const FormPhoneInput = React.forwardRef<
       {label && (
         <Label>
           {label}
-          {required && <span className="text-destructive ml-1">*</span>}
+          {required && <span className="text-destructive">*</span>}
         </Label>
       )}
       <PhoneInput
@@ -514,7 +514,7 @@ export const FormTimePicker = React.forwardRef<
       {label && (
         <Label>
           {label}
-          {required && <span className="text-destructive ml-1">*</span>}
+          {required && <span className="text-destructive">*</span>}
         </Label>
       )}
       <TimePicker
@@ -556,7 +556,7 @@ export const FormDateTimePicker = React.forwardRef<
       {label && (
         <Label>
           {label}
-          {required && <span className="text-destructive ml-1">*</span>}
+          {required && <span className="text-destructive">*</span>}
         </Label>
       )}
       <DateTimePicker

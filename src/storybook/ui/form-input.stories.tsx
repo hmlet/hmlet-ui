@@ -6,6 +6,7 @@ import {
   FormPhoneInput,
   FormTimePicker,
   FormDateTimePicker,
+  FormCalendar,
 } from '../../components/ui/form-input'
 import {Mail} from 'lucide-react'
 import * as React from 'react'
@@ -18,6 +19,7 @@ import type {
   DateTimeValue,
   DateTimeRangeValue,
 } from '../../components/ui/date-time-picker'
+import type {DateRange} from 'react-day-picker'
 
 const meta: Meta<typeof FormInput> = {
   title: 'UI/FormInput',
@@ -155,7 +157,7 @@ export const SelectApiError: SelectStory = {
     loading: false,
     placeholder: 'Select a country',
     emptyText: 'No countries available',
-    apiError: {message: 'Failed to fetch countries', code: 500},
+    apiError: {error: true, text: 'Failed to fetch countries'},
     helperText: 'Please try again later.',
   },
 }
@@ -667,6 +669,101 @@ export const DateTimePickerValidation: DateTimePickerStory = {
           </HStack>
         </VStack>
       </form>
+    )
+  },
+}
+
+/* ─── FormCalendar Stories ─── */
+
+type CalendarStory = StoryObj<typeof FormCalendar>
+
+export const CalendarPlayground: CalendarStory = {
+  render: function CalendarPlaygroundRender() {
+    const [value, setValue] = React.useState<Date | undefined>()
+    return (
+      <div className="w-96">
+        <FormCalendar
+          label="Select Date"
+          helperText="Choose a date using the month and year selectors."
+          required
+          mode="single"
+          value={value}
+          onChange={setValue}
+        />
+      </div>
+    )
+  },
+}
+
+export const CalendarWithError: CalendarStory = {
+  render: function CalendarWithErrorRender() {
+    const [value, setValue] = React.useState<Date | undefined>()
+    return (
+      <div className="w-96">
+        <FormCalendar
+          label="Appointment Date"
+          error="Please select a valid date"
+          required
+          mode="single"
+          value={value}
+          onChange={setValue}
+        />
+      </div>
+    )
+  },
+}
+
+export const CalendarRange: CalendarStory = {
+  render: function CalendarRangeRender() {
+    const [value, setValue] = React.useState<DateRange | undefined>()
+    return (
+      <div className="w-96">
+        <FormCalendar
+          label="Date Range"
+          helperText="Select a start and end date for your booking."
+          required
+          mode="range"
+          value={value}
+          onChange={setValue}
+        />
+      </div>
+    )
+  },
+}
+
+export const CalendarMultiple: CalendarStory = {
+  render: function CalendarMultipleRender() {
+    const [value, setValue] = React.useState<Date[] | undefined>()
+    return (
+      <div className="w-96">
+        <FormCalendar
+          label="Select Multiple Dates"
+          helperText="Choose multiple dates for your event."
+          mode="multiple"
+          value={value}
+          onChange={setValue}
+        />
+      </div>
+    )
+  },
+}
+
+export const CalendarWithYearBounds: CalendarStory = {
+  render: function CalendarWithYearBoundsRender() {
+    const [value, setValue] = React.useState<Date | undefined>()
+    return (
+      <div className="w-96">
+        <FormCalendar
+          label="Birthday"
+          helperText="Select your date of birth (limited year range)."
+          fromYear={1950}
+          toYear={2010}
+          required
+          mode="single"
+          value={value}
+          onChange={setValue}
+        />
+      </div>
     )
   },
 }
