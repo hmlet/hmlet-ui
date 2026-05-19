@@ -264,13 +264,16 @@ function getStoredMode(storageKey: string): ThemeMode | null {
 
 export function ThemeProvider({
   children,
-  lightColors = defaultLightThemeColors,
-  darkColors = defaultDarkThemeColors,
+  lightColors,
+  darkColors,
   mode,
   defaultMode = 'system',
   storageKey = DEFAULT_THEME_STORAGE_KEY,
   onModeChange,
 }: ThemeProviderProps) {
+  const safeLightColors = lightColors ?? defaultLightThemeColors
+  const safeDarkColors = darkColors ?? defaultDarkThemeColors
+
   const [internalMode, setInternalMode] = useState<ThemeMode>(() => {
     return getStoredMode(storageKey) ?? defaultMode
   })
@@ -308,14 +311,15 @@ export function ThemeProvider({
     }
 
     const root = document.documentElement
-    const activeColors = resolvedMode === 'dark' ? darkColors : lightColors
+    const activeColors =
+      resolvedMode === 'dark' ? safeDarkColors : safeLightColors
 
     for (const token of themeColorTokens) {
       root.style.setProperty(`--${token}`, activeColors[token])
     }
 
     root.classList.toggle('dark', resolvedMode === 'dark')
-  }, [darkColors, lightColors, resolvedMode])
+  }, [resolvedMode, safeDarkColors, safeLightColors])
 
   useEffect(() => {
     if (isControlled || typeof window === 'undefined') {
