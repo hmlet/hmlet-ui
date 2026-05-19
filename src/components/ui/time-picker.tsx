@@ -589,7 +589,7 @@ const TimePicker = React.forwardRef<HTMLDivElement, TimePickerProps>(
           <span
             className={cn(
               'flex-1 text-left',
-              !value && 'text-muted-foreground',
+              !value && 'text-muted-foreground/70',
             )}
           >
             {value ? formatDisplay(value, use12Hours) : placeholder}

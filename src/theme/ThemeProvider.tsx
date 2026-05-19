@@ -231,8 +231,8 @@ export const defaultDarkThemeColors = defineThemeColors({
 
 export type ThemeProviderProps = {
   children: ReactNode
-  lightColors: ThemeColors
-  darkColors: ThemeColors
+  lightColors?: ThemeColors
+  darkColors?: ThemeColors
   mode?: ThemeMode
   defaultMode?: ThemeMode
   storageKey?: string
@@ -264,8 +264,8 @@ function getStoredMode(storageKey: string): ThemeMode | null {
 
 export function ThemeProvider({
   children,
-  lightColors,
-  darkColors,
+  lightColors = defaultLightThemeColors,
+  darkColors = defaultDarkThemeColors,
   mode,
   defaultMode = 'system',
   storageKey = DEFAULT_THEME_STORAGE_KEY,

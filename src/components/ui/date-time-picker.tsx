@@ -49,8 +49,8 @@ function formatTime(h: number, m: number, use12Hours: boolean): string {
   return `${hour12}:${padTwo(m)} ${period}`
 }
 
-function formatDate(date: Date): string {
-  return date.toLocaleDateString(undefined, {
+function formatDate(date: Date | undefined): string | undefined {
+  return date?.toLocaleDateString(undefined, {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -568,7 +568,7 @@ function DateTimePickerSingle({
           <span
             className={cn(
               'flex-1 text-left truncate',
-              !displayText && 'text-muted-foreground',
+              !displayText && 'text-muted-foreground/70',
             )}
           >
             {displayText ?? placeholder}
@@ -820,7 +820,7 @@ function DateTimePickerRange({
           <span
             className={cn(
               'flex-1 text-left truncate',
-              !displayText && 'text-muted-foreground',
+              !displayText && 'text-muted-foreground/70',
             )}
           >
             {displayText ?? placeholder}

@@ -9,8 +9,8 @@ export declare const defaultLightThemeColors: ThemeColors;
 export declare const defaultDarkThemeColors: ThemeColors;
 export type ThemeProviderProps = {
     children: ReactNode;
-    lightColors: ThemeColors;
-    darkColors: ThemeColors;
+    lightColors?: ThemeColors;
+    darkColors?: ThemeColors;
     mode?: ThemeMode;
     defaultMode?: ThemeMode;
     storageKey?: string;

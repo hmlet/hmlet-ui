@@ -139,7 +139,7 @@ const CountrySelect = ({
             <input
               ref={searchInputRef}
               type="text"
-              className="w-full rounded-md border border-input bg-transparent py-1.5 pl-8 pr-2 text-sm outline-none focus:ring-2 focus:ring-ring/50 placeholder:text-muted-foreground"
+              className="w-full rounded-md border border-input bg-transparent py-1.5 pl-8 pr-2 text-sm outline-none focus:ring-2 focus:ring-ring/50 placeholder:text-muted-foreground/70"
               placeholder="Search countries..."
               value={search}
               onChange={e => setSearch(e.target.value)}
@@ -216,7 +216,7 @@ const PhoneInputField = React.forwardRef<
     <input
       ref={ref}
       className={cn(
-        'flex-1 bg-transparent outline-none placeholder:text-muted-foreground px-2',
+        'flex-1 bg-transparent outline-none placeholder:text-muted-foreground/70 px-2',
         className,
       )}
       {...props}

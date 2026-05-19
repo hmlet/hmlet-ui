@@ -352,7 +352,7 @@ function CalendarMultiple(props: Extract<CalendarProps, {mode: 'multiple'}>) {
   const yearBounds = resolveYearBounds(fromYear, toYear)
   const inputValue =
     selected && selected.length > 0
-      ? selected.map(d => d.toLocaleDateString()).join(', ')
+      ? selected.map(d => d?.toLocaleDateString()).join(', ')
       : undefined
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -432,9 +432,9 @@ function CalendarRange(props: Extract<CalendarProps, {mode: 'range'}>) {
   let inputValue: string | undefined = undefined
   if (selected?.from && selected?.to) {
     inputValue =
-      selected.from.toLocaleDateString() +
+      selected.from?.toLocaleDateString() +
       ' - ' +
-      selected.to.toLocaleDateString()
+      selected.to?.toLocaleDateString()
   }
   // Compute hovered range
   const hoveredRange =
