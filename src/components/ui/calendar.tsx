@@ -51,6 +51,39 @@ type CalendarContentProps = {
   children: React.ReactNode
 }
 
+function isValidDate(value: unknown): value is Date {
+  return value instanceof Date && !Number.isNaN(value.getTime())
+}
+
+function normalizeSingleSelected(value: unknown): Date | undefined {
+  return isValidDate(value) ? value : undefined
+}
+
+function normalizeMultipleSelected(value: unknown): Date[] | undefined {
+  if (!Array.isArray(value)) {
+    return undefined
+  }
+
+  const dates = value.filter(isValidDate)
+  return dates.length > 0 ? dates : undefined
+}
+
+function normalizeRangeSelected(value: unknown): DateRange | undefined {
+  if (!value || typeof value !== 'object') {
+    return undefined
+  }
+
+  const range = value as {from?: unknown; to?: unknown}
+  const from = isValidDate(range.from) ? range.from : undefined
+  const to = isValidDate(range.to) ? range.to : undefined
+
+  if (!from && !to) {
+    return undefined
+  }
+
+  return {from, to}
+}
+
 function CalendarMonthYearPicker(props: CalendarMonthYearPickerProps) {
   const {month, fromYear, toYear, onMonthChange} = props
   const year = month.getFullYear()
@@ -255,14 +288,18 @@ export type CalendarProps =
 
 // Single mode calendar
 function CalendarSingle(props: Extract<CalendarProps, {mode: 'single'}>) {
+  const normalizedSelected = normalizeSingleSelected(props.selected)
   const [open, setOpen] = React.useState(false)
   const [selected, setSelected] = React.useState<Date | undefined>(
-    props.selected,
+    normalizedSelected,
   )
-  const [month, setMonth] = React.useState<Date>(props.selected ?? new Date())
+  const [month, setMonth] = React.useState<Date>(
+    normalizedSelected ?? new Date(),
+  )
   React.useEffect(() => {
-    setSelected(props.selected)
-    if (props.selected) setMonth(props.selected)
+    const nextSelected = normalizeSingleSelected(props.selected)
+    setSelected(nextSelected)
+    if (nextSelected) setMonth(nextSelected)
   }, [props.selected])
   const {
     className,
@@ -328,16 +365,18 @@ function CalendarSingle(props: Extract<CalendarProps, {mode: 'single'}>) {
 
 // Multiple mode calendar
 function CalendarMultiple(props: Extract<CalendarProps, {mode: 'multiple'}>) {
+  const normalizedSelected = normalizeMultipleSelected(props.selected)
   const [open, setOpen] = React.useState(false)
   const [selected, setSelected] = React.useState<Date[] | undefined>(
-    props.selected,
+    normalizedSelected,
   )
   const [month, setMonth] = React.useState<Date>(
-    props.selected?.[0] ?? new Date(),
+    normalizedSelected?.[0] ?? new Date(),
   )
   React.useEffect(() => {
-    setSelected(props.selected)
-    if (props.selected?.[0]) setMonth(props.selected[0])
+    const nextSelected = normalizeMultipleSelected(props.selected)
+    setSelected(nextSelected)
+    if (nextSelected?.[0]) setMonth(nextSelected[0])
   }, [props.selected])
   const {
     className,
@@ -352,7 +391,7 @@ function CalendarMultiple(props: Extract<CalendarProps, {mode: 'multiple'}>) {
   const yearBounds = resolveYearBounds(fromYear, toYear)
   const inputValue =
     selected && selected.length > 0
-      ? selected.map(d => d?.toLocaleDateString()).join(', ')
+      ? selected.map(d => d.toLocaleDateString()).join(', ')
       : undefined
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -406,17 +445,19 @@ function CalendarMultiple(props: Extract<CalendarProps, {mode: 'multiple'}>) {
 
 // Range mode calendar
 function CalendarRange(props: Extract<CalendarProps, {mode: 'range'}>) {
+  const normalizedSelected = normalizeRangeSelected(props.selected)
   const [open, setOpen] = React.useState(false)
   const [selected, setSelected] = React.useState<DateRange | undefined>(
-    props.selected,
+    normalizedSelected,
   )
   const [month, setMonth] = React.useState<Date>(
-    props.selected?.from ?? new Date(),
+    normalizedSelected?.from ?? new Date(),
   )
   const [hoveredDate, setHoveredDate] = React.useState<Date | undefined>()
   React.useEffect(() => {
-    setSelected(props.selected)
-    if (props.selected?.from) setMonth(props.selected.from)
+    const nextSelected = normalizeRangeSelected(props.selected)
+    setSelected(nextSelected)
+    if (nextSelected?.from) setMonth(nextSelected.from)
   }, [props.selected])
   const {
     className,
