@@ -183,15 +183,16 @@ function SelectContent({
 
   const hasOptions = React.Children.count(filteredChildren) > 0
 
-  // Focus search input when content opens
+  // Focus search input when content mounts (i.e. dropdown opens).
+  // A 100ms delay is needed because Radix runs an open animation and
+  // moves focus to the first item after mount; we need to wait for that
+  // to finish before stealing focus back to the input.
   React.useEffect(() => {
-    if (isSearchable && searchInputRef.current) {
-      // Small delay to ensure the content is rendered
-      const timer = setTimeout(() => {
-        searchInputRef.current?.focus()
-      }, 0)
-      return () => clearTimeout(timer)
-    }
+    if (!isSearchable) return
+    const timer = setTimeout(() => {
+      searchInputRef.current?.focus()
+    }, 100)
+    return () => clearTimeout(timer)
   }, [isSearchable])
 
   return (
@@ -205,6 +206,9 @@ function SelectContent({
           className,
         )}
         position={position}
+        // Prevent Radix from managing focus internally so the search input
+        // can hold focus while the user types without being yanked away.
+        onCloseAutoFocus={e => e.preventDefault()}
         {...props}
       >
         <SelectScrollUpButton />
@@ -219,11 +223,34 @@ function SelectContent({
                 placeholder={searchPlaceholder}
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
+                // Stop click from bubbling so Radix doesn't try to re-focus
+                // a list item when the user clicks inside the search box.
                 onClick={e => e.stopPropagation()}
                 onKeyDown={e => {
-                  // Prevent select from handling these keys when typing
+                  // Let Escape and Tab propagate so the dropdown can close /
+                  // focus can move naturally. Block everything else so Radix
+                  // doesn't intercept printable characters and arrow keys
+                  // while the user is typing in the search field.
                   if (e.key !== 'Escape' && e.key !== 'Tab') {
                     e.stopPropagation()
+                  }
+                }}
+                // Re-grab focus whenever Radix tries to move it elsewhere
+                // (e.g. hovering over an item triggers a focus move).
+                onBlur={e => {
+                  // Only reclaim focus if it moved to somewhere inside the
+                  // same popover, not if the user tabbed out or closed it.
+                  const relatedTarget = e.relatedTarget as Node | null
+                  const content = e.currentTarget.closest(
+                    '[data-slot="select-content"]',
+                  )
+                  if (
+                    content &&
+                    relatedTarget &&
+                    content.contains(relatedTarget)
+                  ) {
+                    // Focus shifted to a Radix item inside the popover — take it back.
+                    e.currentTarget.focus()
                   }
                 }}
               />
