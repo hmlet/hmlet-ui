@@ -3089,7 +3089,9 @@ const ht = (e) => ({
 function Sr(e) {
   const t = wt(e.selected), [r, n] = c.useState(!1), [s, i] = c.useState(
     t
-  ), [d, l] = c.useState(t ?? /* @__PURE__ */ new Date());
+  ), [d, l] = c.useState(
+    t ?? /* @__PURE__ */ new Date()
+  );
   c.useEffect(() => {
     const v = wt(e.selected);
     i(v), v && l(v);
