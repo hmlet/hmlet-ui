@@ -23,7 +23,7 @@ import {PhoneInput, type PhoneInputProps} from './phone-input'
 import {TimePicker, type TimePickerProps} from './time-picker'
 import {DateTimePicker, type DateTimePickerProps} from './date-time-picker'
 import {InputOTP} from './input-otp'
-
+import {X, Upload, ImageIcon} from 'lucide-react'
 interface FormInputProps extends InputProps {
   label?: string
   error?: string
@@ -681,5 +681,373 @@ export function FormOTP({
         </Typography>
       )}
     </VStack>
+  )
+}
+
+export interface FormMediaProps extends Omit<
+  InputProps,
+  'type' | 'value' | 'defaultValue' | 'onChange' | 'accept'
+> {
+  // ── Standard form-field props (mirrors FormInput) ──
+  label?: string
+  error?: string
+  helperText?: string
+  required?: boolean
+
+  // ── Media-specific props ───────────────────────────
+  /** Max individual file size in bytes. Default: 5 MB */
+  maxFileSize?: number
+  /** Allow multiple file selection. Default: false */
+  multiple?: boolean
+  /** Maximum number of files when multiple=true. Default: unlimited */
+  maxFiles?: number
+  /** Accepted MIME types / extensions forwarded to the input. Default: 'image/*' */
+  accept?: string
+  /** Optimise touch targets and layout for mobile screens */
+  mobileVariant?: boolean
+
+  // ── RHF-compatible value / change ─────────────────
+  /**
+   * Controlled value — expects a FileList or File[] (RHF stores FileList from
+   * the native input; you can also pass File[] for programmatic control).
+   */
+  value?: FileList | File[] | null
+  onChange?: (files: FileList | null) => void
+}
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function fileListToArray(files: FileList | File[] | null | undefined): File[] {
+  if (!files) return []
+  if (Array.isArray(files)) return files
+  return Array.from(files)
+}
+
+function arrayToFileList(files: File[]): FileList {
+  const dt = new DataTransfer()
+  files.forEach(f => dt.items.add(f))
+  return dt.files
+}
+
+function formatBytes(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+}
+
+// ─── Component ────────────────────────────────────────────────────────────────
+
+export const FormMedia = React.forwardRef<HTMLInputElement, FormMediaProps>(
+  (
+    {
+      label,
+      error: externalError,
+      helperText,
+      required,
+      className,
+      maxFileSize = 5 * 1024 * 1024, // 5 MB
+      multiple = false,
+      maxFiles,
+      accept = 'image/*',
+      mobileVariant = false,
+      value,
+      onChange,
+      disabled,
+      ...rest
+    },
+    ref,
+  ) => {
+    // ── Internal state ──────────────────────────────────────────────────────
+    const [previews, setPreviews] = React.useState<{file: File; url: string}[]>(
+      [],
+    )
+    const [internalError, setInternalError] = React.useState<string>('')
+
+    // Keep a stable ref to the hidden <input> so we can reset it programmatically
+    const inputRef = React.useRef<HTMLInputElement | null>(null)
+
+    // Merge external forwarded ref with our local ref
+    const mergedRef = React.useCallback(
+      (node: HTMLInputElement | null) => {
+        inputRef.current = node
+        if (typeof ref === 'function') ref(node)
+        else if (ref) ref.current = node
+      },
+      [ref],
+    )
+
+    // ── Sync previews with controlled value ────────────────────────────────
+    // When the form is reset, `value` becomes null/undefined/empty — clear previews.
+    React.useEffect(() => {
+      const incoming = fileListToArray(value)
+
+      if (incoming.length === 0) {
+        // Form reset: revoke existing object URLs and clear state
+        setPreviews(prev => {
+          prev.forEach(p => URL.revokeObjectURL(p.url))
+          return []
+        })
+        setInternalError('')
+        // Also reset the native input so the browser clears "X files selected"
+        if (inputRef.current) inputRef.current.value = ''
+        return
+      }
+
+      // If the controlled value already matches our previews, skip re-render
+      const currentFiles = previews.map(p => p.file)
+      const same =
+        incoming.length === currentFiles.length &&
+        incoming.every((f, i) => f === currentFiles[i])
+
+      if (!same) {
+        previews.forEach(p => URL.revokeObjectURL(p.url))
+        setPreviews(incoming.map(f => ({file: f, url: URL.createObjectURL(f)})))
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [value])
+
+    // Revoke object URLs on unmount
+    React.useEffect(() => {
+      return () => {
+        previews.forEach(p => URL.revokeObjectURL(p.url))
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    // ── Validation ─────────────────────────────────────────────────────────
+    function validate(files: File[]): string {
+      const oversized = files.find(f => f.size > maxFileSize)
+      if (oversized) {
+        return `"${oversized.name}" exceeds the ${formatBytes(maxFileSize)} size limit.`
+      }
+      if (multiple && maxFiles !== undefined && files.length > maxFiles) {
+        return `You can upload at most ${maxFiles} file${maxFiles === 1 ? '' : 's'}.`
+      }
+      return ''
+    }
+
+    // ── Handlers ───────────────────────────────────────────────────────────
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+      const raw = e.target.files
+      if (!raw || raw.length === 0) return
+
+      const incoming = Array.from(raw)
+      const validationError = validate(incoming)
+      setInternalError(validationError)
+
+      if (validationError) {
+        // Reset the native input so the user can try again
+        if (inputRef.current) inputRef.current.value = ''
+        return
+      }
+
+      // Revoke old preview URLs
+      previews.forEach(p => URL.revokeObjectURL(p.url))
+      const newPreviews = incoming.map(f => ({
+        file: f,
+        url: URL.createObjectURL(f),
+      }))
+      setPreviews(newPreviews)
+      onChange?.(arrayToFileList(incoming))
+    }
+
+    function handleRemove(index: number) {
+      const next = previews.filter((_, i) => i !== index)
+      setPreviews(prev => {
+        URL.revokeObjectURL(prev[index].url)
+        return next
+      })
+
+      const nextFileList = arrayToFileList(next.map(p => p.file))
+      onChange?.(next.length > 0 ? nextFileList : null)
+
+      // Keep native input in sync
+      if (inputRef.current) inputRef.current.value = ''
+    }
+
+    // ── Derived ────────────────────────────────────────────────────────────
+    const displayError = externalError || internalError
+    const isDisabled = disabled
+
+    // ── Render ─────────────────────────────────────────────────────────────
+    return (
+      <VStack gap="2">
+        {/* Label */}
+        {label && (
+          <Label>
+            {label}
+            {required && <span className="text-destructive ml-1">*</span>}
+          </Label>
+        )}
+
+        {/* Drop zone / trigger */}
+        <label
+          className={cn(
+            'flex flex-col items-center justify-center gap-2',
+            'rounded-md border-2 border-dashed',
+            'transition-colors cursor-pointer select-none',
+            mobileVariant ? 'py-6 px-4' : 'py-4 px-3',
+            isDisabled
+              ? 'cursor-not-allowed opacity-50 border-muted'
+              : displayError
+                ? 'border-destructive bg-destructive/5 hover:bg-destructive/10'
+                : 'border-input bg-muted/30 hover:bg-muted/60',
+            className,
+          )}
+        >
+          <Upload
+            className={cn(
+              'text-muted-foreground',
+              mobileVariant ? 'size-6' : 'size-5',
+            )}
+          />
+          <span
+            className={cn(
+              'text-muted-foreground text-center leading-snug',
+              mobileVariant ? 'text-sm' : 'text-xs',
+            )}
+          >
+            {multiple
+              ? maxFiles
+                ? `Upload up to ${maxFiles} files`
+                : 'Upload files'
+              : 'Upload a file'}
+            <br />
+            <span className="text-muted-foreground/70">
+              Max {formatBytes(maxFileSize)} per file
+            </span>
+          </span>
+
+          {/* Hidden native input */}
+          <Input
+            {...rest}
+            ref={mergedRef}
+            type="file"
+            accept={accept}
+            multiple={multiple}
+            disabled={isDisabled}
+            className="sr-only"
+            aria-invalid={!!displayError}
+            onChange={handleInputChange}
+            // Never forward `value` to a file input — browsers block it
+          />
+        </label>
+
+        {/* Preview grid */}
+        {previews.length > 0 && (
+          <div
+            className={cn(
+              'grid gap-2',
+              mobileVariant
+                ? 'grid-cols-3'
+                : 'grid-cols-4 sm:grid-cols-5 md:grid-cols-6',
+            )}
+          >
+            {previews.map(({file, url}, index) => (
+              <PreviewTile
+                key={url}
+                url={url}
+                name={file.name}
+                onRemove={() => handleRemove(index)}
+                mobile={mobileVariant}
+                disabled={isDisabled}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Error */}
+        {displayError && (
+          <Typography
+            variant="body-sm"
+            className="text-destructive first-letter:uppercase"
+          >
+            {displayError}
+          </Typography>
+        )}
+
+        {/* Helper text */}
+        {helperText && !displayError && (
+          <Typography
+            variant="body-sm"
+            className="text-muted-foreground first-letter:uppercase"
+          >
+            {helperText}
+          </Typography>
+        )}
+      </VStack>
+    )
+  },
+)
+
+FormMedia.displayName = 'FormMedia'
+
+// ─── Preview tile ─────────────────────────────────────────────────────────────
+
+interface PreviewTileProps {
+  url: string
+  name: string
+  onRemove: () => void
+  mobile?: boolean
+  disabled?: boolean
+}
+
+function PreviewTile({
+  url,
+  name,
+  onRemove,
+  mobile,
+  disabled,
+}: PreviewTileProps) {
+  const [imgError, setImgError] = React.useState(false)
+
+  return (
+    <div
+      className={cn(
+        'group relative aspect-square rounded-md overflow-hidden',
+        'border border-border bg-muted',
+        mobile ? 'rounded-lg' : 'rounded-md',
+      )}
+    >
+      {imgError ? (
+        /* Fallback for non-image files (PDF, video, etc.) */
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 p-1">
+          <ImageIcon className="size-5 text-muted-foreground" />
+          <span className="text-[10px] text-muted-foreground text-center line-clamp-2 break-all leading-tight">
+            {name}
+          </span>
+        </div>
+      ) : (
+        <img
+          src={url}
+          alt={name}
+          onError={() => setImgError(true)}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      )}
+
+      {/* Delete button — visible on hover (desktop) or always shown (mobile) */}
+      {!disabled && (
+        <button
+          type="button"
+          aria-label={`Remove ${name}`}
+          onClick={onRemove}
+          className={cn(
+            'absolute top-1 right-1 z-10',
+            'flex items-center justify-center',
+            'rounded-full bg-background/80 backdrop-blur-sm',
+            'text-foreground shadow-sm',
+            'transition-opacity',
+            mobile
+              ? 'size-6 opacity-100' // always visible on mobile
+              : 'size-5 opacity-0 group-hover:opacity-100', // hover reveal on desktop
+            'hover:bg-destructive hover:text-destructive-foreground',
+            'focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-ring',
+          )}
+        >
+          <X className={mobile ? 'size-3.5' : 'size-3'} />
+        </button>
+      )}
+    </div>
   )
 }

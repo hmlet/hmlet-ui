@@ -8,6 +8,7 @@ import {
   FormDateTimePicker,
   FormCalendar,
   FormOTP,
+  FormMedia,
 } from '../../components/ui/form-input'
 import {Mail} from 'lucide-react'
 import * as React from 'react'
@@ -773,6 +774,7 @@ export const CalendarWithYearBounds: CalendarStory = {
     )
   },
 }
+
 /* ─── FormOTP Stories ─── */
 
 type OTPStory = StoryObj<typeof FormOTP>
@@ -835,6 +837,292 @@ export const OTPWithError: OTPStory = {
           </InputOTPGroup>
         </FormOTP>
       </div>
+    )
+  },
+}
+
+/* ─── FormMedia Stories ─── */
+
+type MediaStory = StoryObj<typeof FormMedia>
+
+export const MediaPlayground: MediaStory = {
+  render: function MediaPlaygroundRender(args) {
+    const [value, setValue] = React.useState<FileList | null>(null)
+    return (
+      <div className="w-96">
+        <FormMedia {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
+  args: {
+    label: 'Upload Image',
+    required: true,
+    helperText: 'Accepted formats: JPG, PNG, WebP.',
+    error: '',
+    accept: 'image/*',
+    maxFileSize: 5 * 1024 * 1024,
+    multiple: false,
+    mobileVariant: false,
+  },
+}
+
+export const MediaWithExternalError: MediaStory = {
+  render: function MediaWithExternalErrorRender(args) {
+    const [value, setValue] = React.useState<FileList | null>(null)
+    return (
+      <div className="w-96">
+        <FormMedia {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
+  args: {
+    label: 'Profile Photo',
+    error: 'Profile photo is required',
+    accept: 'image/*',
+  },
+}
+
+export const MediaFileSizeLimit: MediaStory = {
+  name: 'Media — File Size Limit (1 MB)',
+  render: function MediaFileSizeLimitRender(args) {
+    const [value, setValue] = React.useState<FileList | null>(null)
+    return (
+      <div className="w-96">
+        <FormMedia {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
+  args: {
+    label: 'Avatar',
+    maxFileSize: 1 * 1024 * 1024,
+    accept: 'image/*',
+    helperText: 'Try uploading a file larger than 1 MB to see the error.',
+  },
+}
+
+export const MediaMultipleFiles: MediaStory = {
+  render: function MediaMultipleFilesRender(args) {
+    const [value, setValue] = React.useState<FileList | null>(null)
+    return (
+      <div className="w-96">
+        <FormMedia {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
+  args: {
+    label: 'Property Photos',
+    multiple: true,
+    maxFiles: 6,
+    maxFileSize: 5 * 1024 * 1024,
+    accept: 'image/*',
+    helperText: 'Upload up to 6 photos of the property.',
+    required: true,
+  },
+}
+
+export const MediaAcceptPDF: MediaStory = {
+  name: 'Media — Accept PDF + Images',
+  render: function MediaAcceptPDFRender(args) {
+    const [value, setValue] = React.useState<FileList | null>(null)
+    return (
+      <div className="w-96">
+        <FormMedia {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
+  args: {
+    label: 'Supporting Documents',
+    multiple: true,
+    maxFiles: 4,
+    accept: 'image/*,application/pdf',
+    maxFileSize: 10 * 1024 * 1024,
+    helperText:
+      'Upload images or PDFs. Non-image files show a file icon preview.',
+  },
+}
+
+export const MediaDisabled: MediaStory = {
+  render: function MediaDisabledRender(args) {
+    const [value, setValue] = React.useState<FileList | null>(null)
+    return (
+      <div className="w-96">
+        <FormMedia {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
+  args: {
+    label: 'Upload Photo',
+    disabled: true,
+    helperText: 'Uploads are disabled at this time.',
+    accept: 'image/*',
+  },
+}
+
+export const MediaMobileVariant: MediaStory = {
+  name: 'Media — Mobile Variant',
+  render: function MediaMobileVariantRender(args) {
+    const [value, setValue] = React.useState<FileList | null>(null)
+    return (
+      <div className="w-80">
+        <FormMedia {...args} value={value} onChange={setValue} />
+      </div>
+    )
+  },
+  args: {
+    label: 'Upload Photos',
+    multiple: true,
+    maxFiles: 5,
+    maxFileSize: 5 * 1024 * 1024,
+    accept: 'image/*',
+    mobileVariant: true,
+    helperText: 'Delete buttons are always visible on mobile.',
+    required: true,
+  },
+}
+
+export const MediaFormReset: MediaStory = {
+  name: 'Media — Form Reset Clears Previews',
+  render: function MediaFormResetRender() {
+    const [value, setValue] = React.useState<FileList | null>(null)
+    const [submitted, setSubmitted] = React.useState(false)
+
+    function handleReset() {
+      setValue(null)
+      setSubmitted(false)
+    }
+
+    function handleSubmit(e: React.FormEvent) {
+      e.preventDefault()
+      setSubmitted(true)
+    }
+
+    return (
+      <form onSubmit={handleSubmit} className="w-96">
+        <VStack gap="4">
+          <FormMedia
+            label="Listing Photos"
+            multiple
+            maxFiles={4}
+            accept="image/*"
+            value={value}
+            onChange={setValue}
+            helperText="Upload up to 4 photos, then try Reset to clear them."
+            required
+          />
+          {submitted && (
+            <p className="text-sm text-green-600">
+              ✓ Submitted {value ? Array.from(value).length : 0} file(s)
+            </p>
+          )}
+          <HStack gap="2">
+            <Button type="submit" disabled={!value || value.length === 0}>
+              Submit
+            </Button>
+            <Button type="button" variant="outline" onClick={handleReset}>
+              Reset
+            </Button>
+          </HStack>
+        </VStack>
+      </form>
+    )
+  },
+}
+
+export const MediaValidationOnSubmit: MediaStory = {
+  name: 'Media — Validation on Submit',
+  render: function MediaValidationOnSubmitRender() {
+    const [value, setValue] = React.useState<FileList | null>(null)
+    const [error, setError] = React.useState<string>('')
+
+    function handleSubmit(e: React.FormEvent) {
+      e.preventDefault()
+      if (!value || value.length === 0) {
+        setError('At least one photo is required')
+        return
+      }
+      setError('')
+      alert(`Submitting ${value.length} file(s)!`)
+    }
+
+    return (
+      <form onSubmit={handleSubmit} className="w-96">
+        <VStack gap="4">
+          <FormMedia
+            label="Property Photo"
+            required
+            accept="image/*"
+            maxFileSize={5 * 1024 * 1024}
+            value={value}
+            onChange={v => {
+              setValue(v)
+              if (error) setError('')
+            }}
+            error={error}
+            helperText={
+              !error ? 'Upload at least one photo to continue.' : undefined
+            }
+          />
+          <HStack gap="2">
+            <Button type="submit">Submit</Button>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => {
+                setValue(null)
+                setError('')
+              }}
+            >
+              Reset
+            </Button>
+          </HStack>
+        </VStack>
+      </form>
+    )
+  },
+}
+
+export const MediaDesktopVsMobile: MediaStory = {
+  name: 'Media — Desktop vs Mobile Variant',
+  render: function MediaDesktopVsMobileRender() {
+    const [desktopValue, setDesktopValue] = React.useState<FileList | null>(
+      null,
+    )
+    const [mobileValue, setMobileValue] = React.useState<FileList | null>(null)
+
+    return (
+      <HStack gap="8" className="items-start flex-wrap">
+        <VStack gap="1" className="w-80">
+          <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide mb-1">
+            Desktop
+          </p>
+          <FormMedia
+            label="Upload Photos"
+            multiple
+            maxFiles={4}
+            accept="image/*"
+            mobileVariant={false}
+            value={desktopValue}
+            onChange={setDesktopValue}
+            helperText="Hover a preview to reveal the delete button."
+          />
+        </VStack>
+
+        <VStack gap="1" className="w-72">
+          <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide mb-1">
+            Mobile
+          </p>
+          <FormMedia
+            label="Upload Photos"
+            multiple
+            maxFiles={4}
+            accept="image/*"
+            mobileVariant={true}
+            value={mobileValue}
+            onChange={setMobileValue}
+            helperText="Delete buttons are always visible."
+          />
+        </VStack>
+      </HStack>
     )
   },
 }

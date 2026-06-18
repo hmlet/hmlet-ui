@@ -126,4 +126,27 @@ export type FormOTPProps = React.ComponentPropsWithoutRef<typeof InputOTP> & {
     required?: boolean;
 };
 export declare function FormOTP({ label, error, helperText, required, className, ...props }: FormOTPProps): import("react/jsx-runtime").JSX.Element;
+export interface FormMediaProps extends Omit<InputProps, 'type' | 'value' | 'defaultValue' | 'onChange' | 'accept'> {
+    label?: string;
+    error?: string;
+    helperText?: string;
+    required?: boolean;
+    /** Max individual file size in bytes. Default: 5 MB */
+    maxFileSize?: number;
+    /** Allow multiple file selection. Default: false */
+    multiple?: boolean;
+    /** Maximum number of files when multiple=true. Default: unlimited */
+    maxFiles?: number;
+    /** Accepted MIME types / extensions forwarded to the input. Default: 'image/*' */
+    accept?: string;
+    /** Optimise touch targets and layout for mobile screens */
+    mobileVariant?: boolean;
+    /**
+     * Controlled value — expects a FileList or File[] (RHF stores FileList from
+     * the native input; you can also pass File[] for programmatic control).
+     */
+    value?: FileList | File[] | null;
+    onChange?: (files: FileList | null) => void;
+}
+export declare const FormMedia: React.ForwardRefExoticComponent<Omit<FormMediaProps, "ref"> & React.RefAttributes<HTMLInputElement>>;
 export {};
