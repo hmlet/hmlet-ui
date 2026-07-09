@@ -133,7 +133,17 @@ FormTextarea.displayName = 'FormTextarea'
 export type FormSelectOption = {
   value: string
   label: React.ReactNode
+  subtext?: React.ReactNode
   disabled?: boolean
+}
+
+function getOptionSearchText(option: FormSelectOption): string | undefined {
+  const parts = [option.label, option.subtext]
+    .filter(part => typeof part === 'string')
+    .map(part => part.trim())
+    .filter(Boolean)
+
+  return parts.length > 0 ? parts.join(' ') : undefined
 }
 
 export interface FormSelectProps extends SelectProps {
@@ -211,8 +221,17 @@ export const FormSelect = React.forwardRef<HTMLButtonElement, FormSelectProps>(
                 key={opt.value}
                 value={opt.value}
                 disabled={opt.disabled}
+                textValue={getOptionSearchText(opt)}
+                itemText={opt.label}
               >
-                {opt.label}
+                <div className="flex min-w-0 flex-col">
+                  <span>{opt.label}</span>
+                  {opt.subtext ? (
+                    <span className="text-xs text-muted-foreground line-clamp-2">
+                      {opt.subtext}
+                    </span>
+                  ) : null}
+                </div>
               </SelectItem>
             ))}
           </SelectContent>

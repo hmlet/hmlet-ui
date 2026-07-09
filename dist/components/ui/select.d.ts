@@ -37,7 +37,9 @@ type SelectContentProps = React.ComponentProps<typeof SelectPrimitive.Content> &
 };
 declare function SelectContent({ className, children, position, loading, apiError, emptyText, isSearchable, searchFn, searchPlaceholder, ...props }: SelectContentProps): import("react/jsx-runtime").JSX.Element;
 declare function SelectLabel({ className, ...props }: React.ComponentProps<typeof SelectPrimitive.Label>): import("react/jsx-runtime").JSX.Element;
-declare function SelectItem({ className, children, ...props }: React.ComponentProps<typeof SelectPrimitive.Item>): import("react/jsx-runtime").JSX.Element;
+declare function SelectItem({ className, children, itemText, ...props }: React.ComponentProps<typeof SelectPrimitive.Item> & {
+    itemText?: React.ReactNode;
+}): import("react/jsx-runtime").JSX.Element;
 declare function SelectSeparator({ className, ...props }: React.ComponentProps<typeof SelectPrimitive.Separator>): import("react/jsx-runtime").JSX.Element;
 declare function SelectScrollUpButton({ className, ...props }: React.ComponentProps<typeof SelectPrimitive.ScrollUpButton>): import("react/jsx-runtime").JSX.Element;
 declare function SelectScrollDownButton({ className, ...props }: React.ComponentProps<typeof SelectPrimitive.ScrollDownButton>): import("react/jsx-runtime").JSX.Element;

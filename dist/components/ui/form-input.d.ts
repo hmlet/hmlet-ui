@@ -28,6 +28,7 @@ export declare const FormTextarea: React.ForwardRefExoticComponent<FormTextareaP
 export type FormSelectOption = {
     value: string;
     label: React.ReactNode;
+    subtext?: React.ReactNode;
     disabled?: boolean;
 };
 export interface FormSelectProps extends SelectProps {

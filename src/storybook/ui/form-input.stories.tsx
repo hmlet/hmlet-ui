@@ -99,9 +99,9 @@ export const SelectPlayground: SelectStory = {
   args: {
     label: 'Country',
     options: [
-      {value: 'sg', label: 'Singapore'},
-      {value: 'my', label: 'Malaysia'},
-      {value: 'id', label: 'Indonesia'},
+      {value: 'sg', label: 'Singapore', subtext: 'Central region hub'},
+      {value: 'my', label: 'Malaysia', subtext: 'West and East Malaysia'},
+      {value: 'id', label: 'Indonesia', subtext: '17,000+ islands'},
     ],
     required: true,
     error: '',
