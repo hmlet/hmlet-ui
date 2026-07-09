@@ -227,7 +227,7 @@ export const FormSelect = React.forwardRef<HTMLButtonElement, FormSelectProps>(
                 <div className="flex min-w-0 flex-col">
                   <span>{opt.label}</span>
                   {opt.subtext ? (
-                    <span className="text-xs text-muted-foreground line-clamp-2">
+                    <span data-select-subtext className="text-xs line-clamp-2">
                       {opt.subtext}
                     </span>
                   ) : null}
