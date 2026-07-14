@@ -23,7 +23,7 @@ import {PhoneInput, type PhoneInputProps} from './phone-input'
 import {TimePicker, type TimePickerProps} from './time-picker'
 import {DateTimePicker, type DateTimePickerProps} from './date-time-picker'
 import {InputOTP} from './input-otp'
-import {X, Upload, ImageIcon} from 'lucide-react'
+import {X, Upload, ImageIcon, FileText, Film, Play} from 'lucide-react'
 interface FormInputProps extends InputProps {
   label?: string
   error?: string
@@ -851,23 +851,25 @@ export const FormMedia = React.forwardRef<HTMLInputElement, FormMediaProps>(
       if (!raw || raw.length === 0) return
 
       const incoming = Array.from(raw)
-      const validationError = validate(incoming)
+      // multiple=true → append to what's already selected; multiple=false → replace it
+      const combined = multiple
+        ? [...previews.map(p => p.file), ...incoming]
+        : incoming
+      const validationError = validate(combined)
       setInternalError(validationError)
 
-      if (validationError) {
-        // Reset the native input so the user can try again
-        if (inputRef.current) inputRef.current.value = ''
-        return
-      }
+      // Reset the native input so re-selecting the same file(s) later still fires onChange
+      if (inputRef.current) inputRef.current.value = ''
 
-      // Revoke old preview URLs
+      if (validationError) return
+
       previews.forEach(p => URL.revokeObjectURL(p.url))
-      const newPreviews = incoming.map(f => ({
+      const newPreviews = combined.map(f => ({
         file: f,
         url: URL.createObjectURL(f),
       }))
       setPreviews(newPreviews)
-      onChange?.(arrayToFileList(incoming))
+      onChange?.(arrayToFileList(combined))
     }
 
     function handleRemove(index: number) {
@@ -967,6 +969,7 @@ export const FormMedia = React.forwardRef<HTMLInputElement, FormMediaProps>(
                 key={url}
                 url={url}
                 name={file.name}
+                type={file.type}
                 onRemove={() => handleRemove(index)}
                 mobile={mobileVariant}
                 disabled={isDisabled}
@@ -1006,6 +1009,7 @@ FormMedia.displayName = 'FormMedia'
 interface PreviewTileProps {
   url: string
   name: string
+  type: string
   onRemove: () => void
   mobile?: boolean
   disabled?: boolean
@@ -1014,11 +1018,15 @@ interface PreviewTileProps {
 function PreviewTile({
   url,
   name,
+  type,
   onRemove,
   mobile,
   disabled,
 }: PreviewTileProps) {
-  const [imgError, setImgError] = React.useState(false)
+  const [mediaError, setMediaError] = React.useState(false)
+  const isImage = type.startsWith('image/')
+  const isVideo = type.startsWith('video/')
+  const isPdf = type === 'application/pdf'
 
   return (
     <div
@@ -1028,19 +1036,41 @@ function PreviewTile({
         mobile ? 'rounded-lg' : 'rounded-md',
       )}
     >
-      {imgError ? (
-        /* Fallback for non-image files (PDF, video, etc.) */
+      {mediaError || !(isImage || isVideo) ? (
+        /* Fallback tile: PDFs, unrecognised types, or media that failed to load */
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 p-1">
-          <ImageIcon className="size-5 text-muted-foreground" />
+          {isPdf ? (
+            <FileText className="size-5 text-muted-foreground" />
+          ) : isVideo ? (
+            <Film className="size-5 text-muted-foreground" />
+          ) : (
+            <ImageIcon className="size-5 text-muted-foreground" />
+          )}
           <span className="text-[10px] text-muted-foreground text-center line-clamp-2 break-all leading-tight">
             {name}
           </span>
         </div>
+      ) : isVideo ? (
+        <>
+          <video
+            src={url}
+            muted
+            playsInline
+            preload="metadata"
+            onError={() => setMediaError(true)}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="flex items-center justify-center rounded-full bg-background/70 size-6">
+              <Play className="size-3 text-foreground fill-current" />
+            </div>
+          </div>
+        </>
       ) : (
         <img
           src={url}
           alt={name}
-          onError={() => setImgError(true)}
+          onError={() => setMediaError(true)}
           className="absolute inset-0 w-full h-full object-cover"
         />
       )}
