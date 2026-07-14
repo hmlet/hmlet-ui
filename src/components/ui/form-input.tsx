@@ -23,7 +23,16 @@ import {PhoneInput, type PhoneInputProps} from './phone-input'
 import {TimePicker, type TimePickerProps} from './time-picker'
 import {DateTimePicker, type DateTimePickerProps} from './date-time-picker'
 import {InputOTP} from './input-otp'
-import {X, Upload, ImageIcon, FileText, Film, Play} from 'lucide-react'
+import {
+  X,
+  Upload,
+  ImageIcon,
+  FileText,
+  Film,
+  Play,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react'
 interface FormInputProps extends InputProps {
   label?: string
   error?: string
@@ -886,6 +895,57 @@ export const FormMedia = React.forwardRef<HTMLInputElement, FormMediaProps>(
       if (inputRef.current) inputRef.current.value = ''
     }
 
+    function handleReorder(fromIndex: number, toIndex: number) {
+      if (fromIndex === toIndex) return
+
+      setPreviews(prev => {
+        const next = [...prev]
+        const [moved] = next.splice(fromIndex, 1)
+        next.splice(toIndex, 0, moved)
+        onChange?.(arrayToFileList(next.map(p => p.file)))
+        return next
+      })
+    }
+
+    // ── Drag-and-drop reordering ────────────────────────────────────────────
+    const [draggedIndex, setDraggedIndex] = React.useState<number | null>(null)
+    const [dragOverIndex, setDragOverIndex] = React.useState<number | null>(
+      null,
+    )
+
+    function handleDragStart(index: number) {
+      return (e: React.DragEvent<HTMLDivElement>) => {
+        setDraggedIndex(index)
+        e.dataTransfer.effectAllowed = 'move'
+        // Firefox requires setData to be called for the drag to initiate
+        e.dataTransfer.setData('text/plain', String(index))
+      }
+    }
+
+    function handleDragOver(index: number) {
+      return (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault()
+        if (draggedIndex === null || draggedIndex === index) return
+        setDragOverIndex(index)
+      }
+    }
+
+    function handleDrop(index: number) {
+      return (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault()
+        if (draggedIndex !== null && draggedIndex !== index) {
+          handleReorder(draggedIndex, index)
+        }
+        setDraggedIndex(null)
+        setDragOverIndex(null)
+      }
+    }
+
+    function handleDragEnd() {
+      setDraggedIndex(null)
+      setDragOverIndex(null)
+    }
+
     // ── Derived ────────────────────────────────────────────────────────────
     const displayError = externalError || internalError
     const isDisabled = disabled
@@ -973,6 +1033,17 @@ export const FormMedia = React.forwardRef<HTMLInputElement, FormMediaProps>(
                 onRemove={() => handleRemove(index)}
                 mobile={mobileVariant}
                 disabled={isDisabled}
+                draggable={!isDisabled && previews.length > 1}
+                isDragging={draggedIndex === index}
+                isDragOver={dragOverIndex === index}
+                onDragStart={handleDragStart(index)}
+                onDragOver={handleDragOver(index)}
+                onDrop={handleDrop(index)}
+                onDragEnd={handleDragEnd}
+                canMoveLeft={index > 0}
+                canMoveRight={index < previews.length - 1}
+                onMoveLeft={() => handleReorder(index, index - 1)}
+                onMoveRight={() => handleReorder(index, index + 1)}
               />
             ))}
           </div>
@@ -1013,6 +1084,19 @@ interface PreviewTileProps {
   onRemove: () => void
   mobile?: boolean
   disabled?: boolean
+  /** Reordering — drag-and-drop (desktop) */
+  draggable?: boolean
+  isDragging?: boolean
+  isDragOver?: boolean
+  onDragStart?: (e: React.DragEvent<HTMLDivElement>) => void
+  onDragOver?: (e: React.DragEvent<HTMLDivElement>) => void
+  onDrop?: (e: React.DragEvent<HTMLDivElement>) => void
+  onDragEnd?: () => void
+  /** Reordering — move buttons (touch / keyboard fallback) */
+  canMoveLeft?: boolean
+  canMoveRight?: boolean
+  onMoveLeft?: () => void
+  onMoveRight?: () => void
 }
 
 function PreviewTile({
@@ -1022,6 +1106,17 @@ function PreviewTile({
   onRemove,
   mobile,
   disabled,
+  draggable,
+  isDragging,
+  isDragOver,
+  onDragStart,
+  onDragOver,
+  onDrop,
+  onDragEnd,
+  canMoveLeft,
+  canMoveRight,
+  onMoveLeft,
+  onMoveRight,
 }: PreviewTileProps) {
   const [mediaError, setMediaError] = React.useState(false)
   const isImage = type.startsWith('image/')
@@ -1030,10 +1125,18 @@ function PreviewTile({
 
   return (
     <div
+      draggable={draggable}
+      onDragStart={onDragStart}
+      onDragOver={onDragOver}
+      onDrop={onDrop}
+      onDragEnd={onDragEnd}
       className={cn(
         'group relative aspect-square rounded-md overflow-hidden',
         'border border-border bg-muted',
         mobile ? 'rounded-lg' : 'rounded-md',
+        draggable && 'cursor-grab active:cursor-grabbing',
+        isDragging && 'opacity-40',
+        isDragOver && 'ring-2 ring-primary ring-offset-1',
       )}
     >
       {mediaError || !(isImage || isVideo) ? (
@@ -1096,6 +1199,53 @@ function PreviewTile({
         >
           <X className={mobile ? 'size-3.5' : 'size-3'} />
         </button>
+      )}
+
+      {/* Move buttons — touch/keyboard-friendly fallback for drag reordering */}
+      {!disabled && (canMoveLeft || canMoveRight) && (
+        <div
+          className={cn(
+            'absolute bottom-1 left-1 right-1 z-10',
+            'flex items-center justify-center gap-1',
+            'transition-opacity',
+            mobile ? 'opacity-100' : 'opacity-0 group-hover:opacity-100',
+          )}
+        >
+          <button
+            type="button"
+            aria-label={`Move ${name} left`}
+            onClick={onMoveLeft}
+            disabled={!canMoveLeft}
+            className={cn(
+              'flex items-center justify-center',
+              'rounded-full bg-background/80 backdrop-blur-sm',
+              'text-foreground shadow-sm',
+              mobile ? 'size-6' : 'size-5',
+              'disabled:opacity-30 disabled:pointer-events-none',
+              'hover:bg-accent',
+              'focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-ring',
+            )}
+          >
+            <ChevronLeft className={mobile ? 'size-3.5' : 'size-3'} />
+          </button>
+          <button
+            type="button"
+            aria-label={`Move ${name} right`}
+            onClick={onMoveRight}
+            disabled={!canMoveRight}
+            className={cn(
+              'flex items-center justify-center',
+              'rounded-full bg-background/80 backdrop-blur-sm',
+              'text-foreground shadow-sm',
+              mobile ? 'size-6' : 'size-5',
+              'disabled:opacity-30 disabled:pointer-events-none',
+              'hover:bg-accent',
+              'focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-ring',
+            )}
+          >
+            <ChevronRight className={mobile ? 'size-3.5' : 'size-3'} />
+          </button>
+        </div>
       )}
     </div>
   )
