@@ -22,9 +22,7 @@ function AppShowcase() {
       <header className="sticky top-0 z-50 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <div>
-            <h1 className="text-xl font-semibold">
-              Warm Hospitality UI Library
-            </h1>
+            <h1 className="text-xl font-semibold">UI Library</h1>
             <p className="text-sm text-muted-foreground">
               Beige-based design system
             </p>
@@ -97,20 +95,11 @@ function AppShowcase() {
         <div className="mt-12 rounded-lg border border-border bg-card p-6">
           <h3 className="mb-4">Implementation Guide</h3>
           <p className="mb-6 text-sm text-muted-foreground">
-            Follow these steps to integrate the Warm Hospitality UI Library into
-            your project:
+            Follow these steps to integrate the UI Library into your project:
           </p>
           <ImplementationGuide />
         </div>
       </main>
-
-      <footer className="mt-16 border-t border-border bg-card">
-        <div className="container mx-auto py-8 px-4 text-center text-sm text-muted-foreground">
-          <p>
-            Warm Hospitality UI Library • Perfect for boutique accommodations
-          </p>
-        </div>
-      </footer>
     </div>
   )
 }

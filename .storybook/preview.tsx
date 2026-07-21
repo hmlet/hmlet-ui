@@ -1,5 +1,6 @@
 import type {Preview} from '@storybook/react'
 
+import {ThemeProvider} from '../src/theme/ThemeProvider'
 import '../src/styles/index.css'
 import './storybook-preview.css'
 
@@ -21,16 +22,15 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
-      const theme = context.globals.theme as 'light' | 'dark' | undefined
-
-      if (typeof document !== 'undefined') {
-        document.documentElement.classList.toggle('dark', theme === 'dark')
-      }
+      const theme =
+        (context.globals.theme as 'light' | 'dark' | undefined) ?? 'light'
 
       return (
-        <div className="bg-background text-foreground p-6">
-          <Story />
-        </div>
+        <ThemeProvider mode={theme}>
+          <div className="bg-background text-foreground p-6">
+            <Story />
+          </div>
+        </ThemeProvider>
       )
     },
   ],
