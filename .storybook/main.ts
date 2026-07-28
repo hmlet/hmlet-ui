@@ -18,6 +18,19 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
+  viteFinal: async viteConfig => {
+    viteConfig.server = {
+      ...viteConfig.server,
+      allowedHosts: [
+        '.ngrok-free.dev',
+        '.ngrok-free.app',
+        '.ngrok.app',
+        '.ngrok.io',
+      ],
+    }
+
+    return viteConfig
+  },
 }
 
 export default config

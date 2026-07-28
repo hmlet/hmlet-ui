@@ -171,9 +171,11 @@ function SelectContent({
         const itemElement = child as SelectItemElement
         const itemChildren = itemElement.props.children
         const textContent =
-          typeof itemChildren === 'string'
-            ? itemChildren
-            : String(itemElement.props.value || '')
+          typeof itemElement.props.textValue === 'string'
+            ? itemElement.props.textValue
+            : typeof itemChildren === 'string'
+              ? itemChildren
+              : String(itemElement.props.value || '')
         return textContent.toLowerCase().includes(lowerSearch)
       }
       // Keep non-SelectItem elements (like SelectGroup, SelectLabel, etc.)

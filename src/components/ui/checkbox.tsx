@@ -53,27 +53,37 @@ const Checkbox = React.forwardRef<
     size === 'sm' ? 'size-3' : size === 'lg' ? 'size-4' : 'size-3.5',
   )
 
+  const checkboxButton = (
+    <CheckboxPrimitive.Root
+      ref={ref}
+      data-slot="checkbox"
+      className={cn(checkboxVariants({variant, size}), className)}
+      checked={checked}
+      {...props}
+    >
+      <CheckboxPrimitive.Indicator
+        data-slot="checkbox-indicator"
+        className="flex items-center justify-center text-current transition-none"
+      >
+        {checked === 'indeterminate' ? (
+          <MinusIcon className={iconSize} />
+        ) : (
+          <CheckIcon className={iconSize} />
+        )}
+      </CheckboxPrimitive.Indicator>
+    </CheckboxPrimitive.Root>
+  )
+
+  // Only wrap in a <label> when there's label text to make clickable.
+  // A <label> around a bare button auto-forwards clicks to it, which
+  // double-fires click handlers on any wrapping element (e.g. a
+  // selectable row) that also toggles on click.
+  if (!label) return checkboxButton
+
   return (
     <label className="inline-flex items-center cursor-pointer">
-      <CheckboxPrimitive.Root
-        ref={ref}
-        data-slot="checkbox"
-        className={cn(checkboxVariants({variant, size}), className)}
-        checked={checked}
-        {...props}
-      >
-        <CheckboxPrimitive.Indicator
-          data-slot="checkbox-indicator"
-          className="flex items-center justify-center text-current transition-none"
-        >
-          {checked === 'indeterminate' ? (
-            <MinusIcon className={iconSize} />
-          ) : (
-            <CheckIcon className={iconSize} />
-          )}
-        </CheckboxPrimitive.Indicator>
-      </CheckboxPrimitive.Root>
-      {label && <span className={labelClass}>{label}</span>}
+      {checkboxButton}
+      <span className={labelClass}>{label}</span>
     </label>
   )
 })
