@@ -39,6 +39,7 @@ export interface FormSelectProps extends SelectProps {
     className?: string;
     options: FormSelectOption[];
     placeholder?: string;
+    size?: 'xs' | 'sm' | 'md' | 'lg';
     /** Empty / loading / error states */
     loading?: boolean;
     emptyText?: string;

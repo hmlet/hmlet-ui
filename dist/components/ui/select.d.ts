@@ -24,7 +24,7 @@ declare function Select({ loading, apiError, emptyText, isSearchable, searchFn, 
 declare function SelectGroup({ ...props }: React.ComponentProps<typeof SelectPrimitive.Group>): import("react/jsx-runtime").JSX.Element;
 declare function SelectValue({ ...props }: React.ComponentProps<typeof SelectPrimitive.Value>): import("react/jsx-runtime").JSX.Element;
 declare function SelectTrigger({ className, size, children, ...props }: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
-    size?: 'sm' | 'md' | 'lg';
+    size?: 'xs' | 'sm' | 'md' | 'lg';
 }): import("react/jsx-runtime").JSX.Element;
 type SelectContentProps = React.ComponentProps<typeof SelectPrimitive.Content> & {
     loading?: boolean;

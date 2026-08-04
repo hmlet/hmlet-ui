@@ -93,15 +93,17 @@ function SelectTrigger({
   children,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'xs' | 'sm' | 'md' | 'lg'
 }) {
-  // Match Input heights: sm=h-9, md=h-11, lg=h-12
+  // Match Input heights: xs=h-8, sm=h-9, md=h-11, lg=h-12
   const sizeClass =
-    size === 'sm'
-      ? 'h-9 text-sm'
-      : size === 'lg'
-        ? 'h-12 text-lg'
-        : 'h-11 text-base'
+    size === 'xs'
+      ? 'h-8 text-xs'
+      : size === 'sm'
+        ? 'h-9 text-sm'
+        : size === 'lg'
+          ? 'h-12 text-lg'
+          : 'h-11 text-base'
   return (
     <SelectPrimitive.Trigger
       data-slot="select-trigger"

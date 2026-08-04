@@ -164,6 +164,7 @@ export interface FormSelectProps extends SelectProps {
 
   options: FormSelectOption[]
   placeholder?: string
+  size?: 'xs' | 'sm' | 'md' | 'lg'
 
   /** Empty / loading / error states */
   loading?: boolean
@@ -183,6 +184,7 @@ export const FormSelect = React.forwardRef<HTMLButtonElement, FormSelectProps>(
 
       options,
       placeholder = 'Select...',
+      size,
       loading = false,
       emptyText = 'No options',
       apiError,
@@ -213,6 +215,7 @@ export const FormSelect = React.forwardRef<HTMLButtonElement, FormSelectProps>(
         >
           <SelectTrigger
             ref={ref}
+            size={size}
             aria-invalid={!!error}
             className={cn(error && 'border-destructive', className)}
           >
