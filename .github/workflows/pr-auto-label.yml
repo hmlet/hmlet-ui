@@ -45,7 +45,7 @@ jobs:
                 color: 'f9d0c4',
                 description: 'Performance improvements',
               },
-              breaking-change: {
+              'breaking-change': {
                 color: 'b60205',
                 description: 'Breaking API change',
               },
