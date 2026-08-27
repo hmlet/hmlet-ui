@@ -1,3 +1,8 @@
+## <small>1.0.1 (2026-08-27)</small>
+
+* Merge pull request #2 from hmlet/feat/release-version ([1557a3b](https://github.com/hmlet/hmlet-ui/commit/1557a3b)), closes [#2](https://github.com/hmlet/hmlet-ui/issues/2)
+* fix: pr auto label script ([2ff41b6](https://github.com/hmlet/hmlet-ui/commit/2ff41b6))
+
 ## 1.0.0 (2026-08-27)
 
 * Initial commit ([7ac9446](https://github.com/hmlet/hmlet-ui/commit/7ac9446))
