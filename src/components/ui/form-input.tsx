@@ -674,14 +674,10 @@ export type FormOTPProps = React.ComponentPropsWithoutRef<typeof InputOTP> & {
   required?: boolean
 }
 
-export function FormOTP({
-  label,
-  error,
-  helperText,
-  required,
-  className,
-  ...props
-}: FormOTPProps) {
+export const FormOTP = React.forwardRef<
+  React.ComponentRef<typeof InputOTP>,
+  FormOTPProps
+>(({label, error, helperText, required, className, ...props}, ref) => {
   return (
     <VStack gap="2">
       {label && (
@@ -691,6 +687,7 @@ export function FormOTP({
         </Label>
       )}
       <InputOTP
+        ref={ref}
         aria-invalid={!!error}
         className={cn(error && 'border-destructive', className)}
         {...props}
@@ -713,7 +710,9 @@ export function FormOTP({
       )}
     </VStack>
   )
-}
+})
+
+FormOTP.displayName = 'FormOTP'
 
 export interface FormMediaProps extends Omit<
   InputProps,

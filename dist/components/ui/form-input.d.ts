@@ -127,7 +127,7 @@ export type FormOTPProps = React.ComponentPropsWithoutRef<typeof InputOTP> & {
     helperText?: string;
     required?: boolean;
 };
-export declare function FormOTP({ label, error, helperText, required, className, ...props }: FormOTPProps): import("react/jsx-runtime").JSX.Element;
+export declare const FormOTP: React.ForwardRefExoticComponent<FormOTPProps & React.RefAttributes<HTMLInputElement>>;
 export interface FormMediaProps extends Omit<InputProps, 'type' | 'value' | 'defaultValue' | 'onChange' | 'accept'> {
     label?: string;
     error?: string;
