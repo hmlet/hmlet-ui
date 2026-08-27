@@ -30,11 +30,12 @@ module.exports = {
     // 3. Update CHANGELOG.md
     '@semantic-release/changelog',
 
-    // 4. Update package.json version
+    // 4. Update package.json version (no registry publish — this package is
+    // consumed via git, e.g. `"@hmlet/ui": "github:hmlet/hmlet-ui#v1.2.3"`)
     [
       '@semantic-release/npm',
       {
-        npmPublish: true,
+        npmPublish: false,
       },
     ],
 

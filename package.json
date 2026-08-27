@@ -4,9 +4,6 @@
   "license": "MIT",
   "type": "module",
   "private": false,
-  "publishConfig": {
-    "access": "public"
-  },
   "files": [
     "dist",
     "mcp"
