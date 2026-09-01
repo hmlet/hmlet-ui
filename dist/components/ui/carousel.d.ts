@@ -1,5 +1,5 @@
-import * as React from 'react';
 import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react';
+import * as React from 'react';
 import { Button } from './button';
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -12,7 +12,9 @@ type CarouselProps = {
     setApi?: (api: CarouselApi) => void;
 };
 declare function Carousel({ orientation, opts, setApi, plugins, className, children, ...props }: React.ComponentProps<'div'> & CarouselProps): import("react/jsx-runtime").JSX.Element;
-declare function CarouselContent({ className, ...props }: React.ComponentProps<'div'>): import("react/jsx-runtime").JSX.Element;
+declare function CarouselContent({ className, viewportClassName, ...props }: React.ComponentProps<'div'> & {
+    viewportClassName?: string;
+}): import("react/jsx-runtime").JSX.Element;
 declare function CarouselItem({ className, ...props }: React.ComponentProps<'div'>): import("react/jsx-runtime").JSX.Element;
 declare function CarouselPrevious({ className, variant, size, ...props }: React.ComponentProps<typeof Button>): import("react/jsx-runtime").JSX.Element;
 declare function CarouselNext({ className, variant, size, ...props }: React.ComponentProps<typeof Button>): import("react/jsx-runtime").JSX.Element;

@@ -1,4 +1,5 @@
 import type {Meta, StoryObj} from '@storybook/react'
+import {Area, AreaChart, CartesianGrid, XAxis, YAxis} from 'recharts'
 
 import {
   ChartContainer,
@@ -8,7 +9,6 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from '../../components/ui/chart'
-import {Area, AreaChart, CartesianGrid, XAxis, YAxis} from 'recharts'
 
 const meta = {
   title: 'UI/Chart',

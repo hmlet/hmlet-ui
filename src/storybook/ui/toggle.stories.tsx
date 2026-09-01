@@ -1,6 +1,6 @@
 import type {Meta, StoryObj} from '@storybook/react'
-import {useState} from 'react'
 import {Bold, Italic, Underline, Volume2, VolumeX} from 'lucide-react'
+import {useState} from 'react'
 
 import {Toggle} from '../../components/ui/toggle'
 

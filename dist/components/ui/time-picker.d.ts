@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { type VariantProps } from './cva';
 declare const timePickerVariants: (props?: {
-    variant?: "error" | "default" | "success";
+    variant?: "default" | "error" | "success";
     size?: "sm" | "md" | "lg";
 } & import("class-variance-authority/types").ClassProp) => string;
 type TimePickerValue = string | null;

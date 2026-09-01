@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import {cn} from './utils'
 
 interface InputGroupProps extends React.HTMLAttributes<HTMLDivElement> {

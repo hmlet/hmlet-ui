@@ -1,4 +1,15 @@
 import type {Meta, StoryObj} from '@storybook/react'
+import {Mail} from 'lucide-react'
+import * as React from 'react'
+import type {DateRange} from 'react-day-picker'
+import type {Value} from 'react-phone-number-input'
+
+import {VStack, HStack} from '../../components/layout'
+import {Button} from '../../components/ui/button'
+import type {
+  DateTimeValue,
+  DateTimeRangeValue,
+} from '../../components/ui/date-time-picker'
 import {
   FormInput,
   FormTextarea,
@@ -10,23 +21,13 @@ import {
   FormOTP,
   FormMedia,
 } from '../../components/ui/form-input'
-import {Mail} from 'lucide-react'
-import * as React from 'react'
-import type {Value} from 'react-phone-number-input'
-import {isValidPhoneNumber} from '../../components/ui/phone-input'
 import {
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
 } from '../../components/ui/input-otp'
-import {VStack, HStack} from '../../components/layout'
-import {Button} from '../../components/ui/button'
+import {isValidPhoneNumber} from '../../components/ui/phone-input'
 import {Typography} from '../../components/ui/typography'
-import type {
-  DateTimeValue,
-  DateTimeRangeValue,
-} from '../../components/ui/date-time-picker'
-import type {DateRange} from 'react-day-picker'
 
 const meta: Meta<typeof FormInput> = {
   title: 'UI/FormInput',

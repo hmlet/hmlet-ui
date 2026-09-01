@@ -14,16 +14,16 @@ import { type VariantProps } from './cva';
  * </HStack>
  */
 declare const spacerVariants: (props?: {
-    p?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    px?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    py?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    m?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    mx?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    my?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    p?: 2 | 1 | "none" | 3 | 4 | 6 | 8 | 12 | 16 | 20;
+    px?: 2 | 1 | "none" | 3 | 4 | 6 | 8 | 12 | 16 | 20;
+    py?: 2 | 1 | "none" | 3 | 4 | 6 | 8 | 12 | 16 | 20;
+    m?: 2 | 1 | "none" | 3 | 4 | 6 | 8 | 12 | 16 | 20;
+    mx?: 2 | 1 | "none" | 3 | 4 | 6 | 8 | 12 | 16 | 20;
+    my?: 2 | 1 | "none" | 3 | 4 | 6 | 8 | 12 | 16 | 20;
     width?: "auto" | "full" | "fit" | "screen";
     height?: "auto" | "full" | "fit" | "screen";
-    shadow?: "sm" | "md" | "lg" | "none" | "default" | "xl" | "2xl" | "inner" | "outline";
-    display?: "grid" | "inline" | "block" | "inline-block" | "flex" | "inline-flex";
+    shadow?: "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "inner" | "outline" | "default";
+    display?: "block" | "inline" | "inline-block" | "flex" | "inline-flex" | "grid";
 } & import("class-variance-authority/types").ClassProp) => string;
 export interface SpacerProps extends React.HTMLAttributes<HTMLDivElement>, Omit<VariantProps<typeof spacerVariants>, 'margin'> {
     as?: React.ElementType;

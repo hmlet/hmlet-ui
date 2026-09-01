@@ -1,8 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react'
-
-import * as React from 'react'
 import {expect, userEvent, within} from '@storybook/test'
 import {CircleCheckIcon, CircleHelpIcon, CircleIcon} from 'lucide-react'
+import * as React from 'react'
 
 import {
   NavigationMenu,
@@ -72,6 +71,16 @@ const meta: Meta<NavigationMenuStoryArgs> = {
 export default meta
 
 type Story = StoryObj<typeof meta>
+
+// Strips the story-only `onLinkClick` field (read via closure in the demo
+// links) that exists to drive the Controls panel, leaving only real
+// `NavigationMenu` props so it doesn't leak onto the DOM element.
+function getNavigationMenuProps({
+  onLinkClick,
+  ...navigationMenuProps
+}: NavigationMenuStoryArgs) {
+  return navigationMenuProps
+}
 
 const SHADCN_COMPONENTS: Array<{
   title: string
@@ -183,7 +192,7 @@ function DemoLinks({onLinkClick}: {onLinkClick?: (href: string) => void}) {
 export const Default: Story = {
   name: 'Demo',
   render: args => (
-    <NavigationMenu {...args}>
+    <NavigationMenu {...getNavigationMenuProps(args)}>
       <NavigationMenuList>
         <NavigationMenuItem value="getting-started">
           <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
@@ -213,10 +222,14 @@ export const Default: Story = {
     await userEvent.click(
       canvas.getByRole('button', {name: /getting started/i}),
     )
+    // Radix mounts the viewport content asynchronously after the trigger's
+    // open animation, so wait for it instead of asserting synchronously.
     await expect(
-      canvas.getByRole('link', {name: 'Introduction'}),
+      await canvas.findByRole('link', {name: 'Introduction'}),
     ).toBeInTheDocument()
-    await userEvent.click(canvas.getByRole('link', {name: 'Installation'}))
+    await userEvent.click(
+      await canvas.findByRole('link', {name: 'Installation'}),
+    )
   },
 }
 
@@ -225,7 +238,7 @@ export const WithViewportOff: Story = {
     viewport: false,
   },
   render: args => (
-    <NavigationMenu {...args}>
+    <NavigationMenu {...getNavigationMenuProps(args)}>
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
@@ -251,7 +264,7 @@ export const WithViewportOff: Story = {
 
 export const AsChildLink: Story = {
   render: args => (
-    <NavigationMenu {...args}>
+    <NavigationMenu {...getNavigationMenuProps(args)}>
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
@@ -291,7 +304,7 @@ export const ControlledValue: Story = {
           Value: {value || '—'}
         </div>
         <NavigationMenu
-          {...args}
+          {...getNavigationMenuProps(args)}
           value={value}
           onValueChange={next => {
             setValue(next)
@@ -587,8 +600,10 @@ export const DifferentNavigationMenu: Story = {
     const canvas = within(canvasElement)
 
     await userEvent.click(canvas.getByRole('button', {name: 'Components'}))
+    // Radix mounts the viewport content asynchronously after the trigger's
+    // open animation, so wait for it instead of asserting synchronously.
     await expect(
-      canvas.getByRole('link', {name: 'Alert Dialog'}),
+      await canvas.findByRole('link', {name: 'Alert Dialog'}),
     ).toBeInTheDocument()
   },
 }

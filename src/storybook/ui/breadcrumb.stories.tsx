@@ -1,7 +1,6 @@
-import type {Meta, StoryObj} from '@storybook/react'
-
-import * as React from 'react'
 import {useArgs} from '@storybook/preview-api'
+import type {Meta, StoryObj} from '@storybook/react'
+import * as React from 'react'
 
 import {
   Breadcrumb,
@@ -12,7 +11,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '../../components/ui/breadcrumb'
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -101,9 +99,30 @@ export default meta
 
 type Story = StoryObj<BreadcrumbStoryArgs>
 
+// Strips the story-only fields (labels, hrefs, action handlers, ...) that
+// exist to drive the Controls panel, leaving only real `Breadcrumb`/`nav`
+// props so they don't leak onto the DOM element.
+function getNavProps({
+  homeLabel,
+  libraryLabel,
+  dataLabel,
+  currentLabel,
+  hrefHome,
+  hrefLibrary,
+  hrefData,
+  separatorText,
+  onLinkClick,
+  dropdownOpen,
+  onDropdownOpenChange,
+  onMenuSelect,
+  ...navProps
+}: BreadcrumbStoryArgs) {
+  return navProps
+}
+
 export const Default: Story = {
   render: args => (
-    <Breadcrumb {...args}>
+    <Breadcrumb {...getNavProps(args)}>
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink href={args.hrefHome} onClick={args.onLinkClick}>
@@ -127,7 +146,7 @@ export const Default: Story = {
 
 export const CustomSeparator: Story = {
   render: args => (
-    <Breadcrumb {...args}>
+    <Breadcrumb {...getNavProps(args)}>
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink href={args.hrefHome} onClick={args.onLinkClick}>
@@ -162,7 +181,7 @@ export const Dropdown: Story = {
     const open = dropdownOpen
 
     return (
-      <Breadcrumb {...storyArgs}>
+      <Breadcrumb {...getNavProps(storyArgs)}>
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink
@@ -224,7 +243,7 @@ export const Dropdown: Story = {
 
 export const Collapsed: Story = {
   render: args => (
-    <Breadcrumb {...args}>
+    <Breadcrumb {...getNavProps(args)}>
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink href={args.hrefHome} onClick={args.onLinkClick}>
@@ -259,7 +278,7 @@ LinkComponent.displayName = 'LinkComponent'
 export const LinkComponentExample: Story = {
   name: 'Link component',
   render: args => (
-    <Breadcrumb {...args}>
+    <Breadcrumb {...getNavProps(args)}>
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
@@ -287,7 +306,7 @@ export const LinkComponentExample: Story = {
 
 export const Responsive: Story = {
   render: args => (
-    <Breadcrumb {...args}>
+    <Breadcrumb {...getNavProps(args)}>
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink href={args.hrefHome} onClick={args.onLinkClick}>

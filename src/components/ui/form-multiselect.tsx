@@ -1,8 +1,10 @@
 import * as React from 'react'
+
+import {VStack} from '../layout'
+
+import {Label} from './label'
 import {Multiselect, type MultiselectProps} from './multiselect'
 import {Typography} from './typography'
-import {Label} from './label'
-import {VStack} from '../layout'
 import {cn} from './utils'
 
 interface FormMultiselectProps extends Omit<MultiselectProps, 'className'> {
@@ -13,10 +15,15 @@ interface FormMultiselectProps extends Omit<MultiselectProps, 'className'> {
   className?: string
 }
 
-export const FormMultiselect = React.forwardRef<
-  HTMLDivElement,
-  FormMultiselectProps
->(({label, error, helperText, required, className, disabled, ...props}) => {
+export function FormMultiselect({
+  label,
+  error,
+  helperText,
+  required,
+  className,
+  disabled,
+  ...props
+}: FormMultiselectProps) {
   return (
     <VStack gap="2" className="group" data-disabled={disabled}>
       {label && (
@@ -45,6 +52,5 @@ export const FormMultiselect = React.forwardRef<
       )}
     </VStack>
   )
-})
-
+}
 FormMultiselect.displayName = 'FormMultiselect'

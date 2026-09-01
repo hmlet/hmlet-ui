@@ -1,10 +1,11 @@
 import type {Meta, StoryObj} from '@storybook/react'
-import * as React from 'react'
 import {expect, userEvent, within} from '@storybook/test'
+import {Info} from 'lucide-react'
+import * as React from 'react'
 import {useForm} from 'react-hook-form'
 import type {FieldErrors} from 'react-hook-form'
-import {Info} from 'lucide-react'
 
+import {Button} from '../../components/ui/button'
 import {
   Form,
   FormControl,
@@ -15,7 +16,6 @@ import {
   FormMessage,
 } from '../../components/ui/form'
 import {Input} from '../../components/ui/input'
-import {Button} from '../../components/ui/button'
 
 type FormStoryArgs = {
   mode?: 'onSubmit' | 'onBlur' | 'onChange'

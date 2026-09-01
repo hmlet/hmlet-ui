@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { type VariantProps } from './cva';
 declare const typographyVariants: (props?: {
-    variant?: "h2" | "h3" | "h1" | "h4" | "h5" | "h6" | "display-xl" | "display-lg" | "display-md" | "body-xl" | "body-lg" | "body-md" | "body-base" | "body-sm" | "body-xs";
+    variant?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "display-xl" | "display-lg" | "display-md" | "body-xl" | "body-lg" | "body-md" | "body-base" | "body-sm" | "body-xs";
 } & import("class-variance-authority/types").ClassProp) => string;
 type TypographyVariant = NonNullable<VariantProps<typeof typographyVariants>['variant']>;
 type TypographyOwnProps = VariantProps<typeof typographyVariants> & {

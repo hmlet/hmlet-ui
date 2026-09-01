@@ -1,7 +1,8 @@
 import type {Meta, StoryObj} from '@storybook/react'
-
 import {Inbox, Plus, Users} from 'lucide-react'
 
+import {Avatar, AvatarFallback} from '../../components/ui/avatar'
+import {Button} from '../../components/ui/button'
 import {
   Empty,
   EmptyContent,
@@ -10,8 +11,6 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from '../../components/ui/empty'
-import {Avatar, AvatarFallback} from '../../components/ui/avatar'
-import {Button} from '../../components/ui/button'
 import {Input} from '../../components/ui/input'
 import {InputGroup} from '../../components/ui/input-group'
 

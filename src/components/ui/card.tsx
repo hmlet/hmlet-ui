@@ -1,7 +1,9 @@
 import * as React from 'react'
-import {cn} from './utils'
+
 import {normalizeNumberish} from '../layout/types'
 import type {WithNumberish} from '../layout/types'
+
+import {cn} from './utils'
 
 export interface CardProps extends React.ComponentProps<'div'> {
   // Padding

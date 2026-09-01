@@ -25,7 +25,6 @@ export const INTENT_CONTRACTS = {
   Wrap: {supports: {density: true}},
   Accordion: {supports: {operational: true}},
   AlertDialog: {supports: {operational: true}},
-  AspectRatio: {supports: {operational: true}},
   Avatar: {supports: {operational: true}},
   Breadcrumb: {supports: {operational: true}},
   ButtonGroup: {supports: {operational: true}},
@@ -88,26 +87,12 @@ export const INTENT_CONTRACTS = {
   },
 
   // Layout primitives (explicit examples)
-  Section: {
-    supports: {role: true, density: true},
-    defaults: {density: 'comfortable'},
-  },
-
-  Stack: {
-    supports: {density: true, urgency: true},
-  },
-
   Grid: {
     supports: {density: true},
   },
 
   Box: {
     supports: {density: true},
-  },
-
-  // Utility layout components typically should not receive intent.
-  Spacer: {
-    supports: {},
   },
 
   // Newly added UI components

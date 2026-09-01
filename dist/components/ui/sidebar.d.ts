@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { type VariantProps } from './cva';
+import type { WithNumberish } from '../layout/types';
 import { Button } from './button';
+import { type VariantProps } from './cva';
 import { Input } from './input';
 import { Separator } from './separator';
 import { TooltipContent } from './tooltip';
@@ -19,7 +20,6 @@ declare function SidebarProvider({ defaultOpen, open: openProp, onOpenChange: se
     open?: boolean;
     onOpenChange?: (open: boolean) => void;
 }): import("react/jsx-runtime").JSX.Element;
-import type { WithNumberish } from '../layout/types';
 export interface SidebarBoxProps {
     p?: WithNumberish<1 | 2 | 3 | 4 | 6 | 8 | 12 | 16 | 20 | 'none'>;
     px?: WithNumberish<1 | 2 | 3 | 4 | 6 | 8 | 12 | 16 | 20 | 'none'>;
@@ -56,7 +56,7 @@ declare function SidebarGroupContent({ className, ...props }: React.ComponentPro
 declare function SidebarMenu({ className, ...props }: React.ComponentProps<'ul'>): import("react/jsx-runtime").JSX.Element;
 declare function SidebarMenuItem({ className, ...props }: React.ComponentProps<'li'>): import("react/jsx-runtime").JSX.Element;
 declare const sidebarMenuButtonVariants: (props?: {
-    variant?: "default" | "outline";
+    variant?: "outline" | "default";
     size?: "sm" | "lg" | "default";
 } & import("class-variance-authority/types").ClassProp) => string;
 declare function SidebarMenuButton({ asChild, isActive, variant, size, tooltip, className, ...props }: React.ComponentProps<'button'> & {

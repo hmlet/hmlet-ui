@@ -1,11 +1,8 @@
 import type {Meta, StoryObj} from '@storybook/react'
-
-import * as React from 'react'
 import {expect, userEvent, within} from '@storybook/test'
+import * as React from 'react'
 import {useForm} from 'react-hook-form'
 
-import {Input} from '../../components/ui/input'
-import {Label} from '../../components/ui/label'
 import {Button} from '../../components/ui/button'
 import {
   Form,
@@ -16,6 +13,8 @@ import {
   FormLabel,
   FormMessage,
 } from '../../components/ui/form'
+import {Input} from '../../components/ui/input'
+import {Label} from '../../components/ui/label'
 
 type InputStoryArgs = React.ComponentProps<typeof Input> & {
   label?: string
@@ -28,6 +27,21 @@ type InputStoryArgs = React.ComponentProps<typeof Input> & {
 }
 
 type InputFormValues = {email: string}
+
+// Strips the story-only fields (label, helper text, button label, action
+// handlers, ...) that exist to drive the Controls panel, leaving only real
+// `Input` props so they don't leak onto the DOM element.
+function getInputProps({
+  label,
+  helperText,
+  buttonLabel,
+  onButtonClick,
+  onSubmit,
+  onInvalid,
+  ...inputProps
+}: InputStoryArgs) {
+  return inputProps
+}
 
 function InputFormExample(args: InputStoryArgs) {
   const form = useForm<InputFormValues>({
@@ -59,7 +73,7 @@ function InputFormExample(args: InputStoryArgs) {
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
-                  {...args}
+                  {...getInputProps(args)}
                   type={args.type ?? 'email'}
                   placeholder={args.placeholder ?? 'you@example.com'}
                   value={field.value}
@@ -167,6 +181,10 @@ const meta: Meta<InputStoryArgs> = {
     helperText: 'We’ll never share your email.',
     buttonLabel: 'Subscribe',
   },
+  // Stories that don't define their own `render` (e.g. Default, Disabled,
+  // WithValue) fall back to this. It strips the demo-only args that exist
+  // purely to drive the Controls panel, so they don't leak onto the DOM.
+  render: args => <Input {...getInputProps(args)} />,
 }
 
 export default meta
@@ -193,7 +211,7 @@ export const FileInput: Story = {
   },
   render: args => (
     <div className="[&_input]:max-w-xs">
-      <Input {...args} />
+      <Input {...getInputProps(args)} />
     </div>
   ),
   play: async ({canvasElement}) => {
@@ -232,7 +250,7 @@ export const WithLabel: Story = {
   render: args => (
     <div className="grid gap-2 [&_input]:max-w-xs">
       <Label htmlFor={args.id}>{args.label}</Label>
-      <Input {...args} />
+      <Input {...getInputProps(args)} />
       {args.helperText ? (
         <p className="text-sm text-muted-foreground">{args.helperText}</p>
       ) : null}
@@ -252,7 +270,7 @@ export const WithButton: Story = {
     return (
       <div className="flex max-w-sm items-center gap-2">
         <Input
-          {...args}
+          {...getInputProps(args)}
           value={value}
           onChange={event => {
             setValue(event.currentTarget.value)

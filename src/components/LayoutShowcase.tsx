@@ -1,4 +1,6 @@
+import {Home, Settings, Mail, MapPin, Star} from 'lucide-react'
 import React from 'react'
+
 import {
   Box,
   HStack,
@@ -15,11 +17,10 @@ import {
   Wrap,
   Bleed,
 } from './layout'
+import {LayoutExamples} from './LayoutExamples'
+import {LayoutGuide} from './LayoutGuide'
 import {Button} from './ui/button'
 import {Tabs, TabsContent, TabsList, TabsTrigger} from './ui/tabs'
-import {LayoutGuide} from './LayoutGuide'
-import {LayoutExamples} from './LayoutExamples'
-import {Home, Settings, Mail, MapPin, Star} from 'lucide-react'
 
 /**
  * Layout Component System Showcase

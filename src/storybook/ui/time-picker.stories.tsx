@@ -1,9 +1,8 @@
 import type {Meta, StoryObj} from '@storybook/react'
-
 import * as React from 'react'
 
-import {TimePicker} from '../../components/ui/time-picker'
 import {Label} from '../../components/ui/label'
+import {TimePicker} from '../../components/ui/time-picker'
 
 type TimePickerStoryArgs = React.ComponentProps<typeof TimePicker> & {
   label?: string

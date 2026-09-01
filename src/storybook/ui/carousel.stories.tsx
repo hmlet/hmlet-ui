@@ -1,7 +1,8 @@
+import {useArgs} from '@storybook/preview-api'
 import type {Meta, StoryObj} from '@storybook/react'
 import * as React from 'react'
-import {useArgs} from '@storybook/preview-api'
 
+import {Button} from '../../components/ui/button'
 import {
   type CarouselApi,
   Carousel,
@@ -10,7 +11,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '../../components/ui/carousel'
-import {Button} from '../../components/ui/button'
 import {cn} from '../../components/ui/utils'
 
 type CarouselStoryArgs = Omit<
@@ -312,6 +312,7 @@ function CarouselDemo(storyArgs: CarouselDemoProps) {
     onMethodNext,
     onMethodScrollTo,
     onMethodReInit,
+    onScrollToIndexChange,
     className,
     orientation,
     tabIndex,
@@ -491,7 +492,7 @@ function CarouselDemo(storyArgs: CarouselDemoProps) {
                     : 0
                 api?.scrollTo(nextIndex)
                 onMethodScrollTo?.(nextIndex)
-                storyArgs.onScrollToIndexChange?.(nextIndex)
+                onScrollToIndexChange?.(nextIndex)
               }}
               disabled={!api}
             >

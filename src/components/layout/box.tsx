@@ -1,6 +1,8 @@
 import React from 'react'
-import {cva, type VariantProps} from './cva'
+
 import {cn} from '../ui/utils'
+
+import {cva, type VariantProps} from './cva'
 
 /**
  * Box - The most basic layout primitive
@@ -148,6 +150,18 @@ export interface BoxProps
   m?: VariantProps<typeof boxVariants>['m']
   mx?: VariantProps<typeof boxVariants>['mx']
   my?: VariantProps<typeof boxVariants>['my']
+  /** Alias for `p` */
+  padding?: VariantProps<typeof boxVariants>['p']
+  /** Alias for `px` */
+  paddingX?: VariantProps<typeof boxVariants>['px']
+  /** Alias for `py` */
+  paddingY?: VariantProps<typeof boxVariants>['py']
+  /** Alias for `m` */
+  margin?: VariantProps<typeof boxVariants>['m']
+  /** Alias for `mx` */
+  marginX?: VariantProps<typeof boxVariants>['mx']
+  /** Alias for `my` */
+  marginY?: VariantProps<typeof boxVariants>['my']
 }
 
 export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
@@ -161,6 +175,12 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
       m,
       mx,
       my,
+      padding,
+      paddingX,
+      paddingY,
+      margin,
+      marginX,
+      marginY,
       shadow,
       width,
       height,
@@ -175,12 +195,12 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
         ref={ref}
         className={cn(
           boxVariants({
-            p,
-            px,
-            py,
-            m,
-            mx,
-            my,
+            p: p ?? padding,
+            px: px ?? paddingX,
+            py: py ?? paddingY,
+            m: m ?? margin,
+            mx: mx ?? marginX,
+            my: my ?? marginY,
             shadow,
             width,
             height,

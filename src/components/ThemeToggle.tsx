@@ -2,6 +2,7 @@ import {Moon, Sun} from 'lucide-react'
 import {useEffect} from 'react'
 
 import {DEFAULT_THEME_STORAGE_KEY, useTheme} from '../theme/ThemeProvider'
+
 import {Button} from './ui/button'
 
 type IconComponent = React.ComponentType<{className?: string; size?: number}>

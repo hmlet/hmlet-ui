@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { type VariantProps } from './cva';
 declare const spinnerVariants: (props?: {
-    variant?: "primary" | "secondary" | "current" | "destructive" | "success" | "muted";
+    variant?: "current" | "primary" | "secondary" | "destructive" | "success" | "muted";
     size?: "sm" | "md" | "lg" | "xl";
 } & import("class-variance-authority/types").ClassProp) => string;
 interface SpinnerProps extends React.ComponentProps<'svg'>, VariantProps<typeof spinnerVariants> {

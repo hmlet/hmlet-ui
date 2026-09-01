@@ -4,12 +4,8 @@
  */
 
 import os from 'node:os'
-import path from 'node:path'
-import {fileURLToPath} from 'node:url'
 
-import {warn, ok, info, dim} from '../utils/color.mjs'
-
-const __filename = fileURLToPath(import.meta.url)
+import {warn, ok, info} from '../utils/color.mjs'
 
 // Detect dependency install
 const IS_DEPENDENCY_INSTALL = process.cwd().includes('node_modules')

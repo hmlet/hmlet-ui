@@ -1,7 +1,6 @@
 import type {Meta, StoryObj} from '@storybook/react'
-
-import * as React from 'react'
 import {expect, userEvent, within} from '@storybook/test'
+import * as React from 'react'
 
 import {
   Pagination,
@@ -90,6 +89,23 @@ function getPaginationModel({
   return items.filter((item, index) => item !== items[index - 1])
 }
 
+// Strips the story-only fields (totalPages, initialPage, siblingCount,
+// showEdges, pageLinkSize, onPageChange, onLinkClick) that exist to drive the
+// Controls panel / demo state, leaving only real `Pagination` props so they
+// don't leak onto the DOM element.
+function getPaginationProps({
+  totalPages,
+  initialPage,
+  siblingCount,
+  showEdges,
+  pageLinkSize,
+  onPageChange,
+  onLinkClick,
+  ...paginationProps
+}: PaginationStoryArgs) {
+  return paginationProps
+}
+
 function PaginationDemo(args: PaginationStoryArgs) {
   const totalPages = args.totalPages ?? 10
   const siblingCount = args.siblingCount ?? 1
@@ -114,7 +130,7 @@ function PaginationDemo(args: PaginationStoryArgs) {
   return (
     <div className="grid gap-3">
       <div className="text-sm text-muted-foreground">Page: {page}</div>
-      <Pagination {...args}>
+      <Pagination {...getPaginationProps(args)}>
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious

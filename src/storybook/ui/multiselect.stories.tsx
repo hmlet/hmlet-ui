@@ -1,5 +1,6 @@
 import type {Meta, StoryObj} from '@storybook/react'
 import * as React from 'react'
+
 import {Multiselect} from '../../components/ui/multiselect'
 import type {MultiselectOption} from '../../components/ui/multiselect'
 

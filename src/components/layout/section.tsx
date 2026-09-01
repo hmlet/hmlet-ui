@@ -1,6 +1,8 @@
 import React from 'react'
-import {cva, type VariantProps} from './cva'
+
 import {cn} from '../ui/utils'
+
+import {cva, type VariantProps} from './cva'
 
 /**
  * Section - Page-level vertical grouping

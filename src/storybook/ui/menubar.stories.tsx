@@ -1,7 +1,6 @@
 import type {Meta, StoryObj} from '@storybook/react'
-
-import * as React from 'react'
 import {expect, userEvent, within} from '@storybook/test'
+import * as React from 'react'
 
 import {
   Menubar,
@@ -28,6 +27,22 @@ type MenubarStoryArgs = React.ComponentProps<typeof Menubar> & {
   loading?: boolean
   apiError?: {error: boolean; text?: string}
   emptyText?: string
+}
+
+// Strips the story-only fields (loading/apiError/emptyText belong on
+// `MenubarContent`; the action callbacks are read via closure) that exist to
+// drive the Controls panel, leaving only real `Menubar` props so they don't
+// leak onto the DOM element.
+function getMenubarProps({
+  onItemSelect,
+  onCheckboxChange,
+  onRadioChange,
+  loading,
+  apiError,
+  emptyText,
+  ...menubarProps
+}: MenubarStoryArgs) {
+  return menubarProps
 }
 
 const meta: Meta<MenubarStoryArgs> = {
@@ -87,7 +102,7 @@ export const Loading: Story = {
     loading: true,
   },
   render: args => (
-    <Menubar {...args}>
+    <Menubar {...getMenubarProps(args)}>
       <MenubarMenu>
         <MenubarTrigger>File</MenubarTrigger>
         <MenubarContent loading={args.loading}>
@@ -104,7 +119,7 @@ export const ApiError: Story = {
     apiError: {error: true, text: 'Retry fetch'},
   },
   render: args => (
-    <Menubar {...args}>
+    <Menubar {...getMenubarProps(args)}>
       <MenubarMenu>
         <MenubarTrigger>File</MenubarTrigger>
         <MenubarContent apiError={args.apiError}>
@@ -121,7 +136,7 @@ export const Empty: Story = {
     emptyText: 'Nothing found',
   },
   render: args => (
-    <Menubar {...args}>
+    <Menubar {...getMenubarProps(args)}>
       <MenubarMenu>
         <MenubarTrigger>File</MenubarTrigger>
         <MenubarContent emptyText={args.emptyText}>
@@ -138,7 +153,7 @@ type Story = StoryObj<typeof meta>
 
 function DemoMenubar(args: MenubarStoryArgs) {
   return (
-    <Menubar {...args}>
+    <Menubar {...getMenubarProps(args)}>
       <MenubarMenu>
         <MenubarTrigger>File</MenubarTrigger>
         <MenubarContent>
@@ -217,7 +232,7 @@ export const Default: Story = {
 
 export const Submenus: Story = {
   render: args => (
-    <Menubar {...args}>
+    <Menubar {...getMenubarProps(args)}>
       <MenubarMenu>
         <MenubarTrigger>File</MenubarTrigger>
         <MenubarContent>
@@ -271,7 +286,7 @@ export const CheckboxAndRadioItems: Story = {
     )
 
     return (
-      <Menubar {...args}>
+      <Menubar {...getMenubarProps(args)}>
         <MenubarMenu>
           <MenubarTrigger>View</MenubarTrigger>
           <MenubarContent>
@@ -342,7 +357,7 @@ export const CheckboxAndRadioItems: Story = {
 
 export const GroupsDisabledAndDestructive: Story = {
   render: args => (
-    <Menubar {...args}>
+    <Menubar {...getMenubarProps(args)}>
       <MenubarMenu>
         <MenubarTrigger>File</MenubarTrigger>
         <MenubarContent>

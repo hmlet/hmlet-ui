@@ -15,7 +15,7 @@ import type { WithNumberish } from './types';
  * </VStack>
  */
 declare const dividerVariants: (props?: {
-    orientation?: "horizontal" | "vertical";
+    orientation?: "vertical" | "horizontal";
     thickness?: 2 | 1;
     spacing?: 2 | "none" | 4 | 6;
 } & import("class-variance-authority/types").ClassProp) => string;

@@ -1,16 +1,16 @@
 'use client'
 
-import * as React from 'react'
-import PhoneInputBase from 'react-phone-number-input'
-import type {Country, Value} from 'react-phone-number-input'
-import {isValidPhoneNumber} from 'react-phone-number-input'
 import {ChevronDown, SearchIcon} from 'lucide-react'
+import * as React from 'react'
+import type {Country, Value} from 'react-phone-number-input'
+import PhoneInputBase from 'react-phone-number-input'
+import {isValidPhoneNumber} from 'react-phone-number-input'
 import flags from 'react-phone-number-input/flags'
 
-import {cn} from './utils'
 import {cva, type VariantProps} from './cva'
 import {Popover, PopoverContent, PopoverTrigger} from './popover'
 import {ScrollArea} from './scroll-area'
+import {cn} from './utils'
 
 const phoneInputVariants = cva(
   'flex w-full min-w-0 rounded-md border bg-input-background text-foreground transition-all duration-200 outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50',

@@ -1,3 +1,6 @@
+import {Mail, Download, Loader2, Plus, ArrowRight, Check} from 'lucide-react'
+
+import {Button} from './ui/button'
 import {
   Card,
   CardContent,
@@ -5,8 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from './ui/card'
-import {Button} from './ui/button'
-import {Mail, Download, Loader2, Plus, ArrowRight, Check} from 'lucide-react'
 
 export function ButtonShowcase() {
   return (

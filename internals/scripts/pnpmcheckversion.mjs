@@ -7,7 +7,7 @@ import {execSync} from 'node:child_process'
 import path from 'node:path'
 import {fileURLToPath} from 'node:url'
 
-import {ok, err, info, dim} from '../utils/color.mjs'
+import {ok, err, info} from '../utils/color.mjs'
 
 const __filename = fileURLToPath(import.meta.url)
 
@@ -57,7 +57,7 @@ function runCheck() {
   try {
     nodeResult = checkVersion('node', REQUIRED_NODE_MAJOR, 'Node.js')
     pnpmResult = checkVersion('pnpm', REQUIRED_PNPM_MAJOR, 'pnpm')
-  } catch (e) {
+  } catch {
     console.error(
       err(
         '❌ Unable to check environment versions.\n' +

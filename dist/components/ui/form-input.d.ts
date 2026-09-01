@@ -1,15 +1,15 @@
-import { type CalendarProps } from './calendar';
-import * as React from 'react';
-import { type InputProps } from './input';
 import type { LucideIcon } from 'lucide-react';
-import { type ApiErrorType, type SelectProps } from './select';
-import { Checkbox } from './checkbox';
+import * as React from 'react';
 import type { DateRange } from 'react-day-picker';
-import { RadioGroup } from './radio-group';
-import { type PhoneInputProps } from './phone-input';
-import { type TimePickerProps } from './time-picker';
+import { type CalendarProps } from './calendar';
+import { Checkbox } from './checkbox';
 import { type DateTimePickerProps } from './date-time-picker';
+import { type InputProps } from './input';
 import { InputOTP } from './input-otp';
+import { type PhoneInputProps } from './phone-input';
+import { RadioGroup } from './radio-group';
+import { type ApiErrorType, type SelectProps } from './select';
+import { type TimePickerProps } from './time-picker';
 interface FormInputProps extends InputProps {
     label?: string;
     error?: string;

@@ -1,15 +1,10 @@
 import type {Meta, StoryObj} from '@storybook/react'
-import * as React from 'react'
 import {expect, userEvent, within} from '@storybook/test'
 import {REGEXP_ONLY_DIGITS, REGEXP_ONLY_DIGITS_AND_CHARS} from 'input-otp'
+import * as React from 'react'
 import {useForm} from 'react-hook-form'
 
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSeparator,
-  InputOTPSlot,
-} from '../../components/ui/input-otp'
+import {Button} from '../../components/ui/button'
 import {
   Form,
   FormControl,
@@ -19,7 +14,12 @@ import {
   FormLabel,
   FormMessage,
 } from '../../components/ui/form'
-import {Button} from '../../components/ui/button'
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from '../../components/ui/input-otp'
 
 type InputOTPStoryArgs = {
   maxLength?: 4 | 6

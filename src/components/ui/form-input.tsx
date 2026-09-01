@@ -1,28 +1,4 @@
-import {Calendar, type CalendarProps} from './calendar'
-import * as React from 'react'
-import {Input, type InputProps} from './input'
-import {Textarea} from './textarea'
-import {Typography} from './typography'
 import type {LucideIcon} from 'lucide-react'
-import {cn} from './utils'
-import {VStack, HStack} from '../layout'
-import {Label} from './label'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  type ApiErrorType,
-  type SelectProps,
-} from './select'
-import {Checkbox} from './checkbox'
-import type {DateRange} from 'react-day-picker'
-import {RadioGroup, RadioGroupItem} from './radio-group'
-import {PhoneInput, type PhoneInputProps} from './phone-input'
-import {TimePicker, type TimePickerProps} from './time-picker'
-import {DateTimePicker, type DateTimePickerProps} from './date-time-picker'
-import {InputOTP} from './input-otp'
 import {
   X,
   Upload,
@@ -33,6 +9,33 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react'
+import * as React from 'react'
+import type {DateRange} from 'react-day-picker'
+
+import {VStack, HStack} from '../layout'
+
+import {Calendar, type CalendarProps} from './calendar'
+import {Checkbox} from './checkbox'
+import {DateTimePicker, type DateTimePickerProps} from './date-time-picker'
+import {Input, type InputProps} from './input'
+import {InputOTP} from './input-otp'
+import {Label} from './label'
+import {PhoneInput, type PhoneInputProps} from './phone-input'
+import {RadioGroup, RadioGroupItem} from './radio-group'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  type ApiErrorType,
+  type SelectProps,
+} from './select'
+import {Textarea} from './textarea'
+import {TimePicker, type TimePickerProps} from './time-picker'
+import {Typography} from './typography'
+import {cn} from './utils'
+
 interface FormInputProps extends InputProps {
   label?: string
   error?: string

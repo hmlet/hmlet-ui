@@ -192,7 +192,7 @@ export const SelectExample: Story = {
         Filter
       </Button>
       <Select defaultValue="week">
-        <SelectTrigger className="w-32">
+        <SelectTrigger size="sm" className="w-32">
           <SelectValue placeholder="Select" />
         </SelectTrigger>
         <SelectContent>

@@ -40,14 +40,14 @@ export const MultipleDates: Story = {
     )
   },
 }
-import type {Meta, StoryObj} from '@storybook/react'
 import {useArgs} from '@storybook/preview-api'
+import type {Meta, StoryObj} from '@storybook/react'
 import * as React from 'react'
 
-import {Calendar} from '../../components/ui/calendar'
 import {buttonVariants} from '../../components/ui/button'
-import {Input} from '../../components/ui/input'
 import {Button} from '../../components/ui/button'
+import {Calendar} from '../../components/ui/calendar'
+import {Input} from '../../components/ui/input'
 import {
   Select,
   SelectContent,

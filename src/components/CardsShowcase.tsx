@@ -1,3 +1,7 @@
+import {Bed, MapPin, Star, Users, Wifi} from 'lucide-react'
+
+import {Badge} from './ui/badge'
+import {Button} from './ui/button'
 import {
   Card,
   CardContent,
@@ -6,9 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from './ui/card'
-import {Button} from './ui/button'
-import {Badge} from './ui/badge'
-import {Bed, MapPin, Star, Users, Wifi} from 'lucide-react'
 
 export function CardsShowcase() {
   return (

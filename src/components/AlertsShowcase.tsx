@@ -1,3 +1,7 @@
+import {AlertCircle, CheckCircle2, Info, AlertTriangle} from 'lucide-react'
+
+import {Alert, AlertDescription, AlertTitle} from './ui/alert'
+import {Badge} from './ui/badge'
 import {
   Card,
   CardContent,
@@ -5,9 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from './ui/card'
-import {Alert, AlertDescription, AlertTitle} from './ui/alert'
-import {Badge} from './ui/badge'
-import {AlertCircle, CheckCircle2, Info, AlertTriangle} from 'lucide-react'
 
 export function AlertsShowcase() {
   return (

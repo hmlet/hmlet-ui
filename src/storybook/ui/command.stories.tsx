@@ -1,9 +1,9 @@
-import type {Meta, StoryObj} from '@storybook/react'
-
-import * as React from 'react'
 import {useArgs} from '@storybook/preview-api'
+import type {Meta, StoryObj} from '@storybook/react'
 import {Check, ChevronsUpDown} from 'lucide-react'
+import * as React from 'react'
 
+import {Button} from '../../components/ui/button'
 import {
   Command,
   CommandDialog,
@@ -15,18 +15,6 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from '../../components/ui/command'
-
-import {Button} from '../../components/ui/button'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '../../components/ui/popover'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '../../components/ui/dropdown-menu'
 import {
   Drawer,
   DrawerContent,
@@ -34,6 +22,16 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '../../components/ui/drawer'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from '../../components/ui/dropdown-menu'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '../../components/ui/popover'
 import {cn} from '../../components/ui/utils'
 
 const frameworks = [

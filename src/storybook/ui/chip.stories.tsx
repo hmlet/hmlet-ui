@@ -1,8 +1,9 @@
-import {useState} from 'react'
 import type {Meta, StoryObj} from '@storybook/react'
+import {useState} from 'react'
+
+import {VStack, HStack, Section, Box} from '../../components/layout'
 import {Chip} from '../../components/ui/chip'
 import type {ChipProps} from '../../components/ui/chip'
-import {VStack, HStack, Section, Box} from '../../components/layout'
 
 const meta: Meta<ChipProps> = {
   title: 'UI/Chip',

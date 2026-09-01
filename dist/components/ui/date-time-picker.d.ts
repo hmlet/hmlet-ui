@@ -2,7 +2,7 @@ import * as React from 'react';
 import { DayPicker } from 'react-day-picker';
 import { type VariantProps } from './cva';
 declare const dateTimePickerVariants: (props?: {
-    variant?: "error" | "default" | "success";
+    variant?: "default" | "error" | "success";
     size?: "sm" | "md" | "lg";
 } & import("class-variance-authority/types").ClassProp) => string;
 export type DateTimeValue = {
@@ -47,6 +47,9 @@ export interface DateTimePickerRangeProps extends DateTimePickerBaseProps {
     onChange?: (value: DateTimeRangeValue | null) => void;
 }
 export type DateTimePickerProps = DateTimePickerSingleProps | DateTimePickerRangeProps;
-declare const DateTimePicker: React.ForwardRefExoticComponent<DateTimePickerProps & React.RefAttributes<HTMLButtonElement>>;
+declare function DateTimePicker(props: DateTimePickerProps): import("react/jsx-runtime").JSX.Element;
+declare namespace DateTimePicker {
+    var displayName: string;
+}
 export type DateTimePickerVariants = VariantProps<typeof dateTimePickerVariants>;
 export { DateTimePicker, dateTimePickerVariants };

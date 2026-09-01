@@ -1,6 +1,7 @@
-import * as React from 'react'
-import {cva, type VariantProps} from './cva'
 import {Loader2} from 'lucide-react'
+import * as React from 'react'
+
+import {cva, type VariantProps} from './cva'
 import {cn} from './utils'
 
 const spinnerVariants = cva('inline-block shrink-0 animate-spin', {

@@ -1,11 +1,12 @@
 'use client'
 
-import * as React from 'react'
 import * as CollapsiblePrimitive from '@radix-ui/react-collapsible'
+import * as React from 'react'
 
-import {cn} from './utils'
 import {normalizeNumberish} from '../layout/types'
 import type {WithNumberish} from '../layout/types'
+
+import {cn} from './utils'
 
 export interface CollapsibleProps extends React.ComponentProps<
   typeof CollapsiblePrimitive.Root

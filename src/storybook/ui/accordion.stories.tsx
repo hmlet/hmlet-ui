@@ -1,5 +1,5 @@
-import type {Meta, StoryObj} from '@storybook/react'
 import {useArgs} from '@storybook/preview-api'
+import type {Meta, StoryObj} from '@storybook/react'
 
 import {
   Accordion,
@@ -82,11 +82,15 @@ export const Default: Story = {
     defaultValue: 'item-1',
   },
   render: args => {
-    const {value, defaultValue, ...rest} = args as AccordionSingleProps
+    const {value, defaultValue, collapsible, ...rest} =
+      args as AccordionSingleProps
 
     return (
       <Accordion
         {...rest}
+        {...(rest.type === 'single' && collapsible !== undefined
+          ? {collapsible}
+          : {})}
         {...(value !== undefined ? {value} : {})}
         {...(defaultValue !== undefined ? {defaultValue} : {})}
         className="w-full max-w-md"

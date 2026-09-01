@@ -2,10 +2,10 @@ import type {Meta, StoryObj} from '@storybook/react'
 import * as React from 'react'
 import type {Value} from 'react-phone-number-input'
 
-import {PhoneInput, isValidPhoneNumber} from '../../components/ui/phone-input'
 import {VStack, HStack} from '../../components/layout'
-import {Typography} from '../../components/ui/typography'
 import {Button} from '../../components/ui/button'
+import {PhoneInput, isValidPhoneNumber} from '../../components/ui/phone-input'
+import {Typography} from '../../components/ui/typography'
 
 type PhoneInputStoryArgs = React.ComponentProps<typeof PhoneInput> & {
   showValidation?: boolean

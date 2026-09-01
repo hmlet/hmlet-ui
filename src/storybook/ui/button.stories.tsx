@@ -1,8 +1,8 @@
 import type {Meta, StoryObj} from '@storybook/react'
-
-import {Button} from '../../components/ui/button'
-import {ButtonShowcase} from '../../components/ButtonShowcase'
 import {Loader2, Mail} from 'lucide-react'
+
+import {ButtonShowcase} from '../../components/ButtonShowcase'
+import {Button} from '../../components/ui/button'
 
 const meta = {
   title: 'UI/Button',
@@ -277,7 +277,7 @@ export const LinkComponent: Story = {
   name: 'Link (asChild)',
   args: {
     asChild: true,
-    children: <a href="#">Link as child</a>,
+    children: <a href="https://example.com">Link as child</a>,
   },
 }
 

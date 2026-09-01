@@ -1,12 +1,5 @@
 import type {Meta, StoryObj} from '@storybook/react'
-
 import {LoaderCircle} from 'lucide-react'
-
-import {
-  Spinner,
-  SpinnerContainer,
-  SpinnerOverlay,
-} from '../../components/ui/spinner'
 
 import {Badge} from '../../components/ui/badge'
 import {Button} from '../../components/ui/button'
@@ -27,6 +20,11 @@ import {
   ItemMedia,
   ItemTitle,
 } from '../../components/ui/item'
+import {
+  Spinner,
+  SpinnerContainer,
+  SpinnerOverlay,
+} from '../../components/ui/spinner'
 
 const meta = {
   title: 'UI/Spinner',

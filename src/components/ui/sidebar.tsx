@@ -1,13 +1,14 @@
 'use client'
 
-import * as React from 'react'
 import {Slot} from '@radix-ui/react-slot'
-import {type VariantProps, cva} from './cva'
 import {PanelLeftIcon} from 'lucide-react'
+import * as React from 'react'
 
-import {useIsMobile} from './use-mobile'
-import {cn} from './utils'
+import {normalizeNumberish} from '../layout/types'
+import type {WithNumberish} from '../layout/types'
+
 import {Button} from './button'
+import {type VariantProps, cva} from './cva'
 import {Input} from './input'
 import {Separator} from './separator'
 import {
@@ -24,6 +25,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from './tooltip'
+import {useIsMobile} from './use-mobile'
+import {cn} from './utils'
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state'
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -150,9 +153,6 @@ function SidebarProvider({
     </SidebarContext.Provider>
   )
 }
-
-import {normalizeNumberish} from '../layout/types'
-import type {WithNumberish} from '../layout/types'
 
 export interface SidebarBoxProps {
   // Padding
