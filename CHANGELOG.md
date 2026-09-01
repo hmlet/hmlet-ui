@@ -1,3 +1,8 @@
+## <small>1.0.2 (2026-09-01)</small>
+
+* Merge pull request #3 from hmlet/feat/release-version ([4a623e8](https://github.com/hmlet/hmlet-ui/commit/4a623e8)), closes [#3](https://github.com/hmlet/hmlet-ui/issues/3)
+* fix: ref error when installed ([260d001](https://github.com/hmlet/hmlet-ui/commit/260d001))
+
 ## <small>1.0.1 (2026-08-27)</small>
 
 * Merge pull request #2 from hmlet/feat/release-version ([1557a3b](https://github.com/hmlet/hmlet-ui/commit/1557a3b)), closes [#2](https://github.com/hmlet/hmlet-ui/issues/2)
