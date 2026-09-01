@@ -1,5 +1,12 @@
 module.exports = {
-  branches: ['main'],
+  branches: [
+    'main',
+    // RC / pre-release channel: commits merged to `next` produce
+    // pre-release versions (e.g. v3.0.0-rc.1) that consuming repos
+    // (Website, JP) can pin to and validate before a major release
+    // is promoted to `main`.
+    {name: 'next', channel: 'rc', prerelease: 'rc'},
+  ],
 
   tagFormat: 'v${version}',
 

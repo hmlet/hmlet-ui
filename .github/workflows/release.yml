@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+      # Pre-release / RC channel: pushes here publish vX.Y.Z-rc.N tags
+      # that consuming repos (Website, JP) can pin to and validate
+      # before a major/breaking release is promoted to `main`.
+      - next
 
 permissions:
   contents: write
@@ -47,8 +51,68 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Record previous tag
+        run: |
+          PREV_TAG=$(git tag --sort=-creatordate | head -n1)
+          echo "PREV_TAG=${PREV_TAG:-none}" >> "$GITHUB_ENV"
+
       - name: Run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HUSKY: 0
         run: pnpm release
+
+      - name: Determine release kind
+        id: release-kind
+        run: |
+          NEW_TAG=$(git tag --sort=-creatordate | head -n1)
+          echo "NEW_TAG=${NEW_TAG:-none}" >> "$GITHUB_ENV"
+
+          if [ "$NEW_TAG" = "$PREV_TAG" ] || [ -z "$NEW_TAG" ]; then
+            echo "kind=none" >> "$GITHUB_OUTPUT"
+            echo "No new release published in this run."
+            exit 0
+          fi
+
+          if echo "$NEW_TAG" | grep -q -- "-rc\."; then
+            echo "kind=rc" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # vMAJOR.MINOR.PATCH -> extract MAJOR for both tags
+          new_major=$(echo "$NEW_TAG" | sed -E 's/^v([0-9]+)\..*/\1/')
+          prev_major=$(echo "$PREV_TAG" | sed -E 's/^v([0-9]+)\..*/\1/')
+
+          if [ "$PREV_TAG" = "none" ] || [ "$new_major" != "$prev_major" ]; then
+            echo "kind=major" >> "$GITHUB_OUTPUT"
+          else
+            echo "kind=other" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Cross-team communication: notify Slack only for the releases that
+      # consuming repos (Website, JP) actually need to act on — an RC
+      # available for testing, or a major/breaking release that's shipped.
+      # Routine patch/minor releases stay quiet to avoid channel noise.
+      - name: Notify Slack on RC or major release
+        if: steps.release-kind.outputs.kind == 'rc' || steps.release-kind.outputs.kind == 'major'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          KIND: ${{ steps.release-kind.outputs.kind }}
+          REPO_URL: ${{ github.server_url }}/${{ github.repository }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "SLACK_WEBHOOK_URL secret not set — skipping Slack notification."
+            exit 0
+          fi
+
+          if [ "$KIND" = "rc" ]; then
+            TITLE=":test_tube: hmlet/ui pre-release *$NEW_TAG* is ready for testing"
+            BODY="A release candidate is available. Consuming repos (Website, JP) can pin to this tag on a test branch and validate before the final release ships.\n<$REPO_URL/releases/tag/$NEW_TAG|View pre-release notes>"
+          else
+            TITLE=":rotating_light: hmlet/ui *$NEW_TAG* — major/breaking release"
+            BODY="This release includes breaking changes. Please review the migration notes before upgrading, and coordinate your upgrade window with the hmlet/ui maintainers.\n<$REPO_URL/releases/tag/$NEW_TAG|View release notes>"
+          fi
+
+          curl -sf -X POST -H 'Content-type: application/json' \
+            --data "$(node -e "console.log(JSON.stringify({text: process.argv[1] + '\n' + process.argv[2]}))" "$TITLE" "$BODY")" \
+            "$SLACK_WEBHOOK_URL"

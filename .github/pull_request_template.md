@@ -69,9 +69,15 @@ If documentation was updated or added, link it here:
 - [ ] This PR introduces a breaking change
 - [ ] This PR does NOT introduce a breaking change
 
-If yes, explain clearly:
+If yes:
 
-<!-- Describe the breaking change and migration steps -->
+- [ ] Advance notice was posted in the shared Slack channel before this PR
+      merged
+- [ ] Migration notes were added at `docs/migrations/vX.0.0.md` (copied from
+      `docs/MIGRATION_TEMPLATE.md`)
+- [ ] This PR targets the `next` branch (RC channel) rather than `main` directly
+
+<!-- Link the migration notes file and describe the breaking change: -->
 
 ---
 
