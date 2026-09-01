@@ -1,6 +1,5 @@
 'use client'
 
-import * as React from 'react'
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu'
 import {
   CheckIcon,
@@ -8,9 +7,10 @@ import {
   CircleIcon,
   PackageOpen,
 } from 'lucide-react'
+import * as React from 'react'
 
-import {cn} from './utils'
 import {Spinner} from './spinner'
+import {cn} from './utils'
 
 function DropdownMenu({
   ...props

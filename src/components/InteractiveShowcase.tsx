@@ -1,3 +1,7 @@
+import {useState} from 'react'
+
+import {Avatar, AvatarFallback} from './ui/avatar'
+import {Calendar} from './ui/calendar'
 import {
   Card,
   CardContent,
@@ -5,14 +9,11 @@ import {
   CardHeader,
   CardTitle,
 } from './ui/card'
-import {Tabs, TabsContent, TabsList, TabsTrigger} from './ui/tabs'
 import {Progress} from './ui/progress'
-import {Slider} from './ui/slider'
 import {Separator} from './ui/separator'
 import {Skeleton} from './ui/skeleton'
-import {Avatar, AvatarFallback} from './ui/avatar'
-import {Calendar} from './ui/calendar'
-import {useState} from 'react'
+import {Slider} from './ui/slider'
+import {Tabs, TabsContent, TabsList, TabsTrigger} from './ui/tabs'
 
 export function InteractiveShowcase() {
   const [date, setDate] = useState<Date | undefined>(new Date())

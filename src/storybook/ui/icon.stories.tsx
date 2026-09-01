@@ -1,5 +1,6 @@
-import {Sun, Moon, Heart} from 'lucide-react'
 import type {Meta, StoryObj} from '@storybook/react'
+import {Sun, Moon, Heart} from 'lucide-react'
+
 import {Icon} from '../../components/ui'
 
 const meta: Meta<typeof Icon> = {

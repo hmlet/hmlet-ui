@@ -1,5 +1,5 @@
-import * as React from 'react';
 import * as SeparatorPrimitive from '@radix-ui/react-separator';
+import * as React from 'react';
 interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement> {
     variant?: 'attached' | 'separated';
     orientation?: 'horizontal' | 'vertical';

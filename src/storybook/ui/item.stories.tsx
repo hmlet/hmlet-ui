@@ -1,7 +1,14 @@
 import type {Meta, StoryObj} from '@storybook/react'
-
 import {ChevronRight, Home, Mail, MoreVertical, User} from 'lucide-react'
 
+import {Avatar, AvatarFallback, AvatarImage} from '../../components/ui/avatar'
+import {Button} from '../../components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '../../components/ui/dropdown-menu'
 import {
   Item,
   ItemActions,
@@ -14,15 +21,6 @@ import {
   ItemSeparator,
   ItemTitle,
 } from '../../components/ui/item'
-
-import {Avatar, AvatarFallback, AvatarImage} from '../../components/ui/avatar'
-import {Button} from '../../components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '../../components/ui/dropdown-menu'
 
 const meta = {
   title: 'UI/Item',

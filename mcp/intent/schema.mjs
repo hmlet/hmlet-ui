@@ -78,7 +78,6 @@ export function coerceIntentInput(intent) {
       'primary-cta[': 'primary-cta',
       'primary-cta}': 'primary-cta',
       'primary-cta{': 'primary-cta',
-      'primary-cta.': 'primary-cta',
       'primary-cta…': 'primary-cta',
 
       secondary: 'secondary-cta',

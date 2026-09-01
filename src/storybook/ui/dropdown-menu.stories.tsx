@@ -1,7 +1,5 @@
-import type {Meta, StoryObj} from '@storybook/react'
-
-import * as React from 'react'
 import {useArgs} from '@storybook/preview-api'
+import type {Meta, StoryObj} from '@storybook/react'
 import {expect, userEvent, within} from '@storybook/test'
 import {
   CreditCard,
@@ -14,7 +12,18 @@ import {
   User,
   Users,
 } from 'lucide-react'
+import * as React from 'react'
 
+import {Button} from '../../components/ui/button'
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '../../components/ui/dialog'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -31,16 +40,6 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu'
-import {Button} from '../../components/ui/button'
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '../../components/ui/dialog'
 
 type DropdownMenuStoryArgs = React.ComponentProps<typeof DropdownMenu> &
   Pick<
@@ -269,7 +268,9 @@ export const Playground: Story = {
     const canvas = within(canvasElement)
     const body = within(canvasElement.ownerDocument.body)
 
-    await userEvent.click(canvas.getByRole('button', {name: 'Open'}))
+    if (!body.queryByText('Actions')) {
+      await userEvent.click(canvas.getByRole('button', {name: 'Open'}))
+    }
     await expect(body.getByText('Actions')).toBeInTheDocument()
     await userEvent.click(body.getByText('Profile'))
     await expect(body.queryByText('Actions')).not.toBeInTheDocument()

@@ -1,5 +1,5 @@
-import * as React from 'react';
 import * as CollapsiblePrimitive from '@radix-ui/react-collapsible';
+import * as React from 'react';
 import type { WithNumberish } from '../layout/types';
 export interface CollapsibleProps extends React.ComponentProps<typeof CollapsiblePrimitive.Root> {
     p?: WithNumberish<1 | 2 | 3 | 4 | 6 | 8 | 12 | 16 | 20 | 'none'>;

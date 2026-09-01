@@ -1,4 +1,6 @@
+import {useArgs} from '@storybook/preview-api'
 import type {Meta, StoryObj} from '@storybook/react'
+
 import {Skeleton} from '../../components/ui/skeleton'
 
 type DefaultArgs = {
@@ -141,80 +143,85 @@ export const Card: StoryObj<CardArgs> = {
     controls: {include: ['loading', 'avatar', 'lines', 'width', 'height']},
     actions: {argTypesRegex: '^on.*|loading'},
   },
-  render: ({loading, avatar, lines, width, height}) => (
-    <div
-      style={{width, height}}
-      className="rounded-xl border bg-card p-6 shadow flex h-auto flex-col gap-4 justify-between"
-    >
-      <div className="flex items-center gap-4">
-        {avatar &&
-          (loading ? (
-            <Skeleton className="h-12 w-12 rounded-full" />
-          ) : (
-            <img
-              src="https://i.pravatar.cc/48"
-              alt="avatar"
-              className="h-12 w-12 rounded-full object-cover"
-            />
-          ))}
-        <div className="flex-1">
+  render: function CardRender({avatar, lines, width, height}) {
+    const [{loading}, updateArgs] = useArgs<CardArgs>()
+
+    return (
+      <div
+        style={{width, height}}
+        className="rounded-xl border bg-card p-6 shadow flex h-auto flex-col gap-4 justify-between"
+      >
+        <div className="flex items-center gap-4">
+          {avatar &&
+            (loading ? (
+              <Skeleton className="h-12 w-12 rounded-full" />
+            ) : (
+              <img
+                src="https://i.pravatar.cc/48"
+                alt="avatar"
+                className="h-12 w-12 rounded-full object-cover"
+              />
+            ))}
+          <div className="flex-1">
+            {loading ? (
+              <Skeleton className="h-4 w-32 mb-2" />
+            ) : (
+              <div className="font-semibold">Jane Doe</div>
+            )}
+            {loading ? (
+              <Skeleton className="h-3 w-20" />
+            ) : (
+              <div className="text-xs text-muted-foreground">
+                Product Manager
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="flex-1 flex flex-col gap-2 mt-2">
           {loading ? (
-            <Skeleton className="h-4 w-32 mb-2" />
+            Array.from({length: lines}).map((_, i) => (
+              <Skeleton
+                key={i}
+                className={`h-3 w-full${i === lines - 1 ? ' w-2/3' : ''}`}
+              />
+            ))
           ) : (
-            <div className="font-semibold">Jane Doe</div>
-          )}
-          {loading ? (
-            <Skeleton className="h-3 w-20" />
-          ) : (
-            <div className="text-xs text-muted-foreground">Product Manager</div>
+            <div>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Pellentesque euismod, urna eu tincidunt consectetur, nisi nisl
+              aliquam nunc, eget aliquam massa nisl quis neque.
+            </div>
           )}
         </div>
-      </div>
-      <div className="flex-1 flex flex-col gap-2 mt-2">
-        {loading ? (
-          Array.from({length: lines}).map((_, i) => (
-            <Skeleton
-              key={i}
-              className={`h-3 w-full${i === lines - 1 ? ' w-2/3' : ''}`}
-            />
-          ))
-        ) : (
-          <div>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Pellentesque euismod, urna eu tincidunt consectetur, nisi nisl
-            aliquam nunc, eget aliquam massa nisl quis neque.
-          </div>
-        )}
-      </div>
-      <div className="flex gap-2 mt-4">
-        {loading ? (
-          <Skeleton className="h-8 w-20 rounded" />
-        ) : (
-          <button className="px-4 py-2 rounded bg-primary text-white">
-            Action
+        <div className="flex gap-2 mt-4">
+          {loading ? (
+            <Skeleton className="h-8 w-20 rounded" />
+          ) : (
+            <button className="px-4 py-2 rounded bg-primary text-white">
+              Action
+            </button>
+          )}
+          {loading ? (
+            <Skeleton className="h-8 w-20 rounded" />
+          ) : (
+            <button className="px-4 py-2 rounded border">Cancel</button>
+          )}
+        </div>
+        <div className="mt-2">
+          <button
+            type="button"
+            className="text-xs underline text-primary"
+            onClick={() => {
+              updateArgs({loading: !loading})
+            }}
+          >
+            Toggle Loading (play)
           </button>
-        )}
-        {loading ? (
-          <Skeleton className="h-8 w-20 rounded" />
-        ) : (
-          <button className="px-4 py-2 rounded border">Cancel</button>
-        )}
+        </div>
       </div>
-      <div className="mt-2">
-        <button
-          type="button"
-          className="text-xs underline text-primary"
-          onClick={() => {
-            const event = new CustomEvent('storybook:card-toggle-loading')
-            window.dispatchEvent(event)
-          }}
-        >
-          Toggle Loading (play)
-        </button>
-      </div>
-    </div>
-  ),
-  play: async ({canvasElement, args, step, updateArgs}) => {
+    )
+  },
+  play: async ({canvasElement, step}) => {
     // Simulate toggling loading state via button
     const button = canvasElement.querySelector(
       'button.text-xs',
@@ -222,7 +229,6 @@ export const Card: StoryObj<CardArgs> = {
     if (button) {
       await step('Toggle loading', async () => {
         button.click()
-        updateArgs({loading: !args.loading})
       })
     }
   },

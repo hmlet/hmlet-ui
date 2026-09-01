@@ -1,10 +1,10 @@
-import * as React from 'react'
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu'
-import {cva} from './cva'
 import {ChevronDownIcon, PackageOpen} from 'lucide-react'
+import * as React from 'react'
 
-import {cn} from './utils'
+import {cva} from './cva'
 import {Spinner} from './spinner'
+import {cn} from './utils'
 
 function NavigationMenu({
   className,

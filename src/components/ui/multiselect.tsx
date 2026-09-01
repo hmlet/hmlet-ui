@@ -1,15 +1,16 @@
-import * as React from 'react'
 import {CheckIcon, PackageOpen, SearchIcon} from 'lucide-react'
+import * as React from 'react'
+
 import {Checkbox} from './checkbox'
 import {Spinner} from './spinner'
-import {cn} from './utils'
-import useDebounce from './utils'
 import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
   TooltipProvider,
 } from './tooltip'
+import {cn} from './utils'
+import useDebounce from './utils'
 
 export type MultiselectOption = {
   value: string

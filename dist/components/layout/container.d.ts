@@ -16,16 +16,16 @@ declare const containerVariants: (props?: {
     p?: "none" | 4 | 6 | 8;
     px?: "none" | 4 | 6 | 8;
     py?: "none" | 4 | 6 | 8;
-    m?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    m?: 2 | 1 | "none" | 3 | 4 | 6 | 8 | 12 | 16 | 20;
     mx?: "none" | 4 | 6 | 8;
     my?: "none" | 4 | 6 | 8;
     width?: "auto" | "full" | "fit" | "screen";
     height?: "auto" | "full" | "fit" | "screen";
-    shadow?: "sm" | "md" | "lg" | "none" | "default" | "xl" | "2xl" | "inner" | "outline";
-    display?: "grid" | "inline" | "block" | "inline-block" | "flex" | "inline-flex";
+    shadow?: "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "inner" | "outline" | "default";
+    display?: "block" | "inline" | "inline-block" | "flex" | "inline-flex" | "grid";
 } & import("class-variance-authority/types").ClassProp) => string;
 type ContainerVariantProps = VariantProps<typeof containerVariants>;
-export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement>, Omit<ContainerVariantProps, 'padding' | 'margin'> {
+export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement>, Omit<ContainerVariantProps, 'padding' | 'paddingX' | 'paddingY' | 'margin' | 'marginX' | 'marginY'> {
     as?: React.ElementType;
     children?: React.ReactNode;
     p?: VariantProps<typeof containerVariants>['p'];
@@ -34,6 +34,18 @@ export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement>, Om
     m?: VariantProps<typeof containerVariants>['m'];
     mx?: VariantProps<typeof containerVariants>['mx'];
     my?: VariantProps<typeof containerVariants>['my'];
+    /** Alias for `p` */
+    padding?: VariantProps<typeof containerVariants>['p'];
+    /** Alias for `px` */
+    paddingX?: VariantProps<typeof containerVariants>['px'];
+    /** Alias for `py` */
+    paddingY?: VariantProps<typeof containerVariants>['py'];
+    /** Alias for `m` */
+    margin?: VariantProps<typeof containerVariants>['m'];
+    /** Alias for `mx` */
+    marginX?: VariantProps<typeof containerVariants>['mx'];
+    /** Alias for `my` */
+    marginY?: VariantProps<typeof containerVariants>['my'];
     width?: VariantProps<typeof containerVariants>['width'];
     height?: VariantProps<typeof containerVariants>['height'];
     shadow?: VariantProps<typeof containerVariants>['shadow'];

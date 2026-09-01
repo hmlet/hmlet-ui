@@ -1,11 +1,10 @@
 import type {Meta, StoryObj} from '@storybook/react'
-
-import * as React from 'react'
 import {expect, userEvent, within} from '@storybook/test'
+import * as React from 'react'
 
-import {Label} from '../../components/ui/label'
-import {Input} from '../../components/ui/input'
 import {Checkbox} from '../../components/ui/checkbox'
+import {Input} from '../../components/ui/input'
+import {Label} from '../../components/ui/label'
 
 type LabelStoryArgs = React.ComponentProps<typeof Label> & {
   text?: string

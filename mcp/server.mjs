@@ -3,7 +3,7 @@ import path from 'node:path'
 
 import {z} from 'zod'
 
-import {coerceIntentInput, intentInputSchema} from './intent/schema.mjs'
+import {coerceIntentInput} from './intent/schema.mjs'
 import {resolveIntent} from './intent/resolve.mjs'
 import {
   getIntentContract,
@@ -816,7 +816,6 @@ function parseTopLevelObjectEntries(objLiteralText) {
 
     // if value is an object literal, capture it; otherwise capture until comma at top-level
     if (inner[i] === '{') {
-      const absoluteOpen = i + 1 // for sliceBalanced we need the string starting at this position, so adapt
       const block = sliceBalanced(inner, i, {openChar: '{', closeChar: '}'})
       if (!block) break
       entries.push({key, value: block})

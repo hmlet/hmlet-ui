@@ -1,8 +1,8 @@
-import * as React from 'react';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
+import * as React from 'react';
 import { type VariantProps } from './cva';
 declare const checkboxVariants: (props?: {
-    variant?: "primary" | "secondary" | "error";
+    variant?: "error" | "primary" | "secondary";
     size?: "sm" | "md" | "lg";
 } & import("class-variance-authority/types").ClassProp) => string;
 interface CheckboxProps extends React.ComponentProps<typeof CheckboxPrimitive.Root>, VariantProps<typeof checkboxVariants> {

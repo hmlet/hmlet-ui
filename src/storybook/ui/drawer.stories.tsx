@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react'
-
 import * as React from 'react'
 
+import {Button} from '../../components/ui/button'
 import {
   Drawer,
   DrawerClose,
@@ -12,7 +12,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '../../components/ui/drawer'
-import {Button} from '../../components/ui/button'
 
 type DrawerStoryArgs = React.ComponentProps<typeof Drawer> & {
   open?: boolean

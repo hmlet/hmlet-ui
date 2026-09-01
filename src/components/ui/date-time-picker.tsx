@@ -1,13 +1,14 @@
 'use client'
 
-import * as React from 'react'
 import {CalendarIcon, Clock, X, ChevronDown} from 'lucide-react'
-import {DayPicker, type DateRange} from 'react-day-picker'
-import {cva, type VariantProps} from './cva'
-import {cn} from './utils'
-import {buttonVariants} from './button'
 import {ChevronLeft, ChevronRight} from 'lucide-react'
+import * as React from 'react'
+import {DayPicker, type DateRange} from 'react-day-picker'
+
+import {buttonVariants} from './button'
+import {cva, type VariantProps} from './cva'
 import {Popover, PopoverContent, PopoverTrigger} from './popover'
+import {cn} from './utils'
 
 /* ─── Variants (matches Input sizing) ─── */
 
@@ -970,14 +971,12 @@ function DateTimePickerRange({
 
 /* ─── Wrapper Component ─── */
 
-const DateTimePicker = React.forwardRef<HTMLButtonElement, DateTimePickerProps>(
-  props => {
-    if (props.mode === 'range') {
-      return <DateTimePickerRange {...props} />
-    }
-    return <DateTimePickerSingle {...props} />
-  },
-)
+function DateTimePicker(props: DateTimePickerProps) {
+  if (props.mode === 'range') {
+    return <DateTimePickerRange {...props} />
+  }
+  return <DateTimePickerSingle {...props} />
+}
 DateTimePicker.displayName = 'DateTimePicker'
 
 export type DateTimePickerVariants = VariantProps<typeof dateTimePickerVariants>

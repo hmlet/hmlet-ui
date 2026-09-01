@@ -1,6 +1,7 @@
-import * as React from 'react'
-import {Slot} from '@radix-ui/react-slot'
 import * as SeparatorPrimitive from '@radix-ui/react-separator'
+import {Slot} from '@radix-ui/react-slot'
+import * as React from 'react'
+
 import {cn} from './utils'
 
 interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement> {

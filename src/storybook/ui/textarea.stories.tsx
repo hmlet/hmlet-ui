@@ -1,8 +1,8 @@
 import type {Meta, StoryObj} from '@storybook/react'
 
-import {Textarea} from '../../components/ui/textarea'
-import {Label} from '../../components/ui/label'
 import {Button} from '../../components/ui/button'
+import {Label} from '../../components/ui/label'
+import {Textarea} from '../../components/ui/textarea'
 
 const meta = {
   title: 'UI/Textarea',

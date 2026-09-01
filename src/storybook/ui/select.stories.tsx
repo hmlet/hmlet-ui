@@ -1,7 +1,6 @@
 import type {Meta, StoryObj} from '@storybook/react'
-
-import * as React from 'react'
 import {expect, userEvent, within} from '@storybook/test'
+import * as React from 'react'
 
 import {
   Select,
@@ -320,7 +319,9 @@ export const Grouped: Story = {
     const body = within(document.body)
 
     await userEvent.click(canvas.getByRole('combobox'))
-    await expect(body.getByText('Theme')).toBeInTheDocument()
+    await expect(
+      body.getByText('Theme', {selector: '[data-slot="select-label"]'}),
+    ).toBeInTheDocument()
     await expect(
       body.getByRole('option', {name: 'Disabled option'}),
     ).toHaveAttribute('aria-disabled', 'true')

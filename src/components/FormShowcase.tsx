@@ -1,25 +1,4 @@
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from './ui/card'
-import {Input} from './ui/input'
-import {Label} from './ui/label'
-import {Textarea} from './ui/textarea'
-import {Checkbox} from './ui/checkbox'
-import {RadioGroup, RadioGroupItem} from './ui/radio-group'
-import {Switch} from './ui/switch'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from './ui/select'
-import {Button} from './ui/button'
-import {
   Search,
   Calendar,
   Mail,
@@ -27,6 +6,28 @@ import {
   AlertCircle,
   CheckCircle2,
 } from 'lucide-react'
+
+import {Button} from './ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from './ui/card'
+import {Checkbox} from './ui/checkbox'
+import {Input} from './ui/input'
+import {Label} from './ui/label'
+import {RadioGroup, RadioGroupItem} from './ui/radio-group'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from './ui/select'
+import {Switch} from './ui/switch'
+import {Textarea} from './ui/textarea'
 
 export function FormShowcase() {
   return (
@@ -47,27 +48,19 @@ export function FormShowcase() {
           <div className="space-y-3 max-w-md">
             <div className="space-y-2">
               <Label htmlFor="input-sm">Small Input</Label>
-              <Input
-                id="input-sm"
-                inputSize="sm"
-                placeholder="Small input (h-9)"
-              />
+              <Input id="input-sm" size="sm" placeholder="Small input (h-9)" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="input-md">Medium Input (Default)</Label>
               <Input
                 id="input-md"
-                inputSize="md"
+                size="md"
                 placeholder="Medium input (h-11)"
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor="input-lg">Large Input</Label>
-              <Input
-                id="input-lg"
-                inputSize="lg"
-                placeholder="Large input (h-12)"
-              />
+              <Input id="input-lg" size="lg" placeholder="Large input (h-12)" />
             </div>
           </div>
         </div>

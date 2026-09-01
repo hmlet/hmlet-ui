@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react'
-
 import {Mail, Search} from 'lucide-react'
 
+import {Input} from '../../components/ui/input'
 import {
   InputGroup,
   InputLeftAddon,
@@ -9,7 +9,6 @@ import {
   InputRightAddon,
   InputRightElement,
 } from '../../components/ui/input-group'
-import {Input} from '../../components/ui/input'
 
 const meta = {
   title: 'UI/Input Group',

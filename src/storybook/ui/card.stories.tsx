@@ -98,6 +98,7 @@ export const WidthHeightDisplay: Story = {
 }
 import type {Meta, StoryObj} from '@storybook/react'
 
+import {Button} from '../../components/ui/button'
 import {
   Card,
   CardAction,
@@ -107,7 +108,6 @@ import {
   CardHeader,
   CardTitle,
 } from '../../components/ui/card'
-import {Button} from '../../components/ui/button'
 
 const meta = {
   title: 'UI/Card',

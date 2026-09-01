@@ -1,8 +1,8 @@
-import * as React from 'react'
 import {Slot} from '@radix-ui/react-slot'
-import {cva, type VariantProps} from './cva'
 import {Loader2} from 'lucide-react'
+import * as React from 'react'
 
+import {cva, type VariantProps} from './cva'
 import {cn} from './utils'
 
 const buttonVariants = cva(

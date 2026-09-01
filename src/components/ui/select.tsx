@@ -1,6 +1,5 @@
 'use client'
 
-import * as React from 'react'
 import * as SelectPrimitive from '@radix-ui/react-select'
 import {
   CheckIcon,
@@ -9,10 +8,11 @@ import {
   PackageOpen,
   SearchIcon,
 } from 'lucide-react'
+import * as React from 'react'
 
+import {Spinner} from './spinner'
 import {cn} from './utils'
 import useDebounce from './utils'
-import {Spinner} from './spinner'
 
 export type ApiErrorType = {
   error: boolean

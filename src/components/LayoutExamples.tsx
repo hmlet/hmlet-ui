@@ -1,20 +1,3 @@
-import React from 'react'
-import {
-  Box,
-  HStack,
-  VStack,
-  Inline,
-  Spacer,
-  Grid,
-  GridItem,
-  Container,
-  Section,
-  LayoutAspectRatio as AspectRatio,
-  Divider,
-  Center,
-} from './layout'
-import {Button} from './ui/button'
-import {Input} from './ui/input'
 import {
   Home,
   Search,
@@ -31,6 +14,24 @@ import {
   Dumbbell,
   Car,
 } from 'lucide-react'
+import React from 'react'
+
+import {
+  Box,
+  HStack,
+  VStack,
+  Inline,
+  Spacer,
+  Grid,
+  GridItem,
+  Container,
+  Section,
+  LayoutAspectRatio as AspectRatio,
+  Divider,
+  Center,
+} from './layout'
+import {Button} from './ui/button'
+import {Input} from './ui/input'
 
 /**
  * Real-World Layout Examples

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { type VariantProps } from './cva';
 import { Separator } from './separator';
 declare const itemVariants: (props?: {
-    variant?: "default" | "muted" | "outline";
+    variant?: "outline" | "default" | "muted";
     size?: "sm" | "default";
 } & import("class-variance-authority/types").ClassProp) => string;
 type ItemVariantProps = VariantProps<typeof itemVariants>;
@@ -13,7 +13,7 @@ declare const Item: React.ForwardRefExoticComponent<Omit<ItemProps, "ref"> & Rea
 declare function ItemGroup({ className, ...props }: React.ComponentProps<'div'>): import("react/jsx-runtime").JSX.Element;
 declare function ItemSeparator({ className, ...props }: React.ComponentProps<typeof Separator>): import("react/jsx-runtime").JSX.Element;
 declare const itemMediaVariants: (props?: {
-    variant?: "image" | "default" | "icon";
+    variant?: "default" | "image" | "icon";
 } & import("class-variance-authority/types").ClassProp) => string;
 interface ItemMediaProps extends React.ComponentProps<'div'>, VariantProps<typeof itemMediaVariants> {
 }

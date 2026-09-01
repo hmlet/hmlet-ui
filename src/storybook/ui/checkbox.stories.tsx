@@ -1,6 +1,5 @@
-import type {Meta, StoryObj} from '@storybook/react'
-
 import {useArgs} from '@storybook/preview-api'
+import type {Meta, StoryObj} from '@storybook/react'
 import * as React from 'react'
 
 import {Checkbox} from '../../components/ui/checkbox'

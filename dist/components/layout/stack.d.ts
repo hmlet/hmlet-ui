@@ -14,21 +14,21 @@ import { type WithNumberish } from './types';
  * </Stack>
  */
 declare const stackVariants: (props?: {
-    direction?: "horizontal" | "vertical";
-    gap?: 0 | 2 | 1 | 16 | 3 | 4 | 6 | 8 | 12 | 20;
-    align?: "center" | "end" | "baseline" | "start" | "stretch";
-    justify?: "center" | "end" | "start" | "space-between" | "space-around" | "space-evenly";
-    wrap?: "nowrap" | "wrap" | "wrap-reverse";
-    p?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    px?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    py?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    m?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    mx?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
-    my?: 2 | 1 | 16 | "none" | 3 | 4 | 6 | 8 | 12 | 20;
+    direction?: "vertical" | "horizontal";
+    gap?: 0 | 2 | 1 | 3 | 4 | 6 | 8 | 12 | 16 | 20;
+    align?: "center" | "start" | "baseline" | "end" | "stretch";
+    justify?: "center" | "start" | "end" | "space-between" | "space-around" | "space-evenly";
+    wrap?: "wrap" | "nowrap" | "wrap-reverse";
+    p?: 2 | 1 | "none" | 3 | 4 | 6 | 8 | 12 | 16 | 20;
+    px?: 2 | 1 | "none" | 3 | 4 | 6 | 8 | 12 | 16 | 20;
+    py?: 2 | 1 | "none" | 3 | 4 | 6 | 8 | 12 | 16 | 20;
+    m?: 2 | 1 | "none" | 3 | 4 | 6 | 8 | 12 | 16 | 20;
+    mx?: 2 | 1 | "none" | 3 | 4 | 6 | 8 | 12 | 16 | 20;
+    my?: 2 | 1 | "none" | 3 | 4 | 6 | 8 | 12 | 16 | 20;
     width?: "auto" | "full" | "fit" | "screen";
     height?: "auto" | "full" | "fit" | "screen";
-    shadow?: "sm" | "md" | "lg" | "none" | "default" | "xl" | "2xl" | "inner" | "outline";
-    display?: "grid" | "inline" | "block" | "inline-block" | "flex" | "inline-flex";
+    shadow?: "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "inner" | "outline" | "default";
+    display?: "block" | "inline" | "inline-block" | "flex" | "inline-flex" | "grid";
 } & import("class-variance-authority/types").ClassProp) => string;
 type StackVariantProps = VariantProps<typeof stackVariants>;
 export interface StackProps extends React.HTMLAttributes<HTMLDivElement>, Omit<StackVariantProps, 'gap'> {

@@ -3,7 +3,7 @@ import type { Country, Value } from 'react-phone-number-input';
 import { isValidPhoneNumber } from 'react-phone-number-input';
 import { type VariantProps } from './cva';
 declare const phoneInputVariants: (props?: {
-    variant?: "error" | "default" | "success";
+    variant?: "default" | "error" | "success";
     size?: "sm" | "md" | "lg";
 } & import("class-variance-authority/types").ClassProp) => string;
 export interface PhoneInputProps extends Omit<VariantProps<typeof phoneInputVariants>, 'size'> {

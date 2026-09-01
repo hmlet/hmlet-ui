@@ -1,6 +1,8 @@
 import React from 'react'
-import {cva, type VariantProps} from './cva'
+
 import {cn} from '../ui/utils'
+
+import {cva, type VariantProps} from './cva'
 
 /**
  * Container - Content width constrainer
@@ -118,7 +120,10 @@ type ContainerVariantProps = VariantProps<typeof containerVariants>
 export interface ContainerProps
   extends
     React.HTMLAttributes<HTMLDivElement>,
-    Omit<ContainerVariantProps, 'padding' | 'margin'> {
+    Omit<
+      ContainerVariantProps,
+      'padding' | 'paddingX' | 'paddingY' | 'margin' | 'marginX' | 'marginY'
+    > {
   as?: React.ElementType
   children?: React.ReactNode
   p?: VariantProps<typeof containerVariants>['p']
@@ -127,6 +132,18 @@ export interface ContainerProps
   m?: VariantProps<typeof containerVariants>['m']
   mx?: VariantProps<typeof containerVariants>['mx']
   my?: VariantProps<typeof containerVariants>['my']
+  /** Alias for `p` */
+  padding?: VariantProps<typeof containerVariants>['p']
+  /** Alias for `px` */
+  paddingX?: VariantProps<typeof containerVariants>['px']
+  /** Alias for `py` */
+  paddingY?: VariantProps<typeof containerVariants>['py']
+  /** Alias for `m` */
+  margin?: VariantProps<typeof containerVariants>['m']
+  /** Alias for `mx` */
+  marginX?: VariantProps<typeof containerVariants>['mx']
+  /** Alias for `my` */
+  marginY?: VariantProps<typeof containerVariants>['my']
   width?: VariantProps<typeof containerVariants>['width']
   height?: VariantProps<typeof containerVariants>['height']
   shadow?: VariantProps<typeof containerVariants>['shadow']
@@ -145,6 +162,12 @@ export const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
       m,
       mx,
       my,
+      padding,
+      paddingX,
+      paddingY,
+      margin,
+      marginX,
+      marginY,
       width,
       height,
       shadow,
@@ -160,12 +183,12 @@ export const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
         className={cn(
           containerVariants({
             maxWidth,
-            p,
-            px,
-            py,
-            m,
-            mx,
-            my,
+            p: p ?? padding,
+            px: px ?? paddingX,
+            py: py ?? paddingY,
+            m: m ?? margin,
+            mx: mx ?? marginX,
+            my: my ?? marginY,
             width,
             height,
             shadow,

@@ -1,12 +1,10 @@
 import type {Meta, StoryObj} from '@storybook/react'
-
-import {Kbd, KbdGroup} from '../../components/ui/kbd'
-
 import {Command} from 'lucide-react'
 
 import {Button} from '../../components/ui/button'
 import {Input} from '../../components/ui/input'
 import {InputRightAddon, InputGroup} from '../../components/ui/input-group'
+import {Kbd, KbdGroup} from '../../components/ui/kbd'
 import {
   Tooltip,
   TooltipContent,

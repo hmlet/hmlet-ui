@@ -3,6 +3,7 @@ import globals from 'globals'
 import tseslint from 'typescript-eslint'
 import react from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
 import importPlugin from 'eslint-plugin-import'
 import jsxA11y from 'eslint-plugin-jsx-a11y'
 import prettier from 'eslint-plugin-prettier'
@@ -15,7 +16,13 @@ const tsconfigRootDir = path.dirname(fileURLToPath(import.meta.url))
 export default [
   // Ignore generated & build files
   {
-    ignores: ['dist', 'build', 'node_modules', '*.config.*'],
+    ignores: [
+      'dist',
+      'build',
+      'storybook-static',
+      'node_modules',
+      '*.config.*',
+    ],
   },
 
   // Base JS rules
@@ -26,10 +33,11 @@ export default [
 
   // React rules
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ['**/*.ts', '**/*.tsx'],
     plugins: {
       react,
       'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
       import: importPlugin,
       'jsx-a11y': jsxA11y,
       prettier,
@@ -51,6 +59,12 @@ export default [
     },
     rules: {
       /* -----------------------------
+       * TypeScript already checks this; the base rule produces false
+       * positives on TS-only globals/types.
+       * ----------------------------- */
+      'no-undef': 'off',
+
+      /* -----------------------------
        * React
        * ----------------------------- */
       'react/react-in-jsx-scope': 'off', // React 17+
@@ -59,8 +73,14 @@ export default [
       /* -----------------------------
        * Hooks
        * ----------------------------- */
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
+      ...reactHooks.configs.flat.recommended.rules,
+
+      /* -----------------------------
+       * Fast Refresh
+       * ----------------------------- */
+      // This repo builds a component library; exporting hooks and style variants
+      // is a core pattern and does not indicate a Fast Refresh issue.
+      'react-refresh/only-export-components': 'off',
 
       /* -----------------------------
        * Imports
@@ -90,7 +110,10 @@ export default [
       /* -----------------------------
        * TypeScript
        * ----------------------------- */
-      '@typescript-eslint/no-unused-vars': ['error', {argsIgnorePattern: '^_'}],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {argsIgnorePattern: '^_', ignoreRestSiblings: true},
+      ],
       '@typescript-eslint/consistent-type-imports': 'error',
 
       /* -----------------------------
@@ -100,12 +123,20 @@ export default [
     },
   },
 
+  // Node.js tooling scripts (build/release/mcp scripts), not part of the TS/React app
+  {
+    files: ['internals/**/*.mjs', 'mcp/**/*.mjs'],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
+
   // Disable ESLint rules that conflict with Prettier
   prettierConfig,
 
   // Ensure TS parser always has a single, stable tsconfigRootDir.
   {
-    files: ['**/*.{ts,tsx,mts,cts}'],
+    files: ['**/*.ts', '**/*.tsx', '**/*.mts', '**/*.cts'],
     languageOptions: {
       parserOptions: {
         tsconfigRootDir,

@@ -1,9 +1,9 @@
 'use client'
 
-import * as React from 'react'
 import {Clock, X, ChevronDown} from 'lucide-react'
-import {cva, type VariantProps} from './cva'
+import * as React from 'react'
 
+import {cva, type VariantProps} from './cva'
 import {cn} from './utils'
 
 const timePickerVariants = cva(

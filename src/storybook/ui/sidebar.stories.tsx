@@ -1,7 +1,5 @@
-import type {Meta, StoryObj} from '@storybook/react'
-
-import * as React from 'react'
 import {useArgs} from '@storybook/preview-api'
+import type {Meta, StoryObj} from '@storybook/react'
 import {expect, userEvent, within} from '@storybook/test'
 import {
   Briefcase,
@@ -17,7 +15,14 @@ import {
   Settings,
   Users,
 } from 'lucide-react'
+import * as React from 'react'
 
+import {Button} from '../../components/ui/button'
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '../../components/ui/collapsible'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,11 +30,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../../components/ui/dropdown-menu'
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '../../components/ui/collapsible'
 import {
   Sidebar,
   SidebarContent,
@@ -55,7 +55,6 @@ import {
   SidebarSeparator,
   SidebarTrigger,
 } from '../../components/ui/sidebar'
-import {Button} from '../../components/ui/button'
 
 type NavId =
   | 'dashboard'
@@ -210,7 +209,7 @@ function SidebarAppShell({args}: {args: SidebarStoryArgs}) {
                           tooltip="Dashboard"
                         >
                           <a
-                            href="#"
+                            href="/dashboard"
                             onClick={event => {
                               event.preventDefault()
                               args.onNavigate?.('dashboard')
@@ -234,7 +233,7 @@ function SidebarAppShell({args}: {args: SidebarStoryArgs}) {
                           tooltip="Inbox"
                         >
                           <a
-                            href="#"
+                            href="/inbox"
                             onClick={event => {
                               event.preventDefault()
                               args.onNavigate?.('inbox')
@@ -258,7 +257,7 @@ function SidebarAppShell({args}: {args: SidebarStoryArgs}) {
                           tooltip="Bookings"
                         >
                           <a
-                            href="#"
+                            href="/bookings"
                             onClick={event => {
                               event.preventDefault()
                               args.onNavigate?.('bookings')
@@ -279,7 +278,7 @@ function SidebarAppShell({args}: {args: SidebarStoryArgs}) {
                           tooltip="Calendar"
                         >
                           <a
-                            href="#"
+                            href="/calendar"
                             onClick={event => {
                               event.preventDefault()
                               args.onNavigate?.('calendar')
@@ -300,7 +299,7 @@ function SidebarAppShell({args}: {args: SidebarStoryArgs}) {
                           tooltip="Team"
                         >
                           <a
-                            href="#"
+                            href="/team"
                             onClick={event => {
                               event.preventDefault()
                               args.onNavigate?.('team')
@@ -321,7 +320,7 @@ function SidebarAppShell({args}: {args: SidebarStoryArgs}) {
                           tooltip="Settings"
                         >
                           <a
-                            href="#"
+                            href="/settings"
                             onClick={event => {
                               event.preventDefault()
                               args.onNavigate?.('settings')
@@ -359,7 +358,7 @@ function SidebarAppShell({args}: {args: SidebarStoryArgs}) {
                                 tooltip="Support"
                               >
                                 <a
-                                  href="#"
+                                  href="/help"
                                   onClick={event => {
                                     event.preventDefault()
                                     args.onNavigate?.('help')
@@ -407,7 +406,7 @@ function SidebarAppShell({args}: {args: SidebarStoryArgs}) {
                             tooltip="Project Alpha"
                           >
                             <a
-                              href="#"
+                              href="/projects/alpha"
                               onClick={event => {
                                 event.preventDefault()
                                 args.onProjectAction?.('alpha', 'open')
@@ -451,7 +450,7 @@ function SidebarAppShell({args}: {args: SidebarStoryArgs}) {
                             <SidebarMenuSub>
                               <SidebarMenuSubItem>
                                 <SidebarMenuSubButton
-                                  href="#"
+                                  href="/projects/alpha/overview"
                                   isActive
                                   onClick={event => {
                                     event.preventDefault()
@@ -463,7 +462,7 @@ function SidebarAppShell({args}: {args: SidebarStoryArgs}) {
                               </SidebarMenuSubItem>
                               <SidebarMenuSubItem>
                                 <SidebarMenuSubButton
-                                  href="#"
+                                  href="/projects/alpha/members"
                                   onClick={event => {
                                     event.preventDefault()
                                     args.onProjectAction?.('alpha', 'members')
@@ -730,8 +729,11 @@ export const Playground: Story = {
     )
   },
   play: async ({canvasElement}) => {
-    const canvas = within(canvasElement)
-    const toggle = canvas.getByRole('button', {name: /toggle sidebar/i})
+    // Both SidebarRail and SidebarTrigger share the "Toggle Sidebar"
+    // accessible name, so target the trigger button specifically.
+    const toggle = canvasElement.querySelector(
+      '[data-slot="sidebar-trigger"]',
+    ) as HTMLElement
 
     const sidebar = canvasElement.querySelector('[data-slot="sidebar"]')
     expect(sidebar).toBeTruthy()
@@ -811,7 +813,11 @@ export const IconCollapseTooltip: Story = {
   render: args => <SidebarAppShell args={args} />,
   play: async ({canvasElement}) => {
     const canvas = within(canvasElement)
-    const toggle = canvas.getByRole('button', {name: /toggle sidebar/i})
+    // Both SidebarRail and SidebarTrigger share the "Toggle Sidebar"
+    // accessible name, so target the trigger button specifically.
+    const toggle = canvasElement.querySelector(
+      '[data-slot="sidebar-trigger"]',
+    ) as HTMLElement
     await userEvent.click(toggle)
 
     const dashboardLink = canvas.getByRole('link', {name: 'Dashboard'})

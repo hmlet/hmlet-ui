@@ -1,7 +1,6 @@
 import type {Meta, StoryObj} from '@storybook/react'
-
-import * as React from 'react'
 import {expect, within} from '@storybook/test'
+import * as React from 'react'
 
 import {ScrollArea, ScrollBar} from '../../components/ui/scroll-area'
 
@@ -27,6 +26,21 @@ function RowsContent({rows}: {rows: number}) {
       ))}
     </div>
   )
+}
+
+// Strips the story-only fields (content, rows, scrollbar toggles, the demo
+// `onScroll` payload callback, ...) that exist to drive the Controls panel,
+// leaving only real `ScrollArea` props so they don't leak onto the DOM.
+function getScrollAreaProps({
+  content,
+  rows,
+  showVerticalScrollbar,
+  showHorizontalScrollbar,
+  scrollbarOrientation,
+  onScroll,
+  ...scrollAreaProps
+}: ScrollAreaStoryArgs) {
+  return scrollAreaProps
 }
 
 function ScrollAreaDemo(args: ScrollAreaStoryArgs) {
@@ -73,15 +87,18 @@ function ScrollAreaDemo(args: ScrollAreaStoryArgs) {
 }
 
 function HorizontalScrollDemo(args: ScrollAreaStoryArgs) {
-  const {onScroll, ...rest} = args
+  const scrollAreaProps = getScrollAreaProps(args)
 
   return (
     <ScrollArea
-      {...rest}
-      className={rest.className ?? 'w-[350px] rounded-md border'}
+      {...scrollAreaProps}
+      className={scrollAreaProps.className ?? 'w-[350px] rounded-md border'}
       onScroll={event => {
         const target = event.currentTarget
-        onScroll?.({scrollTop: target.scrollTop, scrollLeft: target.scrollLeft})
+        args.onScroll?.({
+          scrollTop: target.scrollTop,
+          scrollLeft: target.scrollLeft,
+        })
       }}
     >
       <div className="flex w-max gap-4 p-4" data-testid="hstrip">
@@ -154,11 +171,12 @@ export const Default: Story = {
     const canvas = within(canvasElement)
     const region = canvas
       .getByTestId('viewport-content')
-      .closest('[data-slot="scroll-area"]') as HTMLElement
+      .closest('[data-slot="scroll-area-viewport"]') as HTMLElement
     await expect(region.scrollTop).toBe(0)
 
-    // Simulate wheel scroll
-    region.dispatchEvent(new WheelEvent('wheel', {deltaY: 300, bubbles: true}))
+    // Dispatching a synthetic wheel event doesn't trigger native scrolling
+    // in real browsers, so verify scroll capability directly instead.
+    region.scrollTop = 300
     await expect(region.scrollTop).toBeGreaterThan(0)
   },
 }
@@ -177,10 +195,13 @@ export const HorizontalScrolling: Story = {
     const canvas = within(canvasElement)
     const root = canvas
       .getByTestId('hstrip')
-      .closest('[data-slot="scroll-area"]') as HTMLElement
+      .closest('[data-slot="scroll-area-viewport"]') as HTMLElement
 
     await expect(root.scrollLeft).toBe(0)
-    root.dispatchEvent(new WheelEvent('wheel', {deltaX: 300, bubbles: true}))
+
+    // Dispatching a synthetic wheel event doesn't trigger native scrolling
+    // in real browsers, so verify scroll capability directly instead.
+    root.scrollLeft = 300
     await expect(root.scrollLeft).toBeGreaterThan(0)
   },
 }
@@ -188,7 +209,7 @@ export const HorizontalScrolling: Story = {
 export const BothScrollbars: Story = {
   render: args => (
     <ScrollArea
-      {...args}
+      {...getScrollAreaProps(args)}
       className={args.className ?? 'h-[220px] w-[350px] rounded-md border'}
       onScroll={event => {
         const target = event.currentTarget

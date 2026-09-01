@@ -1,15 +1,15 @@
-import * as React from 'react';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
+import * as React from 'react';
 import { type VariantProps } from './cva';
 declare function Tabs({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.Root>): import("react/jsx-runtime").JSX.Element;
 declare const tabsListVariants: (props?: {
-    variant?: "primary" | "secondary" | "default" | "outline";
+    variant?: "outline" | "default" | "primary" | "secondary";
 } & import("class-variance-authority/types").ClassProp) => string;
 interface TabsListProps extends React.ComponentProps<typeof TabsPrimitive.List>, VariantProps<typeof tabsListVariants> {
 }
 declare const TabsList: React.ForwardRefExoticComponent<Omit<TabsListProps, "ref"> & React.RefAttributes<HTMLDivElement>>;
 declare const tabsTriggerVariants: (props?: {
-    variant?: "primary" | "secondary" | "default";
+    variant?: "default" | "primary" | "secondary";
 } & import("class-variance-authority/types").ClassProp) => string;
 interface TabsTriggerProps extends React.ComponentProps<typeof TabsPrimitive.Trigger>, VariantProps<typeof tabsTriggerVariants> {
 }

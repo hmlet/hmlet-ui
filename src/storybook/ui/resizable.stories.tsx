@@ -1,7 +1,6 @@
 import type {Meta, StoryObj} from '@storybook/react'
-
-import * as React from 'react'
 import {expect, userEvent, within} from '@storybook/test'
+import * as React from 'react'
 
 import {
   ResizableHandle,
@@ -20,6 +19,20 @@ type ResizableStoryArgs = Omit<
   topDefaultSize?: number
   bottomDefaultSize?: number
   onLayout?: (layout: number[]) => void
+}
+
+// Strips the story-only fields (withHandle, the per-panel default sizes) that
+// exist to drive the Controls panel, leaving only real `ResizablePanelGroup`
+// props so they don't leak onto the DOM element.
+function getPanelGroupProps({
+  withHandle,
+  leftDefaultSize,
+  rightDefaultSize,
+  topDefaultSize,
+  bottomDefaultSize,
+  ...panelGroupProps
+}: ResizableStoryArgs) {
+  return panelGroupProps
 }
 
 function TwoPanelDemo(args: ResizableStoryArgs) {
@@ -43,7 +56,7 @@ function TwoPanelDemo(args: ResizableStoryArgs) {
       className={`w-full max-w-2xl rounded-md border ${containerHeightClass}`}
     >
       <ResizablePanelGroup
-        {...args}
+        {...getPanelGroupProps(args)}
         direction={direction}
         className="h-full"
         onLayout={layout => {
@@ -78,7 +91,7 @@ function NestedLayoutDemo(args: ResizableStoryArgs) {
   return (
     <div className="h-[36rem] w-full max-w-4xl rounded-md border">
       <ResizablePanelGroup
-        {...args}
+        {...getPanelGroupProps(args)}
         direction="horizontal"
         className="h-full"
         onLayout={layout => {

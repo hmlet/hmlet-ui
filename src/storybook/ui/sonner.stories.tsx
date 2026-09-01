@@ -1,8 +1,8 @@
 import type {Meta, StoryObj} from '@storybook/react'
 import {toast} from 'sonner'
 
-import {Toaster, showToast} from '../../components/ui/sonner'
 import {Button} from '../../components/ui/button'
+import {Toaster, showToast} from '../../components/ui/sonner'
 
 type ToastArgs = {
   type: 'default' | 'success' | 'info' | 'warning' | 'error' | 'loading'

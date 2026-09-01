@@ -1,4 +1,5 @@
 import type {Meta, StoryObj} from '@storybook/react'
+
 import {CountBadge} from '../../components/ui/count-badge'
 
 const meta: Meta<typeof CountBadge> = {
