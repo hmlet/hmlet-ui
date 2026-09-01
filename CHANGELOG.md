@@ -1,3 +1,8 @@
+## 1.1.0 (2026-09-01)
+
+* Merge pull request #4 from hmlet/feat/release-version ([415e574](https://github.com/hmlet/hmlet-ui/commit/415e574)), closes [#4](https://github.com/hmlet/hmlet-ui/issues/4)
+* feat: migration and upgrade flow ([a58a471](https://github.com/hmlet/hmlet-ui/commit/a58a471))
+
 ## <small>1.0.2 (2026-09-01)</small>
 
 * Merge pull request #3 from hmlet/feat/release-version ([4a623e8](https://github.com/hmlet/hmlet-ui/commit/4a623e8)), closes [#3](https://github.com/hmlet/hmlet-ui/issues/3)
