@@ -1,3 +1,8 @@
+## 2.0.0-rc.2 (2026-09-11)
+
+* Merge pull request #7 from hmlet/feat/new-color-token ([99b3b23](https://github.com/hmlet/hmlet-ui/commit/99b3b23)), closes [#7](https://github.com/hmlet/hmlet-ui/issues/7)
+* fix(build): preserve 'use client' directive in bundled output ([93e194d](https://github.com/hmlet/hmlet-ui/commit/93e194d))
+
 ## 2.0.0-rc.1 (2026-09-11)
 
 * feat(button)!: move primary CTA fill to dedicated btn-primary tokens ([2bc85b3](https://github.com/hmlet/hmlet-ui/commit/2bc85b3))
