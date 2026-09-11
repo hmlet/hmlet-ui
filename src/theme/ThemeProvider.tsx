@@ -42,6 +42,9 @@ export const themeColorTokens = [
   'accent',
   'accent-foreground',
   'accent-hover',
+  'btn-primary',
+  'btn-primary-hover',
+  'btn-primary-foreground',
   'destructive',
   'destructive-foreground',
   'destructive-light',
@@ -84,6 +87,14 @@ export const themeColorTokens = [
   'sidebar-accent-foreground',
   'sidebar-border',
   'sidebar-ring',
+  'tile-fire',
+  'tile-fire-ink',
+  'tile-medical',
+  'tile-medical-ink',
+  'tile-power',
+  'tile-power-ink',
+  'tile-neutral',
+  'tile-neutral-ink',
 ] as const
 
 export type ThemeColorToken = (typeof themeColorTokens)[number]
@@ -129,6 +140,9 @@ export const defaultLightThemeColors = defineThemeColors({
   accent: '#ff7960',
   'accent-foreground': '#ffffff',
   'accent-hover': '#8a4d58',
+  'btn-primary': '#251f42',
+  'btn-primary-hover': '#352d5c',
+  'btn-primary-foreground': '#ffffff',
   destructive: '#d17171',
   'destructive-foreground': '#ffffff',
   'destructive-light': '#d99898',
@@ -171,6 +185,14 @@ export const defaultLightThemeColors = defineThemeColors({
   'sidebar-accent-foreground': '#000000',
   'sidebar-border': '#cccccc',
   'sidebar-ring': '#251f42',
+  'tile-fire': '#fdeae6',
+  'tile-fire-ink': '#c9563c',
+  'tile-medical': '#eaf1fe',
+  'tile-medical-ink': '#2f5fbf',
+  'tile-power': '#fef3e4',
+  'tile-power-ink': '#b5761e',
+  'tile-neutral': '#f2f1f4',
+  'tile-neutral-ink': '#5b5470',
 })
 
 export const defaultDarkThemeColors = defineThemeColors({
@@ -193,6 +215,9 @@ export const defaultDarkThemeColors = defineThemeColors({
   muted: '#1a1a1a',
   'muted-foreground': '#a0a0a0',
   'accent-hover': '#ffb2a3',
+  'btn-primary': '#ff7960',
+  'btn-primary-hover': '#ffb2a3',
+  'btn-primary-foreground': '#241e3b',
   destructive: '#ef4444',
   'destructive-light': '#f87171',
   'destructive-lighter': '#3d1717',
@@ -227,6 +252,14 @@ export const defaultDarkThemeColors = defineThemeColors({
   'sidebar-accent-foreground': '#eaeaea',
   'sidebar-border': '#2a2a2a',
   'sidebar-ring': '#ff7960',
+  'tile-fire': '#3a201c',
+  'tile-fire-ink': '#ff9d89',
+  'tile-medical': '#1c2635',
+  'tile-medical-ink': '#93c5fd',
+  'tile-power': '#33260f',
+  'tile-power-ink': '#f0c069',
+  'tile-neutral': '#242424',
+  'tile-neutral-ink': '#a0a0a0',
 })
 
 export type ThemeProviderProps = {

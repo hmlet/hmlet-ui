@@ -12,9 +12,9 @@ const buttonVariants = cva(
       variant: {
         // Primary Variants
         default:
-          'bg-primary text-primary-foreground hover:bg-primary-dark active:bg-primary-dark focus:border-primary focus:ring-2 focus:ring-ring/20 shadow-sm hover:shadow-md',
+          'bg-btn-primary text-btn-primary-foreground hover:bg-btn-primary-hover active:bg-btn-primary-hover focus:border-btn-primary focus:ring-2 focus:ring-ring/20 shadow-sm hover:shadow-md',
         primary:
-          'bg-primary text-primary-foreground hover:bg-primary-dark active:bg-primary-dark focus:border-primary focus:ring-2 focus:ring-ring/20 shadow-sm hover:shadow-md',
+          'bg-btn-primary text-btn-primary-foreground hover:bg-btn-primary-hover active:bg-btn-primary-hover focus:border-btn-primary focus:ring-2 focus:ring-ring/20 shadow-sm hover:shadow-md',
         'primary-outline':
           'border-2 border-primary text-primary bg-transparent hover:bg-primary hover:text-primary-foreground active:bg-primary-dark active:border-primary-dark focus:ring-2 focus:ring-ring/20',
         'primary-ghost':

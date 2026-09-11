@@ -92,6 +92,9 @@ const themeInlineVars = [
   'accent',
   'accent-foreground',
   'accent-hover',
+  'btn-primary',
+  'btn-primary-hover',
+  'btn-primary-foreground',
   'destructive',
   'destructive-foreground',
   'success',
@@ -120,6 +123,14 @@ const themeInlineVars = [
   'sidebar-accent-foreground',
   'sidebar-border',
   'sidebar-ring',
+  'tile-fire',
+  'tile-fire-ink',
+  'tile-medical',
+  'tile-medical-ink',
+  'tile-power',
+  'tile-power-ink',
+  'tile-neutral',
+  'tile-neutral-ink',
 ]
 
 const css = `@custom-variant dark (&:is(.dark *));
