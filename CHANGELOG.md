@@ -1,3 +1,18 @@
+## 2.0.0-rc.1 (2026-09-11)
+
+* feat(button)!: move primary CTA fill to dedicated btn-primary tokens ([2bc85b3](https://github.com/hmlet/hmlet-ui/commit/2bc85b3))
+* Merge pull request #6 from hmlet/feat/new-color-token ([bd2ba91](https://github.com/hmlet/hmlet-ui/commit/bd2ba91)), closes [#6](https://github.com/hmlet/hmlet-ui/issues/6)
+
+
+### BREAKING CHANGE
+
+* ThemeColors gains 11 new required keys (btn-primary,
+btn-primary-hover, btn-primary-foreground, tile-fire, tile-fire-ink,
+tile-medical, tile-medical-ink, tile-power, tile-power-ink, tile-neutral,
+tile-neutral-ink). Consumers passing custom lightColors/darkColors to
+ThemeProvider must add these keys or the corresponding CSS variables
+resolve to "undefined" at runtime. See docs/migrations/v2.0.0.md.
+
 ## 1.2.0-rc.1 (2026-09-11)
 
 * Merge pull request #5 from hmlet/feat/new-color-token ([cb886ee](https://github.com/hmlet/hmlet-ui/commit/cb886ee)), closes [#5](https://github.com/hmlet/hmlet-ui/issues/5)
