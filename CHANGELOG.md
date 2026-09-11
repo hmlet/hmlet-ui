@@ -1,3 +1,8 @@
+## 1.2.0-rc.1 (2026-09-11)
+
+* Merge pull request #5 from hmlet/feat/new-color-token ([cb886ee](https://github.com/hmlet/hmlet-ui/commit/cb886ee)), closes [#5](https://github.com/hmlet/hmlet-ui/issues/5)
+* feat: new color token for dark/light mode ([ad415e9](https://github.com/hmlet/hmlet-ui/commit/ad415e9))
+
 ## 1.1.0 (2026-09-01)
 
 * Merge pull request #4 from hmlet/feat/release-version ([415e574](https://github.com/hmlet/hmlet-ui/commit/415e574)), closes [#4](https://github.com/hmlet/hmlet-ui/issues/4)
