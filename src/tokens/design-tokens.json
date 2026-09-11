@@ -35,6 +35,9 @@
       "accent": "#ff7960",
       "accentForeground": "#ffffff",
       "accentHover": "#8a4d58",
+      "btnPrimary": "#251f42",
+      "btnPrimaryHover": "#352d5c",
+      "btnPrimaryForeground": "#ffffff",
       "destructive": "#d17171",
       "destructiveForeground": "#ffffff",
       "destructiveLight": "#d99898",
@@ -93,7 +96,15 @@
       "uiFeedbackSuccess": "#02b16b",
       "uiFeedbackWarning": "#ffb2a3",
       "uiFeedbackError": "#d17171",
-      "focusRing": "0 0 0 2px var(--ui-bg-base), 0 0 0 4px var(--ui-accent-primary)"
+      "focusRing": "0 0 0 2px var(--ui-bg-base), 0 0 0 4px var(--ui-accent-primary)",
+      "tileFire": "#fdeae6",
+      "tileFireInk": "#c9563c",
+      "tileMedical": "#eaf1fe",
+      "tileMedicalInk": "#2f5fbf",
+      "tilePower": "#fef3e4",
+      "tilePowerInk": "#b5761e",
+      "tileNeutral": "#f2f1f4",
+      "tileNeutralInk": "#5b5470"
     },
     "dark": {
       "background": "#111111",
@@ -120,6 +131,9 @@
       "accent": "#ff7960",
       "accentForeground": "#ffffff",
       "accentHover": "#ffb2a3",
+      "btnPrimary": "#ff7960",
+      "btnPrimaryHover": "#ffb2a3",
+      "btnPrimaryForeground": "#241e3b",
       "destructive": "#ef4444",
       "destructiveForeground": "#ffffff",
       "destructiveLight": "#f87171",
@@ -174,7 +188,15 @@
       "uiFeedbackSuccess": "#22c55e",
       "uiFeedbackWarning": "#fbbf24",
       "uiFeedbackError": "#ef4444",
-      "focusRing": "0 0 0 2px var(--ui-bg-base), 0 0 0 4px var(--ui-accent-primary)"
+      "focusRing": "0 0 0 2px var(--ui-bg-base), 0 0 0 4px var(--ui-accent-primary)",
+      "tileFire": "#3a201c",
+      "tileFireInk": "#ff9d89",
+      "tileMedical": "#1c2635",
+      "tileMedicalInk": "#93c5fd",
+      "tilePower": "#33260f",
+      "tilePowerInk": "#f0c069",
+      "tileNeutral": "#242424",
+      "tileNeutralInk": "#a0a0a0"
     }
   },
   "spacing": {

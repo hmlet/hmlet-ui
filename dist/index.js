@@ -2558,8 +2558,8 @@ const ie = O(
     variants: {
       variant: {
         // Primary Variants
-        default: "bg-primary text-primary-foreground hover:bg-primary-dark active:bg-primary-dark focus:border-primary focus:ring-2 focus:ring-ring/20 shadow-sm hover:shadow-md",
-        primary: "bg-primary text-primary-foreground hover:bg-primary-dark active:bg-primary-dark focus:border-primary focus:ring-2 focus:ring-ring/20 shadow-sm hover:shadow-md",
+        default: "bg-btn-primary text-btn-primary-foreground hover:bg-btn-primary-hover active:bg-btn-primary-hover focus:border-btn-primary focus:ring-2 focus:ring-ring/20 shadow-sm hover:shadow-md",
+        primary: "bg-btn-primary text-btn-primary-foreground hover:bg-btn-primary-hover active:bg-btn-primary-hover focus:border-btn-primary focus:ring-2 focus:ring-ring/20 shadow-sm hover:shadow-md",
         "primary-outline": "border-2 border-primary text-primary bg-transparent hover:bg-primary hover:text-primary-foreground active:bg-primary-dark active:border-primary-dark focus:ring-2 focus:ring-ring/20",
         "primary-ghost": "text-primary hover:bg-primary-lightest dark:hover:bg-muted active:bg-primary-lighter dark:active:bg-muted/80 focus:bg-primary-lightest dark:focus:bg-muted focus:ring-2 focus:ring-ring/20",
         // Secondary Variants
@@ -10355,6 +10355,9 @@ const Jo = [
   "accent",
   "accent-foreground",
   "accent-hover",
+  "btn-primary",
+  "btn-primary-hover",
+  "btn-primary-foreground",
   "destructive",
   "destructive-foreground",
   "destructive-light",
@@ -10396,7 +10399,15 @@ const Jo = [
   "sidebar-accent",
   "sidebar-accent-foreground",
   "sidebar-border",
-  "sidebar-ring"
+  "sidebar-ring",
+  "tile-fire",
+  "tile-fire-ink",
+  "tile-medical",
+  "tile-medical-ink",
+  "tile-power",
+  "tile-power-ink",
+  "tile-neutral",
+  "tile-neutral-ink"
 ];
 function Kl(e) {
   return e;
@@ -10435,6 +10446,9 @@ const ga = {
   accent: "#ff7960",
   "accent-foreground": "#ffffff",
   "accent-hover": "#8a4d58",
+  "btn-primary": "#251f42",
+  "btn-primary-hover": "#352d5c",
+  "btn-primary-foreground": "#ffffff",
   destructive: "#d17171",
   "destructive-foreground": "#ffffff",
   "destructive-light": "#d99898",
@@ -10476,7 +10490,15 @@ const ga = {
   "sidebar-accent": "#f1f0f5",
   "sidebar-accent-foreground": "#000000",
   "sidebar-border": "#cccccc",
-  "sidebar-ring": "#251f42"
+  "sidebar-ring": "#251f42",
+  "tile-fire": "#fdeae6",
+  "tile-fire-ink": "#c9563c",
+  "tile-medical": "#eaf1fe",
+  "tile-medical-ink": "#2f5fbf",
+  "tile-power": "#fef3e4",
+  "tile-power-ink": "#b5761e",
+  "tile-neutral": "#f2f1f4",
+  "tile-neutral-ink": "#5b5470"
 }, Zo = {
   ...ga,
   background: "#111111",
@@ -10497,6 +10519,9 @@ const ga = {
   muted: "#1a1a1a",
   "muted-foreground": "#a0a0a0",
   "accent-hover": "#ffb2a3",
+  "btn-primary": "#ff7960",
+  "btn-primary-hover": "#ffb2a3",
+  "btn-primary-foreground": "#241e3b",
   destructive: "#ef4444",
   "destructive-light": "#f87171",
   "destructive-lighter": "#3d1717",
@@ -10530,7 +10555,15 @@ const ga = {
   "sidebar-accent": "#1a1a1a",
   "sidebar-accent-foreground": "#eaeaea",
   "sidebar-border": "#2a2a2a",
-  "sidebar-ring": "#ff7960"
+  "sidebar-ring": "#ff7960",
+  "tile-fire": "#3a201c",
+  "tile-fire-ink": "#ff9d89",
+  "tile-medical": "#1c2635",
+  "tile-medical-ink": "#93c5fd",
+  "tile-power": "#33260f",
+  "tile-power-ink": "#f0c069",
+  "tile-neutral": "#242424",
+  "tile-neutral-ink": "#a0a0a0"
 }, va = Ea(void 0), ha = "theme";
 function Qo(e) {
   if (typeof window > "u")
