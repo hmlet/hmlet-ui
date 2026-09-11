@@ -1,3 +1,4 @@
+"use client";
 import { jsx as a, jsxs as p, Fragment as Fe } from "react/jsx-runtime";
 import { MinusIcon as Pt, CheckIcon as Ne, Loader2 as jt, SearchIcon as Be, PackageOpen as fe, ChevronDownIcon as Ye, ChevronUpIcon as ba, ChevronRight as ge, ChevronLeft as ke, CalendarIcon as Ae, X as Ge, ChevronDown as Ue, Clock as Le, CircleIcon as He, Upload as xa, FileText as ya, Film as wa, ImageIcon as Na, Play as ka, MoreHorizontal as Ca, ArrowLeft as Sa, ArrowRight as za, XIcon as Et, ChevronRightIcon as Ke, ChevronLeftIcon as Ma, MoreHorizontalIcon as Ia, GripVerticalIcon as Ra, PanelLeftIcon as _a, Sun as Ta, Moon as Da } from "lucide-react";
 import * as c from "react";
