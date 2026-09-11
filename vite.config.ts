@@ -33,6 +33,15 @@ export default defineConfig({
     },
     rollupOptions: {
       external: isExternal,
+      output: {
+        // Preserved verbatim in both output formats so Next.js App Router
+        // (React Server Components) treats this bundle as a client-component
+        // boundary. Without it, Vite's single-file library build strips any
+        // per-file 'use client' directives from the source, and importing an
+        // interactive component (or ThemeProvider) directly into a Server
+        // Component fails because hooks aren't allowed there.
+        banner: "'use client';",
+      },
     },
   },
 })
