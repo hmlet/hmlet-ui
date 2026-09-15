@@ -56,6 +56,18 @@ jobs:
           PREV_TAG=$(git tag --sort=-creatordate | head -n1)
           echo "PREV_TAG=${PREV_TAG:-none}" >> "$GITHUB_ENV"
 
+      # The release kind (rc/major) isn't known until after semantic-release
+      # tags it, so this must gate unconditionally, before any tag is cut —
+      # otherwise an RC or major release could ship with no way to notify.
+      - name: Verify Slack webhook secret
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "::error::SLACK_WEBHOOK_URL secret not set — required before releasing."
+            exit 1
+          fi
+
       - name: Run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -100,11 +112,6 @@ jobs:
           KIND: ${{ steps.release-kind.outputs.kind }}
           REPO_URL: ${{ github.server_url }}/${{ github.repository }}
         run: |
-          if [ -z "$SLACK_WEBHOOK_URL" ]; then
-            echo "SLACK_WEBHOOK_URL secret not set — skipping Slack notification."
-            exit 0
-          fi
-
           if [ "$KIND" = "rc" ]; then
             TITLE=":test_tube: hmlet/ui pre-release *$NEW_TAG* is ready for testing"
             BODY="A release candidate is available. Consuming repos (Website, JP) can pin to this tag on a test branch and validate before the final release ships.\n<$REPO_URL/releases/tag/$NEW_TAG|View pre-release notes>"
