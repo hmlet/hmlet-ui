@@ -1,3 +1,8 @@
+## 2.0.0-rc.3 (2026-09-15)
+
+* Merge pull request #8 from hmlet/feat/integrate-slack-channel-notifications ([0ea522b](https://github.com/hmlet/hmlet-ui/commit/0ea522b)), closes [#8](https://github.com/hmlet/hmlet-ui/issues/8)
+* feat: integrate slack channel notification ([207b896](https://github.com/hmlet/hmlet-ui/commit/207b896))
+
 ## 2.0.0-rc.2 (2026-09-11)
 
 * Merge pull request #7 from hmlet/feat/new-color-token ([99b3b23](https://github.com/hmlet/hmlet-ui/commit/99b3b23)), closes [#7](https://github.com/hmlet/hmlet-ui/issues/7)
